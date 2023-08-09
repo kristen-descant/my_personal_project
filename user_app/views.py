@@ -66,4 +66,5 @@ class User_Settings(APIView):
             else:
                 return Response("Old password does not match", status=HTTP_401_UNAUTHORIZED)
         
-        return Response({"user": request.user.email})
+        return Response({"user": request.user.email}, status=HTTP_204_NO_CONTENT)
+    
