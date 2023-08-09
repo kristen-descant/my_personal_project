@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from portfolio_app.models import Portfolio
 
 # Create your models here.
 class Operating_Expenses(models.Model):
@@ -26,6 +27,9 @@ class Purchase_Worksheet(models.Model):
     vacancy_rate = models.DecimalField(max_digits=3, decimal_places=2, validators=[MaxValueValidator(1.00)])
     operating_expenses = models.OneToOneField(Operating_Expenses, related_name='purchase_worksheet', on_delete=models.CASCADE)
 
+class List_of_Homes(models.Model):
+    list_name = models.CharField(max_length=30)
+
 class Home(models.Model):
     home_image = models.ImageField(upload_to='home_images/', default='home_images/temp_house.png')
     street = models.CharField(default='New Property')
@@ -38,3 +42,5 @@ class Home(models.Model):
     sqft = models.PositiveBigIntegerField()
     details = models.TextField()
     purchase_worksheet = models.OneToOneField(Purchase_Worksheet, related_name='home', on_delete=models.CASCADE)
+    list_of_homes = models.ManyToManyField(List_of_Homes, related_name='homes')
+    portfolio = models.ForeignKey(Portfolio, related_name='homes', on_delete=models.CASCADE, null=True)

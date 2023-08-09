@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'user_app',
     'home_app',
+    'city_app',
+    'portfolio_app'
 ]
 
 REST_FRAMEWORK = {
