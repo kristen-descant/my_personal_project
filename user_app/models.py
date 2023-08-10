@@ -7,7 +7,7 @@ class User(AbstractUser):
         verbose_name='email address',
         unique=True
     )
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = [email]
 
     def __str__(self):
         return self.email
