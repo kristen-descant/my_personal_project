@@ -3,14 +3,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from portfolio_app.models import Portfolio
 
 # Create your models here.
-class List_of_Homes(models.Model):
+class List_of_Properties(models.Model):
     list_name = models.CharField(max_length=30)
 
     def __str__(self):
         return self.list_name
 
-class Home(models.Model):
-    home_image = models.ImageField(upload_to='home_images/', default='home_images/temp_house.png')
+class Property(models.Model):
+    property_image = models.ImageField(upload_to='property_images/', default='property_images/temp_house.png')
     street = models.CharField(default='New Property')
     city = models.CharField()
     # For state, user will have to select from a list on the front end.
@@ -20,8 +20,8 @@ class Home(models.Model):
     baths = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     sqft = models.PositiveBigIntegerField()
     details = models.TextField()
-    portfolio = models.ForeignKey(Portfolio, related_name='homes', on_delete=models.CASCADE, null=True, blank=True)
-    list_of_homes = models.ManyToManyField(List_of_Homes, related_name='homes', blank=True)
+    portfolio = models.ForeignKey(Portfolio, related_name='properties', on_delete=models.CASCADE, null=True, blank=True)
+    list_of_properties = models.ManyToManyField(List_of_Properties, related_name='properties', blank=True)
 
     def __str__(self) :
         return self.street
@@ -39,7 +39,7 @@ class Operating_Expenses(models.Model):
     other_exp = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Purchase_Worksheet(models.Model):
-    home = models.OneToOneField(Home, related_name='purchase_worksheet', on_delete=models.CASCADE, default=None)
+    matching_property = models.OneToOneField(Property, related_name='purchase_worksheet', on_delete=models.CASCADE, default=None)
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2)
     financing = models.BooleanField(default=True)
     interest_rate = models.DecimalField(max_digits=3, decimal_places=2, validators=[MaxValueValidator(1.00)])
