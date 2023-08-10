@@ -22,14 +22,26 @@ class Get_Portfolio(APIView):
     permission_classes = [IsAuthenticated]   
 
     def get(self, request):
-        pass
+        user = request.user
+        portfolio = Portfolio.objects.get(user=user)
+
+        return Response(True)
 
 class A_Property(APIView):
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]   
 
+    def post(self, reqeuest):
+        pass
+
     def get(self, request, id):
+        pass
+
+    def delete(self, request, id):
+        pass
+
+    def put(self, request, id):
         pass
 
 class All_Lists(APIView):
@@ -48,3 +60,10 @@ class A_List(APIView):
     def get(self, request, id):
         pass
     
+    def delete(self, request, id):
+        pass
+
+    def put(self, request, id):
+        pass
+
+

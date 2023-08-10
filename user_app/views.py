@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate
 from .models import User
+from portfolio_app.models import Portfolio
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import (
@@ -13,15 +14,26 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import check_password
+from django.core.exceptions import ValidationError
 
-# Create your views here.
 class Sign_Up(APIView):
     def post(self, request):
-        user = User.objects.create_user(**request.data)
-        token = Token.objects.create(user=user)
-        return Response(
-            {'user': user.email, 'token': token.key}, status=HTTP_201_CREATED
-        )
+        try:
+            # Create a User instance without saving it
+            user = User(**request.data)
+            user.full_clean()  # Perform validation
+            
+            user.save()  # Save the user
+
+            token = Token.objects.create(user=user)
+            portfolio = Portfolio.objects.create(user=user)
+
+            return Response(
+                {'user': user.email, 'token': token.key}, status=HTTP_201_CREATED)
+        
+        except ValidationError as e:
+            return Response({'error': e.message_dict}, status=HTTP_401_UNAUTHORIZED)
+
     
 class Log_In(APIView):
     def post(self, request):
@@ -32,7 +44,7 @@ class Log_In(APIView):
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key, "user": user.email})
         else:
-            return Response("No user matching credentials", status=HTTP_404_NOT_FOUND)
+            return Response("No user matching credentials", status=HTTP_401_UNAUTHORIZED)
         
 class Log_Out(APIView):
 
