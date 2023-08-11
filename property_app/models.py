@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from portfolio_app.models import Portfolio
+from .validators import validate_state
 
 # Create your models here.
 class List_of_Properties(models.Model):
@@ -11,11 +12,11 @@ class List_of_Properties(models.Model):
 
 class Property(models.Model):
     property_image = models.ImageField(upload_to='property_images/', default='property_images/temp_house.png')
-    street = models.CharField(default='New Property')
+    street = models.CharField()
     city = models.CharField()
     # For state, user will have to select from a list on the front end.
-    state = models.CharField(max_length=2)
-    zip_code = models.PositiveIntegerField(null=True, validators=[MaxValueValidator(99999)])
+    state = models.CharField(validators=[validate_state])
+    zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], default=None)
     beds = models.PositiveIntegerField()
     baths = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     sqft = models.PositiveBigIntegerField()
