@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'user_app',
     'property_app',
-    'city_app',
     'portfolio_app'
 ]
 
