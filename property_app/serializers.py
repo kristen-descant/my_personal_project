@@ -8,9 +8,7 @@ class PurchaseWorksheetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Purchase_Worksheet
-        fields = ['id', 'matching_property', 'purchase_price', 'financing', 'interest_rate',
-                  'purchase_cost', 'gross_rent', 'arv', 'down_payment', 'loan_term', 'rehab_cost',
-                  'vancancy_rate', 'operating_expenses']
+        fields = ['__all__']
 
 class OperatingExpensesSerializer(serializers.ModelSerializer):
 
@@ -18,9 +16,7 @@ class OperatingExpensesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Operating_Expenses
-        fields = ['id', 'property_taxes', 'insurance', 'property_management',
-                  'maintenance', 'cap_ex', 'hoa_fees', 'utilitites', 'landscaping',
-                  'other_exp', 'purchase_worksheet']
+        fields = ['__all__', 'purchase_worksheet']
 
 class PropertySerializer(serializers.ModelSerializer):
     
@@ -29,6 +25,4 @@ class PropertySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Property
-        fields = ['id', 'property_image', 'street', 'city', 'state', 'zip_code',
-                  'beds', 'baths', 'sqft', 'details', 'portfolio', 'list_of_properties',
-                  'purchase_worksheet']
+        fields = ['__all__', 'purchase_worksheet']
