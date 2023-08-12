@@ -150,9 +150,7 @@ class Add_To_Portfolio(UserPermissions):
 
 class Remove_From_Portfolio(UserPermissions):
 
-    def put(self, request, propid):
-        user, portfolio = get_user_and_portfolio(request)
-        
+    def put(self, request, propid):   
         a_property = get_object_or_404(Property, id=propid)
         a_property.portfolio = None
 
