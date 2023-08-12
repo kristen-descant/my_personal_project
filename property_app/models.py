@@ -16,9 +16,8 @@ class Property(models.Model):
     city = models.CharField()
     # For state, user will have to select from a list on the front end.
     state = models.CharField(validators=[validate_state])
-    zip_code = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], default=None)
-    beds = models.PositiveIntegerField()
-    baths = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    beds = models.PositiveIntegerField(validators=[MaxValueValidator(6)])
+    baths = models.DecimalField(validators=[MinValueValidator(1.0), MaxValueValidator(1.5)], decimal_places=1, max_digits=2)
     sqft = models.PositiveBigIntegerField()
     details = models.TextField(default="Property Description")
     portfolio = models.ForeignKey(Portfolio, related_name='properties', on_delete=models.CASCADE, null=True, blank=True)
@@ -26,6 +25,9 @@ class Property(models.Model):
 
     def __str__(self) :
         return self.street
+    
+    def get_full_address(self):
+        return f'{self.street}, {self.city}, {self.state}'
 
 
 class Operating_Expenses(models.Model):

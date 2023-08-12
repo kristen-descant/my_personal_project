@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'user_app',
     'property_app',
-    'portfolio_app'
+    'portfolio_app',
+    'rent_api_app',
 ]
 
 REST_FRAMEWORK = {
