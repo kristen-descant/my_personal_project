@@ -1,9 +1,18 @@
 from rest_framework import serializers
 from .models import Property, Operating_Expenses, Purchase_Worksheet, List_of_Properties, Portfolio
 
+class OperatingExpensesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Operating_Expenses
+        fields = ['id', 'property_taxes', 'insurance', 'property_management',
+                  'maintenance', 'cap_ex', 'hoa_fees', 'utilities', 'landscaping',
+                  'other_exp']
+
 class PurchaseWorksheetSerializer(serializers.ModelSerializer):
 
     matching_property = serializers.SerializerMethodField()
+    operating_expenses = OperatingExpensesSerializer()
 
     class Meta:
         model = Purchase_Worksheet
@@ -13,18 +22,7 @@ class PurchaseWorksheetSerializer(serializers.ModelSerializer):
         
     def get_matching_property(self, obj):
         return obj.matching_property.street
-
-class OperatingExpensesSerializer(serializers.ModelSerializer):
-
-    purchase_worksheet = PurchaseWorksheetSerializer(read_only=True)
-
-    class Meta:
-        model = Operating_Expenses
-        fields = ['id', 'property_taxes', 'insurance', 'property_management',
-                  'maintenance', 'cap_ex', 'hoa_fees', 'utilitites', 'landscaping',
-                  'other_exp', 'purchase_worksheet']
-
-
+    
 
 class PropertySerializer(serializers.ModelSerializer):
 
