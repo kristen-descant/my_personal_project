@@ -5,7 +5,7 @@ class PropertyAnalysisSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Property_Analysis
-        fields = ['id', 'cash_needed', 'cash_flow', 'cap_rate', 'coc', 'ltv', 'amount_financed', 'loan_amount',
+        fields = ['id', 'cash_needed', 'cash_flow', 'cap_rate', 'coc', 'ltv', 'amount_financed',
                   'pricepersqft', 'arvpersqft', 'noi', 'loan_payment', 'purchase_cost_cash', 'down_payment_cash', 'operating_income']
 
 class OperatingExpensesSerializer(serializers.ModelSerializer):
@@ -24,7 +24,7 @@ class PurchaseWorksheetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Purchase_Worksheet
-        fields = ['id', 'matching_property', 'purchase_price', 'financing', 'interest_rate',
+        fields = ['id', 'completed', 'matching_property', 'purchase_price', 'financing', 'interest_rate',
                   'purchase_cost', 'gross_rent', 'arv', 'down_payment', 'loan_term',
                   'rehab_cost', 'vacancy_rate', 'operating_expenses', 'property_analysis']
         
@@ -45,7 +45,7 @@ class PurchaseWorksheetSerializer(serializers.ModelSerializer):
 
 class PropertySerializer(serializers.ModelSerializer):
 
-    list_of_properties_names = serializers.SerializerMethodField()    
+    list_of_properties = serializers.SerializerMethodField()    
     purchase_worksheet = PurchaseWorksheetSerializer()
     portfolio = serializers.SerializerMethodField()
 
@@ -53,9 +53,9 @@ class PropertySerializer(serializers.ModelSerializer):
         model = Property
         fields = ['id', 'property_image', 'street', 'city', 'state',
                   'beds', 'baths', 'sqft', 'details', 'portfolio', 'list_of_properties',
-                  'purchase_worksheet', 'list_of_properties_names']
+                  'purchase_worksheet', 'list_of_properties']
 
-    def get_list_of_properties_names(self, obj):
+    def get_list_of_properties(self, obj):
         return [list_item.list_name for list_item in obj.list_of_properties.all()]
     
     def get_portfolio(self, obj):

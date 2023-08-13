@@ -22,7 +22,8 @@ def calculate_analysis(purchase_worksheet):
     purchase_cost_cash = pw.purchase_price * pw.purchase_cost
     cash_needed = down_payment_cash + purchase_cost_cash + pw.rehab_cost
     operating_income = pw.gross_rent * (1 - pw.vacancy_rate)
-    noi = pw.operating_expenses.total_expenses
+    total_expenses = purchase_worksheet.operating_expenses.total_expenses()
+    noi = operating_income - total_expenses
     loan_payment = calculate_loan_payment(amount_financed, pw.interest_rate, pw.loan_term)
     cash_flow = noi - loan_payment
     cap_rate = (noi*12)/pw.purchase_price
@@ -33,5 +34,6 @@ def calculate_analysis(purchase_worksheet):
                                           loan_payment=loan_payment, pricepersqft=pricepersqft,
                                           arvpersqft=arvpersqft, noi=noi, purchase_cost_cash=purchase_cost_cash,
                                           down_payment_cash=down_payment_cash, operating_income=operating_income)
+    property_analysis.save()
     
     return property_analysis

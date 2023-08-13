@@ -4,10 +4,12 @@ from django.dispatch import receiver
 from django.core.validators import MinValueValidator, MaxValueValidator
 from portfolio_app.models import Portfolio
 from .validators import validate_state
+from user_app.models import User
 
 # Create your models here.
 class List_of_Properties(models.Model):
     list_name = models.CharField(max_length=30)
+    user = models.ForeignKey(User, related_name='lists_of_properties', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.list_name

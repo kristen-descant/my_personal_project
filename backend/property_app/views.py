@@ -71,13 +71,15 @@ class A_Property(UserPermissions):
 class All_Lists(UserPermissions):
   
     def get(self, request):
-        all_lists = List_of_Properties.objects.all()
+        user = request.user
+        all_lists = List_of_Properties.objects.filter(user=user)
         json_lists = ListSerializer(all_lists, many=True).data
 
         return Response(json_lists)
     
     def post(self, request):
         new_list = List_of_Properties.objects.create(**request.data)
+        new_list.user = request.user
         new_list.full_clean()
         new_list.save()
         json_new_list = ListSerializer(new_list).data
@@ -179,23 +181,41 @@ class Purchase_Worksheet_View(UserPermissions):
         purchase_worksheet = Purchase_Worksheet.objects.get(matching_property=a_property)
         json_purchase_worksheet = PurchaseWorksheetSerializer(purchase_worksheet, data=request.data, partial=True)
 
+        if json_purchase_worksheet.is_valid():
+            json_purchase_worksheet.save()
+
         is_worksheet_complete = check_complete_status(purchase_worksheet)
-        json_purchase_worksheet.completed = is_worksheet_complete  
+        purchase_worksheet.completed = is_worksheet_complete  
         
         if json_purchase_worksheet.is_valid() and is_worksheet_complete:
             try:
                 purchase_worksheet.property_analysis = calculate_analysis(purchase_worksheet)
             except Exception as e:
+                print(e)
                 return Response({"error": "Error calculating property analysis."}, status=HTTP_400_BAD_REQUEST)
             
             json_purchase_worksheet.save()
+
+            total_expenses = purchase_worksheet.operating_expenses.total_expenses()
+            response_data = json_purchase_worksheet.data
+            response_data['operating_expenses']['total_expenses'] = total_expenses
             
-            return Response(json_purchase_worksheet.data, status=HTTP_204_NO_CONTENT)
+            return Response(json_purchase_worksheet.data)
+        
+        elif json_purchase_worksheet.is_valid() and not is_worksheet_complete:
+            purchase_worksheet.property_analysis = None
+
+            return Response(json_purchase_worksheet.data)
+        
         elif json_purchase_worksheet.is_valid():
 
             json_purchase_worksheet.save()
 
-            return Response(json_purchase_worksheet.data, status=HTTP_204_NO_CONTENT)
+            total_expenses = purchase_worksheet.operating_expenses.total_expenses()
+            response_data = json_purchase_worksheet.data
+            response_data['operating_expenses']['total_expenses'] = total_expenses
+
+            return Response(json_purchase_worksheet.data)
         else:
             return Response(json_purchase_worksheet.errors, status=HTTP_400_BAD_REQUEST)
 
