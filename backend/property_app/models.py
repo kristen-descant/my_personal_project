@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.validators import MinValueValidator, MaxValueValidator
 from portfolio_app.models import Portfolio
@@ -72,6 +72,7 @@ class Operating_Expenses(models.Model):
         return sum(field for field in fields if field is not None)
 
 class Purchase_Worksheet(models.Model):
+    completed = models.BooleanField(default=False)
     matching_property = models.OneToOneField(Property, related_name='purchase_worksheet', on_delete=models.CASCADE, default=None)
     purchase_price = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2)
     financing = models.BooleanField(default=True)
@@ -84,11 +85,5 @@ class Purchase_Worksheet(models.Model):
     rehab_cost = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2)
     vacancy_rate = models.DecimalField(null=True, blank=True, max_digits=3, decimal_places=2, validators=[MaxValueValidator(1.00)])
     operating_expenses = models.OneToOneField(Operating_Expenses, related_name='purchase_worksheet', on_delete=models.CASCADE)
-    property_analysis = models.OneToOneField(Property_Analysis, related_name='matching_purchase_worksheet', on_delete=models.CASCADE, default=None)
+    property_analysis = models.OneToOneField(Property_Analysis, related_name='matching_purchase_worksheet', on_delete=models.CASCADE, null=True, blank=True)
 
-@receiver(pre_save, sender=Purchase_Worksheet)
-def create_or_update_property_analysis(sender, instance, **kwargs):
-    if instance.pk:  
-        instance.property_analysis.save()
-    else:
-        Property_Analysis.objects.create(matching_purchase_worksheet=instance)

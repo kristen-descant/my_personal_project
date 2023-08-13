@@ -20,15 +20,27 @@ class PurchaseWorksheetSerializer(serializers.ModelSerializer):
 
     matching_property = serializers.SerializerMethodField()
     operating_expenses = OperatingExpensesSerializer()
+    property_analysis = PropertyAnalysisSerializer()
 
     class Meta:
         model = Purchase_Worksheet
         fields = ['id', 'matching_property', 'purchase_price', 'financing', 'interest_rate',
                   'purchase_cost', 'gross_rent', 'arv', 'down_payment', 'loan_term',
-                  'rehab_cost', 'vacancy_rate', 'operating_expenses']
+                  'rehab_cost', 'vacancy_rate', 'operating_expenses', 'property_analysis']
         
     def get_matching_property(self, obj):
         return obj.matching_property.street
+    
+    def update(self, instance, validated_data):
+        operating_expenses_data = validated_data.pop('operating_expenses', None)
+        if operating_expenses_data is not None:
+            operating_expenses_serializer = OperatingExpensesSerializer(instance.operating_expenses, data=operating_expenses_data)
+            if operating_expenses_serializer.is_valid():
+                operating_expenses_serializer.save()
+            else:
+                raise serializers.ValidationError(operating_expenses_serializer.errors)
+
+        return super().update(instance, validated_data)
     
 
 class PropertySerializer(serializers.ModelSerializer):

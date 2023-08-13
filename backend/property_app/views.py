@@ -9,6 +9,8 @@ from rest_framework.status import (
 )
 from django.shortcuts import get_object_or_404
 from utilities.userPermissions import UserPermissions
+from utilities.analysis import calculate_analysis
+from utilities.worksheet_status import check_complete_status
 from utilities.property_utilities import get_user_and_portfolio
 from .serializers import (PropertySerializer, ListSerializer, PurchaseWorksheetSerializer, OperatingExpensesSerializer,
                           Property, List_of_Properties, Purchase_Worksheet, Operating_Expenses, Property_Analysis,
@@ -171,23 +173,29 @@ class Purchase_Worksheet_View(UserPermissions):
         
         return Response(json_purchase_worksheet)
     
+
     def put(self, request, propid):
         a_property = get_object_or_404(Property, id=propid)
         purchase_worksheet = Purchase_Worksheet.objects.get(matching_property=a_property)
         json_purchase_worksheet = PurchaseWorksheetSerializer(purchase_worksheet, data=request.data, partial=True)
 
-        if json_purchase_worksheet.is_valid():
-            property_analysis = purchase_worksheet.property_analysis
-            if property_analysis:
-                # Update existing Property_Analysis instance
-                property_analysis.save()
-            else:
-                # Create a new Property_Analysis instance
-                Property_Analysis.objects.create(matching_purchase_worksheet=purchase_worksheet)
-
-            # Now save the Purchase_Worksheet
+        is_worksheet_complete = check_complete_status(purchase_worksheet)
+        json_purchase_worksheet.completed = is_worksheet_complete  
+        
+        if json_purchase_worksheet.is_valid() and is_worksheet_complete:
+            try:
+                purchase_worksheet.property_analysis = calculate_analysis(purchase_worksheet)
+            except Exception as e:
+                return Response({"error": "Error calculating property analysis."}, status=HTTP_400_BAD_REQUEST)
+            
             json_purchase_worksheet.save()
             
             return Response(json_purchase_worksheet.data, status=HTTP_204_NO_CONTENT)
+        elif json_purchase_worksheet.is_valid():
+
+            json_purchase_worksheet.save()
+
+            return Response(json_purchase_worksheet.data, status=HTTP_204_NO_CONTENT)
         else:
             return Response(json_purchase_worksheet.errors, status=HTTP_400_BAD_REQUEST)
+

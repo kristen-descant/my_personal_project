@@ -13,5 +13,5 @@ urlpatterns = [
     path('remove/property/<int:propid>/lists/<int:listid>/', Remove_From_List.as_view(), name='remove_to_list'),
     path('add/property/<int:propid>/portfolio/', Add_To_Portfolio.as_view(), name='add_to_portfolio'),
     path('remove/property/<int:propid>/portfolio/', Remove_From_Portfolio.as_view(), name='remove_from_portfolio'),
-    path('property/<int:id>/purchaseworksheet/', Purchase_Worksheet_View.as_view(), name='purchase_worksheet_view'),
+    path('property/<int:propid>/purchaseworksheet/', Purchase_Worksheet_View.as_view(), name='purchase_worksheet_view'),
 ]
