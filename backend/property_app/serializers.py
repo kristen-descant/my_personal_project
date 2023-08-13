@@ -1,5 +1,12 @@
 from rest_framework import serializers
-from .models import Property, Operating_Expenses, Purchase_Worksheet, List_of_Properties, Portfolio
+from .models import Property, Operating_Expenses, Purchase_Worksheet, List_of_Properties, Property_Analysis
+
+class PropertyAnalysisSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Property_Analysis
+        fields = ['id', 'cash_needed', 'cash_flow', 'cap_rate', 'coc', 'ltv', 'amount_financed', 'loan_amount',
+                  'pricepersqft', 'arvpersqft', 'noi', 'loan_payment', 'purchase_cost_cash', 'down_payment_cash', 'operating_income']
 
 class OperatingExpensesSerializer(serializers.ModelSerializer):
 

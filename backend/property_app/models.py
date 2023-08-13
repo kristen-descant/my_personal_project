@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.core.validators import MinValueValidator, MaxValueValidator
 from portfolio_app.models import Portfolio
@@ -43,7 +43,9 @@ class Property_Analysis(models.Model):
     arvpersqft = models.DecimalField(max_digits=10, decimal_places=2)
     noi = models.DecimalField(max_digits=10, decimal_places=2)
     loan_payment = models.DecimalField(max_digits=10, decimal_places=2)
-
+    purchase_cost_cash = models.DecimalField(max_digits=10, decimal_places=2)
+    down_payment_cash = models.DecimalField(max_digits=10, decimal_places=2)
+    operating_income = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Operating_Expenses(models.Model):
     property_taxes = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -55,6 +57,20 @@ class Operating_Expenses(models.Model):
     utilities = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2)
     landscaping = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2)
     other_exp = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2)
+
+    def total_expenses(self):
+        fields = [
+            self.property_taxes,
+            self.insurance,
+            self.property_management,
+            self.maintenance,
+            self.cap_ex,
+            self.hoa_fees,
+            self.utilities,
+            self.landscaping,
+            self.other_exp
+        ]
+        return sum(field for field in fields if field is not None)
 
 class Purchase_Worksheet(models.Model):
     matching_property = models.OneToOneField(Property, related_name='purchase_worksheet', on_delete=models.CASCADE, default=None)
@@ -69,14 +85,13 @@ class Purchase_Worksheet(models.Model):
     rehab_cost = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2)
     vacancy_rate = models.DecimalField(null=True, blank=True, max_digits=3, decimal_places=2, validators=[MaxValueValidator(1.00)])
     operating_expenses = models.OneToOneField(Operating_Expenses, related_name='purchase_worksheet', on_delete=models.CASCADE)
-    property_analysis = models.OneToOneField(Property_Analysis, related_name='matching_purchase_worksheet', on_delete=models.CASCADE)
+    property_analysis = models.OneToOneField(Property_Analysis, related_name='matching_purchase_worksheet', on_delete=models.CASCADE, default=None)
 
-@receiver(post_save, sender=Purchase_Worksheet)
-def create_property_analysis(sender, instance, created, **kwargs):
-    if created:
-        Property_Analysis.objects.create(matching_purchase_worksheet=instance)
-
-@receiver(post_save, sender=Purchase_Worksheet)
-def update_property_analysis(sender, instance, **kwargs):
-    if hasattr(instance, 'property_analysis'):
+@receiver(pre_save, sender=Purchase_Worksheet)
+def create_or_update_property_analysis(sender, instance, **kwargs):
+    if instance.pk:  # Check if the instance has a primary key (already exists)
+        # Update existing Property_Analysis instance
         instance.property_analysis.save()
+    else:
+        # Create a new Property_Analysis instance
+        Property_Analysis.objects.create(matching_purchase_worksheet=instance)

@@ -11,7 +11,8 @@ from django.shortcuts import get_object_or_404
 from utilities.userPermissions import UserPermissions
 from utilities.property_utilities import get_user_and_portfolio
 from .serializers import (PropertySerializer, ListSerializer, PurchaseWorksheetSerializer, OperatingExpensesSerializer,
-                          Property, List_of_Properties, Purchase_Worksheet, Operating_Expenses)
+                          Property, List_of_Properties, Purchase_Worksheet, Operating_Expenses, Property_Analysis,
+                          PropertyAnalysisSerializer)
 from portfolio_app.serializers import PortfolioSerializer
 
 # Create your views here.
@@ -176,6 +177,17 @@ class Purchase_Worksheet_View(UserPermissions):
         json_purchase_worksheet = PurchaseWorksheetSerializer(purchase_worksheet, data=request.data, partial=True)
 
         if json_purchase_worksheet.is_valid():
+            property_analysis = purchase_worksheet.property_analysis
+            if property_analysis:
+                # Update existing Property_Analysis instance
+                property_analysis.save()
+            else:
+                # Create a new Property_Analysis instance
+                Property_Analysis.objects.create(matching_purchase_worksheet=purchase_worksheet)
+
+            # Now save the Purchase_Worksheet
+            json_purchase_worksheet.save()
+            
             return Response(json_purchase_worksheet.data, status=HTTP_204_NO_CONTENT)
         else:
             return Response(json_purchase_worksheet.errors, status=HTTP_400_BAD_REQUEST)
