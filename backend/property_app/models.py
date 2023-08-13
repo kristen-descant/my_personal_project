@@ -38,7 +38,6 @@ class Property_Analysis(models.Model):
     coc = models.DecimalField(max_digits=3, decimal_places=2, validators=[MaxValueValidator(1.00)])
     ltv = models.DecimalField(max_digits=3, decimal_places=2, validators=[MaxValueValidator(1.00)])
     amount_financed = models.DecimalField(max_digits=10, decimal_places=2)
-    loan_amount = models.DecimalField(max_digits=10, decimal_places=2)
     pricepersqft = models.DecimalField(max_digits=10, decimal_places=2)
     arvpersqft = models.DecimalField(max_digits=10, decimal_places=2)
     noi = models.DecimalField(max_digits=10, decimal_places=2)
@@ -89,9 +88,7 @@ class Purchase_Worksheet(models.Model):
 
 @receiver(pre_save, sender=Purchase_Worksheet)
 def create_or_update_property_analysis(sender, instance, **kwargs):
-    if instance.pk:  # Check if the instance has a primary key (already exists)
-        # Update existing Property_Analysis instance
+    if instance.pk:  
         instance.property_analysis.save()
     else:
-        # Create a new Property_Analysis instance
         Property_Analysis.objects.create(matching_purchase_worksheet=instance)

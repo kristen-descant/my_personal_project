@@ -27,3 +27,11 @@ def calculate_analysis(purchase_worksheet):
     cash_flow = noi - loan_payment
     cap_rate = (noi*12)/pw.purchase_price
     coc = (noi*12)/cash_needed
+
+    property_analysis = Property_Analysis(cash_needed=cash_needed, cash_flow=cash_flow, cap_rate=cap_rate,
+                                          coc=coc, ltv=ltv, amount_financed=amount_financed,
+                                          loan_payment=loan_payment, pricepersqft=pricepersqft,
+                                          arvpersqft=arvpersqft, noi=noi, purchase_cost_cash=purchase_cost_cash,
+                                          down_payment_cash=down_payment_cash, operating_income=operating_income)
+    
+    return property_analysis
