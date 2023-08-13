@@ -10,7 +10,7 @@ from rest_framework.status import (
 from django.shortcuts import get_object_or_404
 from utilities.userPermissions import UserPermissions
 from utilities.property_utilities import get_user_and_portfolio
-from .serializers import (PropertySerializer, ListSerializer, PurchaseWorksheetSerializer, 
+from .serializers import (PropertySerializer, ListSerializer, PurchaseWorksheetSerializer, OperatingExpensesSerializer,
                           Property, List_of_Properties, Purchase_Worksheet, Operating_Expenses)
 from portfolio_app.serializers import PortfolioSerializer
 
@@ -150,9 +150,7 @@ class Add_To_Portfolio(UserPermissions):
 
 class Remove_From_Portfolio(UserPermissions):
 
-    def put(self, request, propid):
-        user, portfolio = get_user_and_portfolio(request)
-        
+    def put(self, request, propid):   
         a_property = get_object_or_404(Property, id=propid)
         a_property.portfolio = None
 
@@ -166,13 +164,15 @@ class Remove_From_Portfolio(UserPermissions):
 class Purchase_Worksheet_View(UserPermissions):
 
     def get(self, request, propid):
-        purchase_worksheet = Purchase_Worksheet.objects.get(matching_property=propid)
+        a_property = get_object_or_404(Property, id=propid)
+        purchase_worksheet = Purchase_Worksheet.objects.get(matching_property=a_property)
         json_purchase_worksheet = PurchaseWorksheetSerializer(purchase_worksheet).data
-
+        
         return Response(json_purchase_worksheet)
     
     def put(self, request, propid):
-        purchase_worksheet = Purchase_Worksheet.objects.get(matching_property=propid)
+        a_property = get_object_or_404(Property, id=propid)
+        purchase_worksheet = Purchase_Worksheet.objects.get(matching_property=a_property)
         json_purchase_worksheet = PurchaseWorksheetSerializer(purchase_worksheet, data=request.data, partial=True)
 
         if json_purchase_worksheet.is_valid():

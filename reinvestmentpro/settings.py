@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'property_app',
     'portfolio_app',
     'rent_api_app',
+    'map_api_app',
 ]
 
 REST_FRAMEWORK = {
