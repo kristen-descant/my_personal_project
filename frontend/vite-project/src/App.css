@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,50 @@
 
 .read-the-docs {
   color: #888;
+} */
+#root {
+  position: relative;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+}
+
+nav {
+  height: 100vh;
+  width: 15vw;
+  line-height: 5vh;
+  border: solid 1px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 10vh;
+}
+
+ul {
+  list-style: none;
+}
+
+.signup {
+  position: absolute;
+  height: 50vh;
+  width: 50vh;
+  top: 25vh;
+  left: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Add gap between divs */
+}
+
+.signup div,
+.signup button {
+  width: 100%; /* Make sure divs and button take full width */
+  padding: 10px; /* Add padding for spacing within divs */
+  text-align: center; /* Center text content */
 }
