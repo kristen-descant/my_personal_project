@@ -86,3 +86,34 @@ ul {
   padding: 10px; /* Add padding for spacing within divs */
   text-align: center; /* Center text content */
 }
+
+.portfolioList {
+  position: absolute;
+  left: 20vw;
+  top: 15vh;
+  display: flex;
+  border: solid black 1px;
+  height: 70vh;
+  width: 60vw;
+  justify-content: center;
+  align-items: center;
+}
+.portfolioList ul {
+  width: 100%;
+}
+.portfolioList ul li {
+  text-align: center;
+  border: solid black 1px;
+  width: 100%;
+}
+.aProperty {
+  position: absolute;
+  left: 20vw;
+  top: 15vh;
+  display: flex;
+  border: solid black 1px;
+  height: 70vh;
+  width: 60vw;
+  justify-content: center;
+  align-items: center;
+}

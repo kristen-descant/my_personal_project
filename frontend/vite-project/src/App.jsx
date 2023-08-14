@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import './App.css'
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import propertiesIntialValue from "./data/properties.json"
 import NavbarComp from './components/NavbarComp';
 
 function App() {
 
   const [properties, setProperties] = useState(propertiesIntialValue)
-  const [pageDescrip, setPageDescript] = useState('pagedescrip')
+  const [pageDescrip, setPageDescrip] = useState('pagedescrip')
+  const [selectedPoperty, setSelectedPropety] = useState(null)
 
   const getPropertyById = (id) => {
-    return properties.find((property) => property.id === id)
+    const numericId = parseInt(id, 10);
+    return properties.find((property) => property.id === numericId);
   }
 
   return (
@@ -24,7 +26,16 @@ function App() {
       </header>
       </div>
       
-      <Outlet/>
+      <Outlet
+      context={
+        {properties, 
+        setProperties,
+        pageDescrip,
+        setPageDescrip,
+        selectedPoperty,
+        setSelectedPropety,
+        getPropertyById}
+      }/>
     </>
   )
 }
