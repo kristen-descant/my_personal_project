@@ -1,13 +1,21 @@
 import { useState } from 'react'
 import './App.css'
 import { Outlet, Link } from "react-router-dom";
+import propertiesIntialValue from "./data/properties.json"
+import NavbarComp from './components/NavbarComp';
 
 function App() {
 
+  const [properties, setProperties] = useState(propertiesIntialValue)
   const [pageDescrip, setPageDescript] = useState('pagedescrip')
+
+  const getPropertyById = (id) => {
+    return properties.find((property) => property.id === id)
+  }
 
   return (
     <>
+      <NavbarComp/>
       <div className='header'>
       <header>
         <p>logo</p>
@@ -15,15 +23,7 @@ function App() {
         <p>sttings,logout</p>
       </header>
       </div>
-      <nav>
-        <ul>
-          <li><Link to="#">Portfolio</Link></li>
-          <li><Link to="#">Add Property</Link></li>
-          <li><Link to="#">My Lists</Link></li>
-          <li><Link to="#">Cities</Link></li>
-          <li><Link to="#">Calculator</Link></li>
-        </ul>
-      </nav>
+      
       <Outlet/>
     </>
   )

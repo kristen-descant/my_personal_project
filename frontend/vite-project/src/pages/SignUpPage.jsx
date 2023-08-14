@@ -1,3 +1,4 @@
+import RegisterComp from "../components/RegisterComp.jsx";
 import { api } from "./utilities.jsx";
 import { useNavigate } from "react-router-dom";
 
@@ -22,26 +23,9 @@ export default function SignupPage() {
     navigate("/");
     };
 
-
     return (
         <>
-            <div className="signup">
-                <form action="signupform">
-                    <div>
-                    <label htmlFor="email">email:</label>
-                    <input type="text" />
-                    </div>
-                    <div>
-                    <label htmlFor="password">password:</label>
-                    <input type="text" />
-                    </div>
-                    <div>
-                    <label htmlFor="verifypassword">verify password:</label>
-                    <input type="text" />
-                    </div>
-                    <button>Create Account</button>
-                </form>
-            </div>
+            <RegisterComp includeVerifyPassword={true}/>
         </>
     )
 }
