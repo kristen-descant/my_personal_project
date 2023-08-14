@@ -6,6 +6,7 @@ import NavbarComp from './components/NavbarComp';
 
 function App() {
 
+  const [user, setUser] = useState(null)
   const [properties, setProperties] = useState(propertiesIntialValue)
   const [pageDescrip, setPageDescrip] = useState('pagedescrip')
   const [selectedPoperty, setSelectedPropety] = useState(null)
@@ -34,7 +35,9 @@ function App() {
         setPageDescrip,
         selectedPoperty,
         setSelectedPropety,
-        getPropertyById}
+        getPropertyById,
+        user,
+        setUser}
       }/>
     </>
   )

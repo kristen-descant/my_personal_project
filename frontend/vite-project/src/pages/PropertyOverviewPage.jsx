@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useOutletContext } from "react-router-dom";
+import PropertyComp from "../components/PropertyComp";
 
 export default function PropertyOverviewPage() {
 
     const { propertyId } = useParams();
     const [propertyDetails, setPropertyDetails] = useState(null);
-    const { properties, getPropertyById } = useOutletContext();
+    const { getPropertyById, setPageDescrip } = useOutletContext();
 
     const property = getPropertyById(propertyId);
+    useEffect(() => {
+        setPageDescrip('Property');
+    }, []);
 
     // useEffect(() => {
     //     // Fetch property details using propertyId from your backend
@@ -20,9 +24,7 @@ export default function PropertyOverviewPage() {
 
       return (
         <div className="aProperty">
-          <p>Property ID: {property.id}</p>
-          <p>Street: {property.street}</p>
-          {/* Display other property details here */}
+          <PropertyComp property={property}/>
         </div>
       );
 
