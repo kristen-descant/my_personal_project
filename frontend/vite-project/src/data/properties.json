@@ -1,0 +1,38 @@
+[
+    {   
+    "id": 1,
+    "street": "43 Langdon Dr.",
+    "city": "Palm Coast",
+    "state": "FL",
+    "beds": 3,
+    "baths": 1.5,
+    "sqft": 555
+    },
+    {  
+    "id": 2, 
+    "street": "985 Luke Martin Rd.",
+    "city": "bunkie",
+    "state": "LA",
+    "beds": 3,
+    "baths": 1.5,
+    "sqft": 888
+    },
+    {   
+    "id": 3,
+    "street": "209 Pecan Dr.",
+    "city": "Marksville",
+    "state": "LA",
+    "beds": 3,
+    "baths": 1.5,
+    "sqft": 999
+    },
+    {   
+    "id": 4,
+    "street": "478 Wallaby Ave.",
+    "city": "Daytona Beach",
+    "state": "FL",
+    "beds": 3,
+    "baths": 1.5,
+    "sqft": 333
+    }
+]

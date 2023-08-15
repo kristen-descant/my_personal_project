@@ -1,17 +1,30 @@
+import RegisterComp from "../components/RegisterComp.jsx";
 import { api } from "./utilities.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { useState } from "react";
 
 
 export default function SignupPage() {
 
     const navigate = useNavigate();
+    const {user, setUser} = useOutletContext();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [verifyPassword, setVerifyPassword] = useState("");
 
     const signUp = async (e) => {
     e.preventDefault();
+
+    if (password !== verifyPassword) {
+        window.alert("Passwords don't match!");
+        return;
+    }
+
     let response = await api.post("users/signup/", {
         email: email,
         password: password,
     });
+
     let user = response.data.user;
     let token = response.data.token;
     // Store the token securely (e.g., in localStorage or HttpOnly cookies)
@@ -22,26 +35,14 @@ export default function SignupPage() {
     navigate("/");
     };
 
-
     return (
         <>
-            <div className="signup">
-                <form action="signupform">
-                    <div>
-                    <label htmlFor="email">email:</label>
-                    <input type="text" />
-                    </div>
-                    <div>
-                    <label htmlFor="password">password:</label>
-                    <input type="text" />
-                    </div>
-                    <div>
-                    <label htmlFor="verifypassword">verify password:</label>
-                    <input type="text" />
-                    </div>
-                    <button>Create Account</button>
-                </form>
-            </div>
+            <RegisterComp 
+            includeVerifyPassword={true}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            setVerifyPassword={setVerifyPassword}
+            signUp={signUp}/>
         </>
     )
 }

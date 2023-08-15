@@ -3,6 +3,7 @@ import App from "./App";
 import PortfolioPage from "./pages/PorfolioPage";
 import SignupPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
+import PropertyOverviewPage from "./pages/PropertyOverviewPage";
 // import HomePage from "./components/HomePage";
 // import AboutPage from "./components/AboutPage";
 // import ContactUsPage from "./components/ContactUsPage";
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
         path: "login",
         element: <LoginPage />,
       },
+      {
+        path: "portfolio",
+        element: <PortfolioPage/>
+      },
+      {
+        path: "property/:propertyId",
+        element: <PropertyOverviewPage/>
+      }
     ],
   },
 ]);
