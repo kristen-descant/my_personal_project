@@ -3,12 +3,12 @@ export default function RegisterComp({
         setEmail,
         setPassword,
         setVerifyPassword,
-        signUp,
+        signin,
     }) {
     return (
         <>
-            <div className="signup">
-                <form onSubmit={signUp}>
+            <div className="signin">
+                <form onSubmit={signin}>
                     <div>
                     <label htmlFor="email">email:</label>
                     <input type="text" onChange={(e) => setEmail(e.target.value)}/>
@@ -23,7 +23,9 @@ export default function RegisterComp({
                     <input type="text" onChange={(e) => setVerifyPassword(e.target.value)}/>
                     </div>
                     }
-                    <button type="submit">Create Account</button>
+                    {includeVerifyPassword ? <button type="submit">Create Account</button> :
+                    <button type="submit">Log In</button>}
+                    
                 </form>
             </div>
         </>

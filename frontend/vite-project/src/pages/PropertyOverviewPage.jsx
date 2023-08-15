@@ -7,8 +7,9 @@ export default function PropertyOverviewPage() {
     const { propertyId } = useParams();
     const [propertyDetails, setPropertyDetails] = useState(null);
     const { getPropertyById, setPageDescrip } = useOutletContext();
-
+    
     const property = getPropertyById(propertyId);
+
     useEffect(() => {
         setPageDescrip('Property');
     }, []);

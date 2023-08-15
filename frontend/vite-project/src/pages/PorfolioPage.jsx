@@ -5,27 +5,57 @@ import { useOutletContext } from "react-router-dom";
 
 export default function PortfolioPage() {
 
-    const {properties, pageDescip, setPageDescrip } = useOutletContext()
-    const [property, setProperty ] = useState(null)
+    const {properties, setProperties, pageDescip, setPageDescrip, user } = useOutletContext()
+    const navigate = useNavigate();
 
     useEffect(() => {
-        //this is where i will ping backend to get all properties in user portfolio
-    })
+      setPageDescrip('Portfolio');
+    }, []);
+
+
+    const getPortfolio = async () => {
+        if (user) {
+            try {
+                let response = await api.get("properties/portfolio/");
+                    console.log(response)
+                    setProperties(response.data.properties)
+                    console.log(response.data.properties)
+                    
+                } catch(error) {
+                    console.log(error);
+                }
+            };
+        };
+
+
+        useEffect(() => {
+            getPortfolio();
+          }, [user]);
+        
+        console.log(properties)
 
     const handlePropertyClick = (propertyId) => {
-        navigate(`/property/${propertyId}`);
+        navigate(`property/${propertyId}`);
       };
 
-    return (
+      return (
         <>
-            <div className="portfolioList">
+          <div className="portfolioList">
             <ul>
-            {properties.map((property) => {
-               return <li key={property.id} onClick={()=> handlePropertyClick(property.id)}>{property.street}</li>
-            })}
+              {properties && (
+                properties.map((property) => (
+                  <li key={property.id} onClick={() => handlePropertyClick(property.id)}>
+                    {property.street}
+                    <img src={property.property_image} alt="house" />
+                  </li>
+                ))
+              ) 
+              }
             </ul>
-            </div>
+          </div>
         </>
-    )
+      );
+      
+      
     
 }
