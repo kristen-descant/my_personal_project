@@ -14,15 +14,6 @@ export default function PropertyOverviewPage() {
         setPageDescrip('Property');
     }, []);
 
-    // useEffect(() => {
-    //     // Fetch property details using propertyId from your backend
-    //     // Update the propertyDetails state with the fetched data
-    //   }, [propertyId]);
-      
-    //   if (!propertyDetails) {
-    //     return <div>Loading...</div>;
-    //   }
-
       return (
         <div className="aProperty">
           <PropertyComp property={property}/>

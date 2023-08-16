@@ -15,7 +15,7 @@ class List_of_Properties(models.Model):
         return self.list_name
 
 class Property(models.Model):
-    property_image = models.ImageField(upload_to='property_images/', default='property_images/temp_house.png')
+    property_image = models.ImageField(null=True, blank=True)
     street = models.CharField()
     city = models.CharField()
     # For state, user will have to select from a list on the front end.
