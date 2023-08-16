@@ -12,18 +12,18 @@ export default function SignupPage() {
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
 
-    const signUp = async (e) => {
+    const signin = async (e) => {
     e.preventDefault();
 
-    if (password !== verifyPassword) {
-        window.alert("Passwords don't match!");
-        return;
-    }
+        if (password !== verifyPassword) {
+            window.alert("Passwords don't match!");
+            return;
+        }
 
-    let response = await api.post("users/signup/", {
-        email: email,
-        password: password,
-    });
+        let response = await api.post("users/signup/", {
+            email: email,
+            password: password,
+        });
 
     let user = response.data.user;
     let token = response.data.token;
@@ -37,12 +37,15 @@ export default function SignupPage() {
 
     return (
         <>
+            {!user ?
             <RegisterComp 
             includeVerifyPassword={true}
             setEmail={setEmail}
             setPassword={setPassword}
             setVerifyPassword={setVerifyPassword}
-            signUp={signUp}/>
+            signin={signin}/>
+            :
+            navigate('/')}
         </>
     )
 }

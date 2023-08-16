@@ -14,6 +14,10 @@ from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ValidationError
 from utilities.userPermissions import UserPermissions, APIView
 
+class Get_User(UserPermissions):
+    def get(self, request):
+        return Response({"email": request.user.email})
+
 class Sign_Up(APIView):
     def post(self, request):
         request.data['username'] = request.data.get('email')
