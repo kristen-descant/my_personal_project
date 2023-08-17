@@ -2,10 +2,11 @@ import { api } from "./utilities.jsx";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
+import ListComp from "../components/ListComp.jsx";
 
 export default function PortfolioPage() {
 
-    const {properties, setProperties, pageDescip, setPageDescrip, user } = useOutletContext()
+    const {properties, setProperties, pageDescip, setPageDescrip, user, setSelectedProperty } = useOutletContext()
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -40,19 +41,7 @@ export default function PortfolioPage() {
 
       return (
         <>
-          <div className="portfolioList">
-            <ul>
-              {properties && (
-                properties.map((property) => (
-                  <li key={property.id} onClick={() => handlePropertyClick(property.id)}>
-                    {property.street}
-                    <img src={`/media/${property.property_image}`} alt="house" />
-                  </li>
-                ))
-              ) 
-              }
-            </ul>
-          </div>
+          <ListComp properties={properties}/>
         </>
       );
       

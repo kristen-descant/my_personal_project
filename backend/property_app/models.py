@@ -15,23 +15,17 @@ class List_of_Properties(models.Model):
         return self.list_name
 
 class Property(models.Model):
-    property_image = models.ImageField(null=True, blank=True)
-    street = models.CharField()
-    city = models.CharField()
-    # For state, user will have to select from a list on the front end.
-    state = models.CharField(validators=[validate_state])
+    address = models.TextField(null=True, blank=True)
     beds = models.PositiveIntegerField(validators=[MaxValueValidator(6)])
     baths = models.DecimalField(validators=[MinValueValidator(1.0), MaxValueValidator(1.5)], decimal_places=1, max_digits=2)
     sqft = models.PositiveBigIntegerField()
-    details = models.TextField(default="Property Description")
+    details = models.TextField(default="Property Description", null=True, blank=True)
     portfolio = models.ForeignKey(Portfolio, related_name='properties', on_delete=models.CASCADE, null=True, blank=True)
     list_of_properties = models.ManyToManyField(List_of_Properties, related_name='properties', blank=True)
 
     def __str__(self) :
-        return self.street
+        return self.address
     
-    def get_full_address(self):
-        return f'{self.street}, {self.city}, {self.state}'
 
 class Property_Analysis(models.Model):
     cash_needed = models.DecimalField(max_digits=10, decimal_places=2)
