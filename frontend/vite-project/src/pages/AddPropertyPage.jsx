@@ -9,7 +9,7 @@ export default function AddPropertyPage() {
     const [baths, setBaths] = useState(null);
     const [sqft, setSqft] = useState(null);
     const [details, setDetails] = useState(null);
-    const { getPropertyById, setPageDescrip } = useOutletContext();
+    const { setPageDescrip } = useOutletContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,14 +26,13 @@ export default function AddPropertyPage() {
 
     const fetchSuggestions = async () => {
       
-            const response = await api.get(`map/autocomplete/${encodeURIComponent(addressInput)}`);
-            console.log(response)
-            const data = response.data;
-            setSuggestions(data.predictions);
-     
+        const response = await api.get(`map/autocomplete/${encodeURIComponent(addressInput)}`);
+        const data = response.data;
+        setSuggestions(data.predictions); 
     };
 
     const handleAddressSelect = (selectedAddress) => {
+
         setAddressInput(selectedAddress);
         setSuggestions([]);
     };
@@ -45,7 +44,6 @@ export default function AddPropertyPage() {
     }
 
     const addNewProperty = async () => {
-        // Fetch property image from your backend
 
         try {
             const response = await api.post('properties/', {
@@ -64,31 +62,30 @@ export default function AddPropertyPage() {
         
     };
     
-
     return (
         <>
         <div className="add-property">
             <div>
-            <label>Address:</label>
-            <input
-                type="text"
-                value={addressInput}
-                onChange={(e) => setAddressInput(e.target.value)}
-                placeholder="Enter address..."
-            />
-            <button type='submit' onClick={clearSelectedAddress}>Clear</button>
-            {addressInput &&  (
-                <ul className="suggestions">
-                    {suggestions.map((suggestion) => (
+                <label>Address:</label>
+                <input
+                    type="text"
+                    value={addressInput}
+                    onChange={(e) => setAddressInput(e.target.value)}
+                    placeholder="Enter address..."
+                />
+                <button type='submit' onClick={clearSelectedAddress}>Clear</button>
+                {addressInput &&  (
+                    <ul className="suggestions">
+                        {suggestions.map((suggestion) => (
                         <li
-                            key={suggestion.place_id}
-                            onClick={() => handleAddressSelect(suggestion.description)}
+                        key={suggestion.place_id}
+                        onClick={() => handleAddressSelect(suggestion.description)}
                         >
-                            {suggestion.description}
+                        {suggestion.description}
                         </li>
-                    ))}
-                </ul>
-            )}
+                        ))}
+                    </ul>
+                )}
             </div>
             <div>
                 <label htmlFor="beds">beds</label>

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import { Outlet, Link } from "react-router-dom";
 import { api } from './pages/utilities';
-import propertiesIntialValue from "./data/properties.json"
 import NavbarComp from './components/NavbarComp';
 import { useNavigate} from "react-router-dom";
 import { useRef } from 'react';
@@ -54,12 +53,6 @@ function App() {
       }
     }, [location]);
 
-
-  const getPropertyById = (id) => {
-    const numericId = parseInt(id, 10);
-    return properties.find((property) => property.id === numericId);
-  }
-
   return (
     <>
       {user ? (
@@ -99,7 +92,6 @@ function App() {
         setPageDescrip,
         selectedPoperty,
         setSelectedPropety,
-        getPropertyById,
         user,
         setUser,
         isDropdownOpen, 

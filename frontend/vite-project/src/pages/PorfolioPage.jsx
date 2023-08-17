@@ -6,45 +6,38 @@ import ListComp from "../components/ListComp.jsx";
 
 export default function PortfolioPage() {
 
-    const {properties, setProperties, pageDescip, setPageDescrip, user, setSelectedProperty } = useOutletContext()
-    const navigate = useNavigate();
+  const {properties, setProperties, setPageDescrip, user} = useOutletContext()
+  const navigate = useNavigate();
 
-    useEffect(() => {
-      setPageDescrip('Portfolio');
-    }, []);
+  useEffect(() => {
+    setPageDescrip('Portfolio');
+  }, []);
 
+  const getPortfolio = async () => {
+      if (user) {
+          try {
+              let response = await api.get("properties/portfolio/");
 
-    const getPortfolio = async () => {
-        if (user) {
-            try {
-                let response = await api.get("properties/portfolio/");
-                    console.log(response)
-                    setProperties(response.data.properties)
-                    console.log(response.data.properties)
-                    
-                } catch(error) {
-                    console.log(error);
-                }
-            };
-        };
+                  setProperties(response.data.properties)
 
+              } catch(error) {
+                  console.log(error);
+              }
+          };
+      };
 
         useEffect(() => {
             getPortfolio();
           }, [user]);
-        
-        console.log(properties)
 
-    const handlePropertyClick = (propertyId) => {
-        navigate(`/property/${propertyId}`);
-      };
+  const handlePropertyClick = (propertyId) => {
+
+      navigate(`/property/${propertyId}`);
+    };
 
       return (
         <>
           <ListComp properties={properties}/>
         </>
-      );
-      
-      
-    
+      );   
 }

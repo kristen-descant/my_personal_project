@@ -1,4 +1,5 @@
 export default function PropertyComp(props) {
+  
     const {address, newPropertyImage, beds, baths, sqft,
     max, mean, median, min, details} = props;
 

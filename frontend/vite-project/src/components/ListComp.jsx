@@ -9,8 +9,6 @@ export default function ListComp(prop) {
         navigate(`/property/${propertyId}`);
         };
     
-      
-    
         return (
             <>
               <div className="portfolioList">
