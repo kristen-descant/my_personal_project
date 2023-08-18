@@ -20,13 +20,9 @@ class Maps(UserPermissions):
 
 class Address_Autocomplete(UserPermissions):
 
-    def get(self, request):
+    def get(self, request, input_text):
 
-        input_text = request.GET.get('input_text', '')
-        encoded_input = url_encode_address(input_text)
-
-        url = f'https://maps.googleapis.com/maps/api/place/autocomplete/json?key={MAPSAPIKEY}&input={encoded_input}'
-
+        url = f'https://maps.googleapis.com/maps/api/place/autocomplete/json?key={MAPSAPIKEY}&input={input_text}'
 
         response = requests.get(url)
         json_response = response.json()

@@ -30,10 +30,7 @@ function App() {
       let response = await api.get("users/");
       // Check if the response contains the user data (email field exists)
       if (response.data.email) {
-        // Set the user data in the context or state (assuming `setUser` is a state update function)
         setUser(response.data);
-        // If the user is authenticated and there is a stored lastVisited page,
-        // navigate to the lastVisited page; otherwise, navigate to the default homepage "/home"
         if (lastVisited.current) {
           navigate(lastVisited.current);
         } else {

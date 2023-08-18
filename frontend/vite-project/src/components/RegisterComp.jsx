@@ -15,12 +15,12 @@ export default function RegisterComp({
                     </div>
                     <div>
                     <label htmlFor="password">password:</label>
-                    <input type="text" onChange={(e) => setPassword(e.target.value)}/>
+                    <input type="password" onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     {includeVerifyPassword &&
                     <div>
                     <label htmlFor="verifypassword">verify password:</label>
-                    <input type="text" onChange={(e) => setVerifyPassword(e.target.value)}/>
+                    <input type="password" onChange={(e) => setVerifyPassword(e.target.value)}/>
                     </div>
                     }
                     {includeVerifyPassword ? <button type="submit">Create Account</button> :

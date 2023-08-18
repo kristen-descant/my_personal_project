@@ -117,3 +117,15 @@ ul {
   justify-content: center;
   align-items: center;
 }
+
+.signin {
+  position: absolute;
+  top: 35vh;
+  left: 35vw;
+}
+
+.add-property {
+  position: absolute;
+  top: 35vh;
+  left: 35vw;
+}

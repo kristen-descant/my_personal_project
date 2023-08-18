@@ -35,7 +35,7 @@ export default function PortfolioPage() {
         console.log(properties)
 
     const handlePropertyClick = (propertyId) => {
-        navigate(`property/${propertyId}`);
+        navigate(`/property/${propertyId}`);
       };
 
       return (
@@ -46,7 +46,7 @@ export default function PortfolioPage() {
                 properties.map((property) => (
                   <li key={property.id} onClick={() => handlePropertyClick(property.id)}>
                     {property.street}
-                    <img src={property.property_image} alt="house" />
+                    <img src={`/media/${property.property_image}`} alt="house" />
                   </li>
                 ))
               ) 
