@@ -36,7 +36,21 @@ export default function PurchaseWorksheetPage() {
     const [landscaping, setLandscaping] = useState(null);
     const [otherexp, setOtherexp] = useState(null);
     const [totalExpenses, setTotalExpenses] = useState(null);
-    const [propertyAnalysis, setPropertyAnalysis] = useState();
+    const [propertyAnalysis, setPropertyAnalysis] = useState(null);
+    const [cashNeeded, setCashNeeded] = useState(null);
+    const [cashFlow, setCashflow] = useState(null);
+    const [capRate, setCapRate] = useState(null);
+    const [coc, setCoc] = useState(null);
+    const [ltv, setLtv] = useState(null);
+    const [amountFinanced, setAmountFinanced] = useState(null);
+    const [ppsqft, setPpsqft] = useState(null);
+    const [apsqft, setApsqft] = useState(null);
+    const [noi, setNoi] = useState(null);
+    const [loanPayment, setLoanPayment] = useState(null);
+    const [purchaseCostCash, setPurchaseCostCash] = useState(null);
+    const [downPaymentCash, setDownPaymentCash] = useState(null);
+    const [operatingIncome, setOperatingIncome] = useState(null);
+
 
     const fetchExistingPurchaseWorksheet = async () => {
         try {
@@ -60,34 +74,55 @@ export default function PurchaseWorksheetPage() {
 
     
 
+    // ... (other code remains the same)
+
+useEffect(() => {
+    if (purchaseWorksheetData) {
+        setPurchasePrice(purchaseWorksheetData.purchase_price);
+        setFinancing(purchaseWorksheetData.financing);
+        setInterestRate(purchaseWorksheetData.interest_rate * 100);
+        setPurchaseCost(purchaseWorksheetData.purchase_cost * 100);
+        setGrossRent(purchaseWorksheetData.gross_rent);
+        setArv(purchaseWorksheetData.arv);
+        setDownPayment(purchaseWorksheetData.down_payment * 100);
+        setLoanTerm(purchaseWorksheetData.loan_term);
+        setRehabCost(purchaseWorksheetData.rehab_cost);
+        setVacancyRate(purchaseWorksheetData.vacancy_rate * 100);
+        setPropertyTaxes(operatingExpenseData.property_taxes);
+        setInsurance(operatingExpenseData.insurance)
+        setPropertyManagement(operatingExpenseData.property_management * 100);
+        setMaintenance(operatingExpenseData.maintenance * 100);
+        setCapex(operatingExpenseData.cap_ex * 100);
+        setHoaFees(operatingExpenseData.hoa_fees);
+        setUtilities(operatingExpenseData.utilities);
+        setLandscaping(operatingExpenseData.landscaping);
+        setOtherexp(operatingExpenseData.other_exp)
+        setTotalExpenses(operatingExpenseData.total_expenses)
+        setPropertyAnalysis(purchaseWorksheetData.property_analysis)
+        console.log(propertyAnalysis)
+
+    }
+}, [purchaseWorksheetData]);
+
     useEffect(() => {
-        if (purchaseWorksheetData) {
-            setPurchasePrice(purchaseWorksheetData.purchase_price);
-            setFinancing(purchaseWorksheetData.financing);
-            setInterestRate(purchaseWorksheetData.interest_rate * 100);
-            setPurchaseCost(purchaseWorksheetData.purchase_cost * 100);
-            setGrossRent(purchaseWorksheetData.gross_rent);
-            setArv(purchaseWorksheetData.arv);
-            setDownPayment(purchaseWorksheetData.down_payment * 100);
-            setLoanTerm(purchaseWorksheetData.loan_term);
-            setRehabCost(purchaseWorksheetData.rehab_cost);
-            setVacancyRate(purchaseWorksheetData.vacancy_rate * 100);
-            setPropertyTaxes(operatingExpenseData.property_taxes);
-            setInsurance(operatingExpenseData.insurance)
-            setPropertyManagement(operatingExpenseData.property_management * 100);
-            setMaintenance(operatingExpenseData.maintenance * 100);
-            setCapex(operatingExpenseData.cap_ex * 100);
-            setHoaFees(operatingExpenseData.hoa_fees);
-            setUtilities(operatingExpenseData.utilities);
-            setLandscaping(operatingExpenseData.landscaping);
-            setOtherexp(operatingExpenseData.other_exp)
-            setTotalExpenses(operatingExpenseData.total_expenses)
-            setPropertyAnalysis(purchaseWorksheetData.property_analysis)
+        if (propertyAnalysis) {
+            setCashNeeded(propertyAnalysis.cash_needed);
+            setCashflow(propertyAnalysis.cash_flow);
+            setCapRate(propertyAnalysis.cap_rate);
+            setCoc(propertyAnalysis.coc);
+            setLtv(propertyAnalysis.ltv);
+            setAmountFinanced(propertyAnalysis.amount_financed);
+            setPpsqft(propertyAnalysis.pricepersqft);
+            setApsqft(propertyAnalysis.arvpersqft);
+            setNoi(propertyAnalysis.noi);
+            setLoanPayment(propertyAnalysis.loan_payment);
+            setPurchaseCostCash(propertyAnalysis.purchase_cost_cash);
+            setDownPaymentCash(propertyAnalysis.down_payment_cash);
+            setOperatingIncome(propertyAnalysis.operating_income);
         }
+    }, [propertyAnalysis]);
 
-    }, [purchaseWorksheetData]);
 
-    
 
     const handlePurchasePriceChange = (value) => {
         setPurchasePrice(value);
@@ -98,26 +133,29 @@ export default function PurchaseWorksheetPage() {
     };
 
     const handleFinancingChange = (value) => {
-        setFinancing(value);
+        console.log("Selected value:", value);
+        setFinancing(value === "true"); 
     };
+    
+    useEffect(() => {
+        if (!financing) {
+            setDownPaymentReturn(1.00);
+        }
+    }, [financing]);
 
     const handleInterestRateChange = (value) => {
         setInterestRate(value);
-        setInterestRateReturn(interestDec / 100);
+        setInterestRateReturn(value / 100);
     };
 
     const handlePurchaseCostChange = (value) => {
-        const costFloat = parseFloat(value);
-        const costDec = costFloat / 100;
         setPurchaseCost(value);
-        setPurchaseCostReturn(costDec);
+        setPurchaseCostReturn(value / 100);
     };
 
     const handleDownPaymentChange = (value) => {
-        const downPayFloat = parseFloat(value);
-        const downPayDec = downPayFloat / 100;
         setDownPayment(value);
-        setDownPaymentReturn(downPayDec);
+        setDownPaymentReturn(value / 100);
     };
 
     const handleLoanTermChange = (value) => {
@@ -133,10 +171,8 @@ export default function PurchaseWorksheetPage() {
     };
 
     const handleVacancyRateChange = (value) => {
-        const vacancyRateFloat = parseFloat(value);
-        const vacancyRateDec = vacancyRateFloat / 100;
         setVacancyRate(value);
-        setVacancyRateReturn(vacancyRateDec);
+        setVacancyRateReturn(value / 100);
     };
 
     // Operating Expenses
@@ -149,24 +185,18 @@ export default function PurchaseWorksheetPage() {
     };
 
     const handlePropertyManagementChange = (value) => {
-        const propertyManagementFloat = parseFloat(value);
-        const propertyMangementDec = propertyManagementFloat / 100;
         setPropertyManagement(value);
-        setPropertyManagementReturn(propertyMangementDec);
+        setPropertyManagementReturn(value / 100);
     };
 
     const handleMaintenanceChange = (value) => {
-        const maintenanceFloat = parseFloat(value);
-        const maintenanceDec = maintenanceFloat / 100;
         setMaintenance(value);
-        setMaintenanceReturn(maintenanceDec);
+        setMaintenanceReturn(value / 100);
     };
 
     const handleCapexChange = (value) => {
-        const capexFloat = parseFloat(value);
-        const capexDec = capexFloat / 100;
         setCapex(value);
-        setCapexReturn(capexDec);
+        setCapexReturn(value / 100);
     };
 
     const handleHoaFeesChange = (value) => {
@@ -215,7 +245,7 @@ export default function PurchaseWorksheetPage() {
             console.log("Purchase worksheet data updated successfully.");
 
             await fetchExistingPurchaseWorksheet();
-            
+
         } catch (error) {
             console.error("Error updating purchase worksheet data:", error);
         }
@@ -245,15 +275,19 @@ export default function PurchaseWorksheetPage() {
                         />
                     </div>
                     <div>
-                        <label htmlFor="financing">Financing:</label>
-                        <select
-                            value={financing !== null ? financing.toString() : "false"}
-                            onChange={(e) => handleFinancingChange(e.target.value === "true")}
-                        >
-                            <option value="true">Yes</option>
-                            <option value="false">No</option>
-                        </select>
-                    </div>
+                    <label htmlFor="financing">Financing:</label>
+                    <select
+                        value={financing ? "true" : "false"}
+                        onChange={(e) => handleFinancingChange(e.target.value)}
+                    >
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+
+
+                </div>
+                {financing && ( 
+                <div>
                     <div>
                         <label htmlFor="interestRate">Interest Rate:</label>
                         <input
@@ -265,7 +299,7 @@ export default function PurchaseWorksheetPage() {
                     <div>
                         <label htmlFor="downPayment">Down Payment:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={downPayment || ""}
                             onChange={(e) => handleDownPaymentChange(e.target.value)}
                         /> <span>%</span>
@@ -278,10 +312,14 @@ export default function PurchaseWorksheetPage() {
                             onChange={(e) => handleLoanTermChange(e.target.value)}
                         /> <span>Years</span>
                     </div>
+                </div>
+            )}
+
+
                     <div>
                         <label htmlFor="purchaseCost">Purchase Cost:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={purchaseCost || ""}
                             onChange={(e) => handlePurchaseCostChange(e.target.value)}
                         /> <span>%</span>
@@ -289,7 +327,7 @@ export default function PurchaseWorksheetPage() {
                     <div>
                         <label htmlFor="rehabCost">Rehab Cost:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={rehabCost || ""}
                             onChange={(e) => handleRehabCostChange(e.target.value)}
                         />
@@ -306,7 +344,7 @@ export default function PurchaseWorksheetPage() {
                     <div>
                         <label htmlFor="vacancyRate">Vacancy Rate:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={vacancyRate || ""}
                             onChange={(e) => handleVacancyRateChange(e.target.value)}
                         /> <span>%</span>
@@ -331,7 +369,7 @@ export default function PurchaseWorksheetPage() {
                     <div>
                         <label htmlFor="propertyManagement">Property Management:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={propertyManagement || ""}
                             onChange={(e) => handlePropertyManagementChange(e.target.value)}
                         /> <span>%</span>
@@ -339,7 +377,7 @@ export default function PurchaseWorksheetPage() {
                     <div>
                         <label htmlFor="maintenance">Maintenance:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={maintenance || ""}
                             onChange={(e) => handleMaintenanceChange(e.target.value)}
                         /> <span>%</span>
@@ -347,7 +385,7 @@ export default function PurchaseWorksheetPage() {
                     <div>
                         <label htmlFor="capex">Cap Ex:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={capex || ""}
                             onChange={(e) => handleCapexChange(e.target.value)}
                         /> <span>%</span>
@@ -387,12 +425,24 @@ export default function PurchaseWorksheetPage() {
                     
                     <button type="submit">Save</button>
                 </form>
-                {/* {purchaseWorksheetData.completed && (
+                {purchaseWorksheetData.completed && (
                     <div>
                         <h2>Property Analysis</h2>
-                        {propertyAnalysis}
+                        <div>Cash Needed: ${cashNeeded}</div>
+                        <div>Cash Flow ${cashFlow}</div>
+                        <div>Cap Rate: {capRate}</div>
+                        <div>COC: {coc}</div>
+                        <div>LTV: {ltv}</div>
+                        <div>Amount Financed: {amountFinanced}</div>
+                        <div>Price/Sqft: {ppsqft}</div>
+                        <div>ARV/Sqft: {apsqft}</div>
+                        <div>NOI: {noi}</div>
+                        <div>Loan Payment P&I: {loanPayment}</div>
+                        <div>Purchase Cost: {purchaseCostCash}</div>
+                        <div>Down Payment: {downPaymentCash}</div>
+                        <div>Operating Income: {operatingIncome}</div>
                     </div>
-                )} */}
+                )}
                 </div>
                 
             ) : (
