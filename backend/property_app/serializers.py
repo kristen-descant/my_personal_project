@@ -29,7 +29,7 @@ class PurchaseWorksheetSerializer(serializers.ModelSerializer):
                   'rehab_cost', 'vacancy_rate', 'operating_expenses', 'property_analysis']
         
     def get_matching_property(self, obj):
-        return obj.matching_property.street
+        return obj.matching_property.address
     
     def update(self, instance, validated_data):
         operating_expenses_data = validated_data.pop('operating_expenses', None)
@@ -51,7 +51,7 @@ class PropertySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Property
-        fields = ['id', 'property_image', 'street', 'city', 'state',
+        fields = ['id', 'address',
                   'beds', 'baths', 'sqft', 'details', 'portfolio', 'list_of_properties',
                   'purchase_worksheet', 'list_of_properties']
 

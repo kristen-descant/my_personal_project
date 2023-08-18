@@ -107,6 +107,7 @@ ul {
   width: 100%;
 }
 .aProperty {
+  display: flex;
   position: absolute;
   left: 20vw;
   top: 15vh;
@@ -114,6 +115,7 @@ ul {
   border: solid black 1px;
   height: 70vh;
   width: 60vw;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

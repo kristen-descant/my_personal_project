@@ -14,8 +14,7 @@ class Rent(UserPermissions):
         APIKEY = env.get('apikey')
 
         a_property = Property.objects.get(id=propid)
-        address = a_property.get_full_address()
-
+        address = a_property.address
         endpoint = 'https://www.rentometer.com/api/v1/summary'
 
         params = {

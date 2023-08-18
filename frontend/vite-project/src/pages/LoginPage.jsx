@@ -12,21 +12,23 @@ export default function LoginPage(props) {
     const [verifyPassword, setVerifyPassword] = useState("");
 
     const signin = async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    let response = await api.post("users/login/", {
-        email: email,
-        password: password,
-    });
+        let response = await api.post("users/login/", {
+            email: email,
+            password: password,
+        });
 
-    let user = response.data.user;
-    let token = response.data.token;
-    // Store the token securely (e.g., in localStorage or HttpOnly cookies)
-    localStorage.setItem("token", token);
-    api.defaults.headers.common["Authorization"] = `Token ${token}`;
-    // set the user using with useContext to allow all other pages that need user information
-    setUser(user);
-    navigate("/");
+        let user = response.data.user;
+        let token = response.data.token;
+        // Store the token securely (e.g., in localStorage or HttpOnly cookies)
+        localStorage.setItem("token", token);
+        api.defaults.headers.common["Authorization"] = `Token ${token}`;
+        // set the user using with useContext to allow all other pages that need user information
+        setUser(user);
+        
+        navigate("/");
+    
     };
 
     return (
