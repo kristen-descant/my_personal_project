@@ -24,6 +24,8 @@ export default function PropertyOverviewPage() {
     const [isInList, setIsInList] = useState(false);
     const [selectedListId, setSelectedListId] = useState(null);
     const [userLists, setUserLists] = useState([]);
+    const [isNewList, setIsNewList] = useState(false);
+    const [newListName, setNewListName] = useState("");
 
     useEffect(() => {
         setPageDescrip('Property');
@@ -91,12 +93,34 @@ export default function PropertyOverviewPage() {
     getUserLists();
   }, [user]);
     
-    const handleListSelection = (listId) => {
-      setSelectedListId(listId);
-    };
+  const handleListSelection = (selectedValue) => {
+    if (selectedValue === "new-list") {
+      setIsNewList(true);
+    } else {
+      setSelectedListId(selectedValue);
+      setIsNewList(false);
+    }
+  };
+  
 
   const handleAddToList = async () => {
-    if (selectedListId) {
+
+    if (isNewList && newListName !== '') {
+      try {
+        const response = await api.post('properties/lists/', {
+          list_name: newListName,
+        });
+        
+        const listId = response.data.id
+        const addProperty = await api.put(`properties/add/property/${propertyId}/lists/${listId}/`)
+
+        setIsNewList(false)
+
+      } catch(error) {
+        console.log(error)
+      }
+    }
+    else if (selectedListId) {
       try {
         const response = await api.put(`properties/add/property/${propertyId}/lists/${selectedListId}/`)
 
@@ -109,7 +133,7 @@ export default function PropertyOverviewPage() {
     const getImage = async () => {
       if (property !== null){
         try {
-          const response = await api.get(`map/propertyimage/${encodeURIComponent(address)}`, {
+          const response = await api.get(`map/propertyimage/${encodeURIComponent(address)}/200x200/`, {
               responseType: 'blob', // Set response type to 'blob'
           });
           
@@ -146,19 +170,31 @@ export default function PropertyOverviewPage() {
   
               <div>
                 <button onClick={handleAddToList}>Add to List</button>
-                {userLists.length > 0 && (
-                  <select
-                    value={selectedListId ? selectedListId : ''}
-                    onChange={(e) => handleListSelection(e.target.value)}
-                  >
-                    <option value="">Select a List</option>
-                    {userLists.map((list) => (
-                      <option key={list.id} value={list.id}>
-                        {list.list_name}
-                      </option>
-                    ))}
-                  </select>
+                {isNewList ? (
+                  <>
+                  <input
+                    type="text"
+                    placeholder="New List Name"
+                    value={newListName}
+                    onChange={(e) => setNewListName(e.target.value)}
+                  />
+                  <button onClick={() => setIsNewList(false)}>Existing List</button>
+                  </>
+                ) : (
+                <select
+                  value={selectedListId ? selectedListId : ""}
+                  onChange={(e) => handleListSelection(e.target.value)}
+                >
+                  <option value="">Select a List</option>
+                  {userLists.map((list) => (
+                    <option key={list.id} value={list.id}>
+                      {list.list_name}
+                    </option>
+                  ))}
+                  <option value="new-list">Create New List</option>
+                </select>
                 )}
+
               </div>
 
           </div>

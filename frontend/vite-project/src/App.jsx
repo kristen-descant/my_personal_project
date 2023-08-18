@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 function App() {
 
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [properties, setProperties] = useState(null);
   const [pageDescrip, setPageDescrip] = useState('pagedescrip');
   const [selectedPoperty, setSelectedPropety] = useState(null);
@@ -94,6 +95,8 @@ function App() {
         setSelectedPropety,
         user,
         setUser,
+        userId,
+        setUserId,
         isDropdownOpen, 
         setIsDropdownOpen}
       }/>

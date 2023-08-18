@@ -131,3 +131,7 @@ ul {
   top: 35vh;
   left: 35vw;
 }
+
+.pwdivs {
+  display: flex;
+}

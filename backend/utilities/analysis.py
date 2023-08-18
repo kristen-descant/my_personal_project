@@ -1,4 +1,5 @@
 from property_app.models import Property_Analysis, Property
+from decimal import Decimal
 
 def calculate_analysis(purchase_worksheet):
 
@@ -29,11 +30,39 @@ def calculate_analysis(purchase_worksheet):
     cap_rate = (noi*12)/pw.purchase_price
     coc = (noi*12)/cash_needed
 
-    property_analysis = Property_Analysis(cash_needed=cash_needed, cash_flow=cash_flow, cap_rate=cap_rate,
-                                          coc=coc, ltv=ltv, amount_financed=amount_financed,
-                                          loan_payment=loan_payment, pricepersqft=pricepersqft,
-                                          arvpersqft=arvpersqft, noi=noi, purchase_cost_cash=purchase_cost_cash,
-                                          down_payment_cash=down_payment_cash, operating_income=operating_income)
+    cash_needed = round(cash_needed, 2)
+    cash_flow = round(cash_flow, 2)
+    cap_rate = round(cap_rate, 2)
+    coc = round(coc, 2)
+    ltv = round(ltv, 2)
+    amount_financed = round(amount_financed, 2)
+    loan_payment = round(loan_payment, 2)
+    pricepersqft = round(pricepersqft, 2)
+    arvpersqft = round(arvpersqft, 2)
+    noi = round(noi, 2)
+    purchase_cost_cash = round(purchase_cost_cash, 2)
+    down_payment_cash = round(down_payment_cash, 2)
+    operating_income = round(operating_income, 2)
+
+    property_analysis = Property_Analysis.objects.get(matching_purchase_worksheet=purchase_worksheet)
+    property_analysis.cash_needed = Decimal(cash_needed)
+    property_analysis.cash_flow = Decimal(cash_flow)
+    property_analysis.cap_rate = Decimal(cap_rate)
+    property_analysis.coc = Decimal(coc)
+    property_analysis.ltv = Decimal(ltv)
+    property_analysis.amount_financed = Decimal(amount_financed)
+    property_analysis.loan_payment = Decimal(loan_payment)
+    property_analysis.pricepersqft = Decimal(pricepersqft)
+    property_analysis.arvpersqft = Decimal(arvpersqft)
+    property_analysis.noi = Decimal(noi)
+    property_analysis.purchase_cost_cash = Decimal(purchase_cost_cash)
+    property_analysis.down_payment_cash = Decimal(down_payment_cash)
+    property_analysis.operating_income = Decimal(operating_income)
+    property_analysis.full_clean()
     property_analysis.save()
-    
-    return property_analysis
+
+
+
+
+
+

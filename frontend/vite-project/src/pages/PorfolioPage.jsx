@@ -1,5 +1,5 @@
 import { api } from "./utilities.jsx";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 import ListComp from "../components/ListComp.jsx";
@@ -30,14 +30,11 @@ export default function PortfolioPage() {
             getPortfolio();
           }, [user]);
 
-  const handlePropertyClick = (propertyId) => {
-
-      navigate(`/property/${propertyId}`);
-    };
-
       return (
         <>
+        {properties && 
           <ListComp properties={properties}/>
+        }
         </>
       );   
 }

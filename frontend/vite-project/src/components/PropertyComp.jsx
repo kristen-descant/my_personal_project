@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function PropertyComp(props) {
   
     const {address, newPropertyImage, beds, baths, sqft,

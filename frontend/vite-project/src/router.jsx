@@ -7,6 +7,7 @@ import PropertyOverviewPage from "./pages/PropertyOverviewPage";
 import AddPropertyPage from "./pages/AddPropertyPage";
 import ListsPropertiesPage from "./pages/ListsPropertiesPage";
 import AListPropertiesPage from "./pages/AListPropertiesPage";
+import PurchaseWorksheetPage from "./pages/PurchaseWorksheetPage";
 // import HomePage from "./components/HomePage";
 // import AboutPage from "./components/AboutPage";
 // import ContactUsPage from "./components/ContactUsPage";
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "lists/:listId",
         element: <AListPropertiesPage/>
+      },
+      {
+        path: "purchaseworksheet/:propertyId",
+        element: <PurchaseWorksheetPage/>
       }
     ],
   },

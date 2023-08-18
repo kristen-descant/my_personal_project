@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api } from "./utilities";
 import { useOutletContext, useParams } from "react-router-dom";
 import ListComp from "../components/ListComp";
