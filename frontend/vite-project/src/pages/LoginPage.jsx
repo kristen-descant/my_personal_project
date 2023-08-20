@@ -12,25 +12,35 @@ export default function LoginPage(props) {
     const [verifyPassword, setVerifyPassword] = useState("");
 
     const signin = async (e) => {
-        e.preventDefault();
+        try {
+            e.preventDefault();
 
-        let response = await api.post("users/login/", {
-            email: email,
-            password: password,
-        });
+            const lowercaseEmail = email.toLowerCase(); // Convert email to lowercase
+            let response = await api.post("users/login/", {
+                email: lowercaseEmail, // Use the lowercase email
+                password: password,
+            });
 
-        let user = response.data.user;
-        let userid = response.data.id;
-        let token = response.data.token;
-        // Store the token securely (e.g., in localStorage or HttpOnly cookies)
-        localStorage.setItem("token", token);
-        api.defaults.headers.common["Authorization"] = `Token ${token}`;
-        // set the user using with useContext to allow all other pages that need user information
-        setUser(user);
-        setUserId(userid)
-        navigate("/");
-    
-    };
+            let user = response.data.user;
+            let userid = response.data.id;
+            let token = response.data.token;
+            // Store the token securely (e.g., in localStorage or HttpOnly cookies)
+            localStorage.setItem("token", token);
+            api.defaults.headers.common["Authorization"] = `Token ${token}`;
+            // set the user using with useContext to allow all other pages that need user information
+            setUser(user);
+            setUserId(userid)
+            navigate("/");
+        } catch(error) {
+            console.log(error);
+            if (error.response && error.response.data) {
+                const errorMessage = error.response.data;
+                alert(errorMessage); // Display the error message in an alert
+            }
+
+        };
+        
+        };
 
     useEffect(() => {
         console.log(userId)

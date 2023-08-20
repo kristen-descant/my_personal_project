@@ -12,6 +12,10 @@ export default function SignupPage() {
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
 
+    // Regular expression for email validation
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
     const signin = async (e) => {
         e.preventDefault();
 
@@ -20,8 +24,19 @@ export default function SignupPage() {
             return;
         }
 
+        if (!password.match(passwordRegex)) {
+            window.alert("Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character (e.g., @$!%*?&).");
+            return;
+        }
+
+        if (!email.match(emailRegex)) {
+            window.alert("Invalid email format!");
+            return;
+        }
+
+        const lowercaseEmail = email.toLowerCase(); // Convert email to lowercase
         let response = await api.post("users/signup/", {
-            email: email,
+            email: lowercaseEmail, // Use the lowercase email
             password: password,
         });
 
@@ -48,6 +63,7 @@ export default function SignupPage() {
             signin={signin}/>
             :
             navigate('/')}
+            <p>Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character @$!%*?&.</p>
         </>
     )
 }
