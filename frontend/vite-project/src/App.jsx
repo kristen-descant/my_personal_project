@@ -6,6 +6,7 @@ import NavbarComp from './components/NavbarComp';
 import { useNavigate} from "react-router-dom";
 import { useRef } from 'react';
 import { useLocation } from "react-router-dom";
+import DropdownButton from './components/DropdownButtonComp';
 
 
 function App() {
@@ -63,19 +64,7 @@ function App() {
       <header>
         <p>logo</p>
         <p>{pageDescrip}</p>
-        <p onClick={() => setIsDropdownOpen(!isDropdownOpen)}>Options</p>
-        {isDropdownOpen && (
-                <div className='dropdown-content'>
-                  <button onClick={() => {
-                    localStorage.removeItem('token');
-                    setUser(null);
-                    navigate('login');
-                  }}>
-                    Logout
-                  </button>
-                  <Link to='/settings'>Settings</Link>
-                  </div>
-        )}
+        <DropdownButton setUser={setUser} />
       </header>
       </div>
     </>

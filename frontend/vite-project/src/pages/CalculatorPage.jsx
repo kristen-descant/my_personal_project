@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useOutletContext } from "react-router";
 
 export default function CaclculatorPage() {
+    const {setPageDescrip} = useOutletContext();
     const [purchasePrice, setPurchasePrice] = useState(null);
     const [financing, setFinancing] = useState(true);
     const [interestRate, setInterestRate] = useState("");
@@ -26,6 +28,10 @@ export default function CaclculatorPage() {
     const [purchaseCostReturn, setPurchaseCostReturn] = useState(null);
     const [downPaymentCash, setDownPaymentCash] = useState(null);
     const [operatingIncome, setOperatingIncome] = useState(null);
+
+    useEffect(() => {
+        setPageDescrip('Calculator')
+    }, []);
 
     const calculateLoanPayment = (amountFinanced, interestRateReturn, loanTerm) => {
         let monthly_interest_rate = interestRateReturn / 12 / 100;

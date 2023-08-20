@@ -9,9 +9,7 @@ import ListsPropertiesPage from "./pages/ListsPropertiesPage";
 import AListPropertiesPage from "./pages/AListPropertiesPage";
 import PurchaseWorksheetPage from "./pages/PurchaseWorksheetPage";
 import CaclculatorPage from "./pages/CalculatorPage";
-// import HomePage from "./components/HomePage";
-// import AboutPage from "./components/AboutPage";
-// import ContactUsPage from "./components/ContactUsPage";
+import UserSettingsPage from "./pages/UserSettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "calculator",
         element: <CaclculatorPage/>
+      },
+      {
+        path: "settings",
+        element: <UserSettingsPage/>
       }
     ],
   },

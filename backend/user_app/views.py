@@ -56,6 +56,7 @@ class User_Settings(UserPermissions):
 
         if new_email:
             user.email = new_email
+            user.save()
         if old_password and new_password:
             if check_password(old_password, user.password):
                 user.set_password(new_password)
@@ -63,5 +64,5 @@ class User_Settings(UserPermissions):
             else:
                 return Response("Old password does not match", status=HTTP_401_UNAUTHORIZED)
         
-        return Response({"user": request.user.email}, status=HTTP_204_NO_CONTENT)
+        return Response({"user": request.user.email})
     
