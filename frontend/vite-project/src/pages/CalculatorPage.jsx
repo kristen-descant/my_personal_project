@@ -65,23 +65,6 @@ export default function CaclculatorPage() {
           };
         };
 
-    useEffect(() => {
-    const analysisResults = calculateAnalysis();
-    // Update the state with the calculated values
-    setLtv(analysisResults.calculatedLtv);
-    setAmountFinanced(analysisResults.calculatedAmountFinanced.toFixed(2));
-    setDownPaymentCash(analysisResults.calculatedDownPaymentCash.toFixed(2));
-    setPurchaseCostCash(analysisResults.calculatedPurchaseCostCash.toFixed(2));
-    setCashNeeded(analysisResults.calculatedCashNeeded.toFixed(2));
-    setOperatingIncome(analysisResults.calculatedOperatingIncome.toFixed(2));
-    setNoi(analysisResults.calculatedNoi.toFixed(2));
-    setLoanPayment(analysisResults.calculatedLoanPayment.toFixed(2));
-    setCashflow(analysisResults.calculatedCashflow.toFixed(2));
-    setCapRate(analysisResults.calculatedCapRate);
-    setCoc(analysisResults.calculatedCoc);
-    console.log(downPayment)
-  }, [calculateAnalysis]);
-
     const handlePurchasePriceChange = (value) => {
         setPurchasePrice(value);
     };
@@ -138,10 +121,23 @@ export default function CaclculatorPage() {
     return (
         <>
         <div className="aProperty">
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                calculateAnalysis(amountFinanced, loanTerm, interestRate)
-            }}>
+        <form onSubmit={(e) => {
+            e.preventDefault();
+            const analysisResults = calculateAnalysis();
+            // Update the state with the calculated values
+            setLtv(analysisResults.calculatedLtv);
+            setAmountFinanced(analysisResults.calculatedAmountFinanced.toFixed(2));
+            setDownPaymentCash(analysisResults.calculatedDownPaymentCash.toFixed(2));
+            setPurchaseCostCash(analysisResults.calculatedPurchaseCostCash.toFixed(2));
+            setCashNeeded(analysisResults.calculatedCashNeeded.toFixed(2));
+            setOperatingIncome(analysisResults.calculatedOperatingIncome.toFixed(2));
+            setNoi(analysisResults.calculatedNoi.toFixed(2));
+            setLoanPayment(analysisResults.calculatedLoanPayment.toFixed(2));
+            setCashflow(analysisResults.calculatedCashflow.toFixed(2));
+            setCapRate(analysisResults.calculatedCapRate);
+            setCoc(analysisResults.calculatedCoc);
+        }}>
+
                     <h2>Purchase Expenses</h2>
                     <div>
                         <label htmlFor="purchase_price">Purchase Price:</label>
