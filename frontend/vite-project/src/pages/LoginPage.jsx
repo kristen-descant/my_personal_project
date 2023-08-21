@@ -48,21 +48,24 @@ export default function LoginPage(props) {
         };
 
     useEffect(() => {
-        console.log(userId)
-
-    }, [userId])
+        if (user) {
+            navigate('/')
+        }
+    }, [])
 
     return (
         <>
-            {!user ?
+        <div className="ml-8 mr-8 p-5 bg-white shadow-lg rounded-md">
+            {!user &&
             <RegisterComp 
             includeVerifyPassword={false}
             setEmail={setEmail}
             setPassword={setPassword}
             setVerifyPassword={setVerifyPassword}
-            signin={signin}/>
-            :
-            navigate('/')}
+            signin={signin}
+            isSignUp={isSignUp}/>
+            }
+        </div>
         </>
     )
     

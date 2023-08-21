@@ -5,7 +5,7 @@ export default function RentComp(props) {
 
     return (
         <>
-            <h4>Rent Data:</h4>
+            <h4 className="font-bold">Rent Data:</h4>
             <div>
                 <p>Max Rent:</p>
                 {max}

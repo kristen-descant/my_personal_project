@@ -6,6 +6,14 @@ export default function ListComp(prop) {
   const navigate = useNavigate();
   const { properties } = prop;
   const [propertyImages, setPropertyImages] = useState({});
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  const handleImageLoad = () => {
+    const allImagesLoaded = properties.every(property => property.imageLoaded);
+    if (allImagesLoaded) {
+      setImagesLoaded(true);
+    }
+  };
 
   // Navigate to page overview of specific porperty
   const handlePropertyClick = (propertyId) => {
@@ -34,25 +42,34 @@ export default function ListComp(prop) {
 
   useEffect(() => {
     getListImages();
+    // console.log(properties)
   }, [properties]);
 
   return (
-    <div className="">
       <ul>
         {properties &&
           properties.map((property) => (
-            <li className="shadow-md m-2 flex flex-row justify-between" key={property.id} onClick={() => handlePropertyClick(property.id)}>
-              <img src={propertyImages[property.id]} alt="property" />
+            <li className="shadow-md m-2 flex flex-row justify-between hover:bg-slate-400 rounded-md" key={property.id} onClick={() => handlePropertyClick(property.id)}>
+              <div className="overflow-hidden">
+                {propertyImages[property.id] ? ( // Check if the image has loaded
+                  <img src={propertyImages[property.id]} alt="property" className="object-cover w-full h-full rounded-md" onLoad={handleImageLoad} />
+                ) : (
+                  <div className="w-full h-full bg-gray-300 animate-pulse"></div>
+                )}
+              </div>
               <div className="flex flex-col justify-between ml-2 mr-2">
-              <div>
+              <div className="text-right">
               {property.address}
               </div>
-              <div>
-
+              <div className="flex justify-between">
+                  <div>Cash Flow: {property.purchase_worksheet.property_analysis.cash_flow}</div>  
+                  <div>COC: {property.purchase_worksheet.property_analysis.coc} </div> 
+                  <div>Cap Rate: {property.purchase_worksheet.property_analysis.cap_rate}</div>
               </div>
               <div className="flex justify-end">
               {/* Navigate to the property's purchase worksheet page */}
               <button
+              className="shadow-md mb-2 hover:bg-blue-200 rounded "
               onClick={(e) => {
                 e.stopPropagation(); // Stop event propagation
                 navigate(`/purchaseworksheet/${property.id}`);
@@ -65,6 +82,6 @@ export default function ListComp(prop) {
             </li>
           ))}
       </ul>
-    </div>
+
   );
 }

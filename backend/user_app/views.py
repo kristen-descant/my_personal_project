@@ -7,7 +7,8 @@ from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_404_NOT_FOUND,
     HTTP_204_NO_CONTENT,
-    HTTP_401_UNAUTHORIZED
+    HTTP_401_UNAUTHORIZED,
+    HTTP_400_BAD_REQUEST
 )
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import check_password
@@ -20,13 +21,17 @@ class Get_User(UserPermissions):
 
 class Sign_Up(APIView):
     def post(self, request):
-        request.data['username'] = request.data.get('email')
-        user = User.objects.create_user(**request.data)
-        token = Token.objects.create(user=user)
-        portfolio = Portfolio.objects.create(user=user)
-        return Response(
-            {'user': user.email, 'token': token.key}, status=HTTP_201_CREATED
-        )
+        email = request.data.get('email')
+        if User.objects.filter(email=email).exists():
+            return Response('An account with this email already exists.', status=HTTP_400_BAD_REQUEST)
+        else:
+            request.data['username'] = email
+            user = User.objects.create_user(**request.data)
+            token = Token.objects.create(user=user)
+            portfolio = Portfolio.objects.create(user=user)
+            return Response(
+                {'user': user.email, 'token': token.key}, status=HTTP_201_CREATED
+            )
 
     
 class Log_In(APIView):

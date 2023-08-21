@@ -72,7 +72,7 @@ function App() {
               <div className="dropdown-container">
                 {/* Button that can toggle between open and close */}
                 
-                <button className="dropdown-button w-10 h-10" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
+                <button className="dropdown-button w-10 h-10 mb-2" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
                   |||
                 </button>
               </div>
@@ -80,10 +80,10 @@ function App() {
             {/* If open show options for logout and settings */}
             {isDropdownOpen && (
                   <div onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)} className="dropdown-content container mx-auto flex flex-col h-16 w-16 items-end ml-5 mr-1 pl-5 pr-0 absolute right-0 top-10">
-                    <div>
+                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-blue-200">
                       <button onClick={handleLogout}>Logout</button><br />
                     </div>
-                    <div>
+                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-blue-200">
                       <Link to="settings">Settings</Link>
                     </div>
                   </div>
@@ -105,6 +105,8 @@ function App() {
                     setUserId,
                     isDropdownOpen,
                     setIsDropdownOpen,
+                    isSignUp,
+                    setIsSignUp
                   }}
                 />
               </div>
@@ -113,11 +115,7 @@ function App() {
         ) :
          (
           <div className='h-screen flex flex-col justify-center items-center'>
-          <div className='mb-3 '>
-            {isSignUp ? 
-            <div>Create an account or <Link className="border-b border-gray-500" to="login">Log In</Link></div> :
-            <div>Enter credentials or <Link className="border-b border-gray-500" to="signup">Sign Up</Link></div> }
-          </div>
+          
         <Outlet 
             context={{
               user,
@@ -125,7 +123,9 @@ function App() {
               userId,
               setUserId,
               isSignUp,
-              setIsSignUp
+              setIsSignUp,
+              pageDescrip,
+              setPageDescrip,
             }}
           />
           </div>

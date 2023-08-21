@@ -160,48 +160,49 @@ export default function PropertyOverviewPage() {
     }, [property]);
 
       return (
-        <div className="aProperty">
+        <div className="w-screen mr-8">
           <div>
         <PropertyComp address={address} newPropertyImage={newPropertyImage}
         beds={beds} baths={baths} sqft={sqft} max={max} mean={mean} median={median}
          min={min} details={details} />
          </div>
-        <div>
-            <button onClick={handlePortfolioToggle}>
+        <div className="mt-8 text-center w-3/4">
+          <div className="shadow-md mb-5 bg-slate-400 rounded-md text-center">
+            <button className="hover:bg-blue-200 rounded" onClick={handlePortfolioToggle}>
                     {isInPortfolio ? "Remove from Portfolio" : "Add to Portfolio"}
             </button>
-  
-              <div>
-                <button onClick={handleAddToList}>Add to List</button>
-                {isNewList ? (
-                  <>
-                  <input
-                    type="text"
-                    placeholder="New List Name"
-                    value={newListName}
-                    onChange={(e) => setNewListName(e.target.value)}
-                  />
-                  <button onClick={() => setIsNewList(false)}>Existing List</button>
-                  </>
-                ) : (
-                <select
-                  value={selectedListId ? selectedListId : ""}
-                  onChange={(e) => handleListSelection(e.target.value)}
-                >
-                  <option value="">Select a List</option>
-                  {userLists.map((list) => (
-                    <option key={list.id} value={list.id}>
-                      {list.list_name}
-                    </option>
-                  ))}
-                  <option value="new-list">Create New List</option>
-                </select>
-                )}
-
-              </div>
+          </div>
+          <div className="shadow-md mb-5 bg-slate-400 rounded-md text-center">
+            <button  className="mr-3 hover:bg-blue-200 rounded" onClick={handleAddToList}>Add to List</button>
+            {isNewList ? (
+              <>
+              <input
+                type="text"
+                placeholder="New List Name"
+                value={newListName}
+                onChange={(e) => setNewListName(e.target.value)}
+              />
+              <button className="ml-3 hover:bg-blue-200 rounded" onClick={() => setIsNewList(false)}>Choose Existing List</button>
+              </>
+            ) : (
+            <select
+              value={selectedListId ? selectedListId : ""}
+              onChange={(e) => handleListSelection(e.target.value)}
+            >
+              <option value="">Select a List</option>
+              {userLists.map((list) => (
+                <option key={list.id} value={list.id}>
+                  {list.list_name}
+                </option>
+              ))}
+              <option value="new-list">Create New List</option>
+            </select>
+            )}
 
           </div>
+
         </div>
+      </div>
       );
 
     

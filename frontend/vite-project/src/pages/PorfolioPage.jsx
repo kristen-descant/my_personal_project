@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 import ListComp from "../components/ListComp.jsx";
 
+
 export default function PortfolioPage() {
 
   const {properties, setProperties, setPageDescrip, user} = useOutletContext()
@@ -31,11 +32,16 @@ export default function PortfolioPage() {
           }, [user]);
 
       return (
-        <div className="mt-10">
-        {properties && (properties.length > 0 ?
-          (<ListComp properties={properties}/>) :
-          (<p>Add properties to your portfolio.</p>))
-        }
+        <>
+        <div className="mt-4 w-screen flex flex-row ">
+          <div className="w-3/4 pl-8">
+            {properties && (properties.length > 0 ?
+              (<ListComp properties={properties}/>) :
+              (<p>Add properties to your portfolio.</p>))
+            }
+          </div>
+        
         </div>
+        </>
       );   
 }
