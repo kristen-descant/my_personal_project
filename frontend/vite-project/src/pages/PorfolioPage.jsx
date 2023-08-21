@@ -31,10 +31,11 @@ export default function PortfolioPage() {
           }, [user]);
 
       return (
-        <>
-        {properties && 
-          <ListComp properties={properties}/>
+        <div className="mt-10">
+        {properties && (properties.length > 0 ?
+          (<ListComp properties={properties}/>) :
+          (<p>Add properties to your portfolio.</p>))
         }
-        </>
+        </div>
       );   
 }

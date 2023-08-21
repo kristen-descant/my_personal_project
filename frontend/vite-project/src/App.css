@@ -107,12 +107,25 @@ ul {
   width: 100%;
 }
 .aProperty {
-
   display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   left: 20vw;
   top: 15vh;
+  border: solid black 1px;
+  height: 70vh;
+  width: 60vw;
+
+}
+
+.aCalculator {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  left: 20vw;
+  top: 15vh;
   border: solid black 1px;
   height: 70vh;
   width: 60vw;

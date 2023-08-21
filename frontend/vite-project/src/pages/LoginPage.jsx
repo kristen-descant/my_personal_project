@@ -10,6 +10,11 @@ export default function LoginPage(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
+    const {isSignUp, setIsSignUp} = useOutletContext();
+
+    useEffect(() => {
+        setIsSignUp(false);
+    }, []);
 
     const signin = async (e) => {
         try {

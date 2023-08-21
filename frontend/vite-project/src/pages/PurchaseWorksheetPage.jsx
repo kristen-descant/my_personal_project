@@ -253,15 +253,16 @@ useEffect(() => {
 
 
     return (
-        <div className='aProperty'>
+        <div >
             {purchaseWorksheetData !== null ? (
-                <div>
+                <div className='aCalculator'>
+                    <div>
                 <form onSubmit={handleSubmit}>
                     <h2>Purchase Expenses</h2>
                     <div>
                         <label htmlFor="purchase_price">Purchase Price:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={purchasePrice || ""}
                             onChange={(e) => handlePurchasePriceChange(e.target.value)}
                         />
@@ -269,7 +270,7 @@ useEffect(() => {
                     <div>
                         <label htmlFor="arv">After Repair Value:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={arv || ""}
                             onChange={(e) => handleArvChange(e.target.value)}
                         />
@@ -307,7 +308,7 @@ useEffect(() => {
                     <div>
                         <label htmlFor="loanTerm">Loan Term:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={loanTerm || ""}
                             onChange={(e) => handleLoanTermChange(e.target.value)}
                         /> <span>Years</span>
@@ -336,7 +337,7 @@ useEffect(() => {
                     <div>
                         <label htmlFor="grossRent">Gross Rent:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={grossRent || ""}
                             onChange={(e) => handleGrossRentChange(e.target.value)}
                         />
@@ -353,7 +354,7 @@ useEffect(() => {
                     <div>
                         <label htmlFor="propertyTaxes">Property Taxes:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={propertyTaxes || ""}
                             onChange={(e) => handlePropertyTaxesChange(e.target.value)}
                         />
@@ -361,7 +362,7 @@ useEffect(() => {
                     <div>
                         <label htmlFor="insurance">Insurance:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={insurance || ""}
                             onChange={(e) => handleInsuranceChange(e.target.value)}
                         />
@@ -393,7 +394,7 @@ useEffect(() => {
                     <div>
                         <label htmlFor="hoaFees">HOA Fees:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={hoaFees || ""}
                             onChange={(e) => handleHoaFeesChange(e.target.value)}
                         />
@@ -401,7 +402,7 @@ useEffect(() => {
                     <div>
                         <label htmlFor="utilities">Utilities:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={utilities || ""}
                             onChange={(e) => handleUtilitiesChange(e.target.value)}
                         />
@@ -409,7 +410,7 @@ useEffect(() => {
                     <div>
                         <label htmlFor="landscaping">Landscaping:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={landscaping || ""}
                             onChange={(e) => handleLanscapingChange(e.target.value)}
                         />
@@ -417,7 +418,7 @@ useEffect(() => {
                     <div>
                         <label htmlFor="otherexp">Other Expenses:</label>
                         <input
-                            type="text"
+                            type="number"
                             value={otherexp || ""}
                             onChange={(e) => handleOtherExpensesChange(e.target.value)}
                         />
@@ -425,6 +426,8 @@ useEffect(() => {
                     
                     <button type="submit">Save</button>
                 </form>
+                </div>
+                <div>
                 {purchaseWorksheetData.completed && (
                     <div>
                         <h2>Property Analysis</h2>
@@ -443,6 +446,7 @@ useEffect(() => {
                         <div>Operating Income: {operatingIncome}</div>
                     </div>
                 )}
+                </div>
                 </div>
                 
             ) : (

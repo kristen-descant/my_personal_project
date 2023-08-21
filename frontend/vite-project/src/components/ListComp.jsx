@@ -7,10 +7,11 @@ export default function ListComp(prop) {
   const { properties } = prop;
   const [propertyImages, setPropertyImages] = useState({});
 
+  // Navigate to page overview of specific porperty
   const handlePropertyClick = (propertyId) => {
     navigate(`/property/${propertyId}`);
   };
-
+  // Fetch an image for each porperty in the list
   const getListImages = async () => {
     try {
       for (const property of properties) {
@@ -35,27 +36,32 @@ export default function ListComp(prop) {
     getListImages();
   }, [properties]);
 
-  // console.log(properties[0].purchase_worksheet.property_analysis)
-
   return (
-    <div className="portfolioList">
+    <div className="">
       <ul>
         {properties &&
           properties.map((property) => (
-            <li key={property.id} onClick={() => handlePropertyClick(property.id)}>
+            <li className="shadow-md m-2 flex flex-row justify-between" key={property.id} onClick={() => handlePropertyClick(property.id)}>
               <img src={propertyImages[property.id]} alt="property" />
+              <div className="flex flex-col justify-between ml-2 mr-2">
               <div>
-              
+              {property.address}
+              </div>
+              <div>
+
+              </div>
+              <div className="flex justify-end">
+              {/* Navigate to the property's purchase worksheet page */}
               <button
               onClick={(e) => {
                 e.stopPropagation(); // Stop event propagation
                 navigate(`/purchaseworksheet/${property.id}`);
               }}
             >
-              purchase worksheet
+              Purchase Worksheet
             </button>
+            </div>
               </div>
-              {property.address}
             </li>
           ))}
       </ul>

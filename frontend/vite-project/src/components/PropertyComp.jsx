@@ -1,12 +1,16 @@
 import React from "react";
+import RentComp from "./RentComp";
 
 export default function PropertyComp(props) {
   
     const {address, newPropertyImage, beds, baths, sqft,
     max, mean, median, min, details} = props;
 
+    console.log(max)
+
     return (
        <>
+       <div className="propertyCard"> 
           <p>{address}</p><br />
           <div>
             <img src={newPropertyImage} alt="" />
@@ -15,11 +19,12 @@ export default function PropertyComp(props) {
             <p>Beds: {beds} Baths: {baths} Sqft: {sqft}</p>
           </div>
           <div>
-            <p>Max Rent: {max} Mean: {mean} Median: {median} Min: {min}</p>
+            <RentComp max={max} mean={mean} median={median} min={min} />
           </div>
           <div>
             {details}
           </div>
+        </div>
         </>
     )
 }

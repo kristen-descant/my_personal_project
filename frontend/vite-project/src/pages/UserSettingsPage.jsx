@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api } from "./utilities";
 import { useOutletContext } from "react-router";
 
 export default function UserSettingsPage() {
-    const {user} = useOutletContext();
+    const {user, setPageDescrip} = useOutletContext();
     const [newEmail, setNewEmail] = useState("");
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
+
+    useEffect(() => {
+        setPageDescrip('Settings')
+    })
 
     const updateUserInfo = async (e) => {
 
@@ -40,22 +44,21 @@ export default function UserSettingsPage() {
 
     return (
         <>
-            <div className="aProperty">
-                <h3>Update Information</h3>
+            <div className="flex flex-col justify-evenly text-center ml-20 pl-20 mt-20">
                 <form onSubmit={updateUserInfo} >
-                    <div>
+                    <div className="text-right m-2">
                         <label htmlFor="newEmail">New Email:</label>
                         <input type="text" value={newEmail} onChange={handleEmailChange} />
                     </div>
-                    <div>
+                    <div className="text-right m-2">
                         <label htmlFor="oldPassword">Old Password:</label>
                         <input type="password" value={oldPassword} onChange={handleOldPasswordChange} />
                     </div>
-                    <div>
+                    <div className="text-right m-2">
                         <label htmlFor="newPassword">New Password:</label>
                         <input type="password" value={newPassword} onChange={handleNewPasswordChange} />
                     </div>
-                    <button type="submit">Submit</button>
+                    <button className="hover:bg-blue-200" type="submit">Submit</button>
                 </form>
             </div>
         </>

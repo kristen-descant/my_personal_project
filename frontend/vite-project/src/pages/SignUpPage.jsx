@@ -1,7 +1,7 @@
 import RegisterComp from "../components/RegisterComp.jsx";
 import { api } from "./utilities.jsx";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 export default function SignupPage() {
@@ -11,6 +11,11 @@ export default function SignupPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
+    const {isSignUp, setIsSignUp} = useOutletContext();
+
+    useEffect(() => {
+        setIsSignUp(true);
+    }, []);
 
     // Regular expression for email validation
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
