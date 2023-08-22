@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import { api } from "./utilities";
 import PropertyComp from "../components/PropertyComp";
 
@@ -27,6 +27,7 @@ export default function PropertyOverviewPage() {
   const [userLists, setUserLists] = useState([]);
   const [isNewList, setIsNewList] = useState(false);
   const [newListName, setNewListName] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
       setPageDescrip('Property');
@@ -52,7 +53,7 @@ export default function PropertyOverviewPage() {
   };
 
   const getRents = async () => {
-    // const response = await api.get(`rent/${propertyId}/`)
+    const response = await api.get(`rent/${propertyId}/`)
 
     const {max, mean, median, min} = response.data;
     console.log(response)
@@ -175,13 +176,13 @@ export default function PropertyOverviewPage() {
       </div>
     <div className="flex flex-row justify-between w-full pl-3 pr-3">
       <div className="shadow-md mb-5 bg-slate-400 rounded-md text-center">
-        <button className="bg-sky-700 hover:bg-sky-900 rounded pl-1 pr-1" onClick={handlePortfolioToggle}>
+        <button className="bg-sky-700 hover:bg-sky-900 rounded pl-1 pr-1 text-white" onClick={handlePortfolioToggle}>
                 {isInPortfolio ? "Remove from Portfolio" : "Add to Portfolio"}
         </button>
       </div>
       <div className="flex flex-row h-1/2">
         {selectedListId && 
-        <button className="bg-sky-700 hover:bg-sky-900 rounded pl-1 pr-1" onClick={handleAddToList}>Add</button>}
+        <button className="bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1" onClick={handleAddToList}>Add</button>}
         {isNewList ? (
           <>
           <input
@@ -210,11 +211,15 @@ export default function PropertyOverviewPage() {
 
       </div>
       <div>
-        <button className="bg-sky-700 hover:bg-sky-900 rounded pl-1 pr-1"
-           onClick={(e) => {
-                  e.stopPropagation(); // Stop event propagation
-                  navigate(`/purchaseworksheet/${property.id}`);
-                }}>Purchase Worksheet</button>
+      <button
+          className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1"
+          onClick={(e) => {
+            e.stopPropagation(); // Stop event propagation
+            navigate(`/purchaseworksheet/${property.id}`);
+          }}
+        >
+          Purchase Worksheet
+        </button>
       </div>
     </div>
   </div>

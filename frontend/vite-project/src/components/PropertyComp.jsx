@@ -43,7 +43,7 @@ export default function PropertyComp(props) {
             <div className="font-bold mb-2">
               Details:
             </div>
-            <div className="pr-3">
+            <div className="pr-3 overflow-scroll">
               {!details ? 
               <textarea className="border border-black" onChange={(e) => (setTempDetails(e.target.value))} value={tempDetails} cols="25" rows="5"></textarea> :
               details
@@ -51,10 +51,10 @@ export default function PropertyComp(props) {
             </div>
             <div className="flex flex-row">
               <div>
-                <button className=" hover:bg-sky-900 bg-sky-700 pl-1 pr-1 rounded mr-3" onClick={handleAddDetails}>Save Details</button>
+                <button className=" hover:bg-sky-900 bg-sky-700 pl-1 pr-1 rounded mr-3 text-white" onClick={handleAddDetails}>Save Details</button>
               </div>
               <div>
-                <button className="hover:bg-sky-900 bg-sky-700 pl-1 pr-1 rounded" onClick={handleEditDetails}>Edit Details</button>
+                <button className="hover:bg-sky-900 bg-sky-700 pl-1 pr-1 rounded text-white" onClick={handleEditDetails}>Edit Details</button>
               </div>
             </div>
           </div>

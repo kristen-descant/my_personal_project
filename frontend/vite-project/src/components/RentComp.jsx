@@ -9,22 +9,22 @@ export default function RentComp(props) {
             <div className="flex flex-col w-full">
                 <div className="flex flex-row justify-between">
                     <div>
-                        <p>Max: $</p>
-                        {max}
+                        <p>Max: ${max}</p>
+                        
                     </div>
                     <div>
-                        <p>Min: $</p>
-                        {min}
+                        <p>Min: ${min}</p>
+                        
                     </div>
                 </div>
                 <div className="flex flex-row justify-between">
                     <div>
-                        <p>Mean: $</p>
-                        {mean}
+                        <p>Mean: ${mean}</p>
+                        
                     </div>
                     <div>
-                        <p>Median: $</p>
-                        {median}
+                        <p>Median: ${median}</p>
+                        
                     </div>
                 </div>
             </div>
