@@ -126,29 +126,32 @@ export default function CaclculatorPage() {
 
     return (
         <>
-        <div className="flex flex-row justify-between w-3/4">
-            <div>
-        <form onSubmit={(e) => {
-            e.preventDefault();
-            const analysisResults = calculateAnalysis();
-            // Update the state with the calculated values
-            setLtv(analysisResults.calculatedLtv);
-            setAmountFinanced(analysisResults.calculatedAmountFinanced.toFixed(2));
-            setDownPaymentCash(analysisResults.calculatedDownPaymentCash.toFixed(2));
-            setPurchaseCostCash(analysisResults.calculatedPurchaseCostCash.toFixed(2));
-            setCashNeeded(analysisResults.calculatedCashNeeded.toFixed(2));
-            setOperatingIncome(analysisResults.calculatedOperatingIncome.toFixed(2));
-            setNoi(analysisResults.calculatedNoi.toFixed(2));
-            setLoanPayment(analysisResults.calculatedLoanPayment.toFixed(2));
-            setCashflow(analysisResults.calculatedCashflow.toFixed(2));
-            setCapRate(analysisResults.calculatedCapRate);
-            setCoc(analysisResults.calculatedCoc);
-        }}>
-
-                    <h2>Purchase Expenses</h2>
+        <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-row h-3/4 items-center justify-evenly ">
+            <div className="h-full p-5 bg-white relative rounded">
+                <form
+                    className="h-full"
+                    onSubmit={(e) => {
+                    e.preventDefault();
+                    const analysisResults = calculateAnalysis();
+                    // Update the state with the calculated values
+                    setLtv(analysisResults.calculatedLtv);
+                    setAmountFinanced(analysisResults.calculatedAmountFinanced.toFixed(2));
+                    setDownPaymentCash(analysisResults.calculatedDownPaymentCash.toFixed(2));
+                    setPurchaseCostCash(analysisResults.calculatedPurchaseCostCash.toFixed(2));
+                    setCashNeeded(analysisResults.calculatedCashNeeded.toFixed(2));
+                    setOperatingIncome(analysisResults.calculatedOperatingIncome.toFixed(2));
+                    setNoi(analysisResults.calculatedNoi.toFixed(2));
+                    setLoanPayment(analysisResults.calculatedLoanPayment.toFixed(2));
+                    setCashflow(analysisResults.calculatedCashflow.toFixed(2));
+                    setCapRate(analysisResults.calculatedCapRate);
+                    setCoc(analysisResults.calculatedCoc);
+                }}>
+                   <div className="flex flex-col h-full justify-evenly">
+                    <div className="text-lg font-bold">Purchase Expenses</div>
                     <div>
-                        <label htmlFor="purchase_price">Purchase Price:</label>
+                        <label htmlFor="purchase_price">Purchase Price: $</label>
                         <input
+                            className="border border-black rounded w-1/3"
                             type="text"
                             value={purchasePrice || ""}
                             onChange={(e) => handlePurchasePriceChange(e.target.value)}
@@ -157,89 +160,99 @@ export default function CaclculatorPage() {
                     <div>
                     <label htmlFor="financing">Financing:</label>
                     <select
+                        className="border border-black rounded"
                         value={financing ? "true" : "false"}
                         onChange={(e) => handleFinancingChange(e.target.value)}
                     >
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                     </select>
-
-
                 </div>
                 {financing && ( 
-                <div>
+                    <>
                     <div>
-                        <label htmlFor="interestRate">Interest Rate:</label>
+                        <label htmlFor="interestRate">Interest Rate: </label>
                         <input
+                        className="border border-black rounded w-1/3"
                             type="number"
                             value={interestRate || ""}
                             onChange={(e) => handleInterestRateChange(e.target.value)}
                         /> <span>%</span>
                     </div>
                     <div>
-                        <label htmlFor="downPayment">Down Payment:</label>
+                        <label htmlFor="downPayment">Down Payment: </label>
                         <input
+                        className="border border-black rounded w-1/3"
                             type="number"
                             value={downPayment || ""}
                             onChange={(e) => handleDownPaymentChange(e.target.value)}
                         /> <span>%</span>
                     </div>
                     <div>
-                        <label htmlFor="loanTerm">Loan Term:</label>
+                        <label htmlFor="loanTerm">Loan Term: </label>
                         <input
+                        className="border border-black rounded w-1/3"
                             type="text"
                             value={loanTerm || ""}
                             onChange={(e) => handleLoanTermChange(e.target.value)}
                         /> <span>Years</span>
                     </div>
-
-                </div>
+                    </>
             )}
                     <div>
-                        <label htmlFor="purchaseCost">Purchase Cost:</label>
+                        <label htmlFor="purchaseCost">Purchase Cost: </label>
                         <input
+                        className="border border-black rounded w-1/3"
                             type="number"
                             value={purchaseCost || ""}
                             onChange={(e) => handlePurchaseCostChange(e.target.value)}
                         /> <span>%</span>
                     </div>
                     <div>
-                        <label htmlFor="rehabCost">Rehab Cost:</label>
+                        <label htmlFor="rehabCost">Rehab Cost: $</label>
                         <input
+                        className="border border-black rounded w-1/3"
                             type="number"
                             value={rehabCost || ""}
                             onChange={(e) => handleRehabCostChange(e.target.value)}
                         />
                     </div>
-                    <h3>Income and Vacancy:</h3>
+                    <div>Income and Vacancy:</div>
                     <div>
-                        <label htmlFor="grossRent">Gross Rent:</label>
+                        <label htmlFor="grossRent">Gross Rent: $</label>
                         <input
+                        className="border border-black rounded w-1/3"
                             type="text"
                             value={grossRent || ""}
                             onChange={(e) => handleGrossRentChange(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label htmlFor="vacancyRate">Vacancy Rate:</label>
+                        <label htmlFor="vacancyRate">Vacancy Rate: </label>
                         <input
+                        className="border border-black rounded w-1/3"
                             type="number"
                             value={vacancyRate || ""}
                             onChange={(e) => handleVacancyRateChange(e.target.value)}
                         /> <span>%</span>
                     </div>
                     <div>
-                        <label htmlFor="operatingExpenses">Operating Expenses:</label>
+                        <label htmlFor="operatingExpenses">Operating Expenses: $</label>
                         <input
+                        className="border border-black rounded w-1/3"
                             type="text"
                             value={operatingExpenses || ""}
                             onChange={(e) => handleOperatingExpensesChange(e.target.value)}
                         />
                     </div>   
-                    <button type="submit">Save</button>
+                    <div className="text-center mt-2">
+                    <button className="border border-black rounded bg-sky-700 hover:bg-sky-900 text-white pl-3 pr-3" type="submit">Save</button>
+                    </div>
+                    </div>
                 </form>
                 </div>
-                <div>
+                <div className="h-full p-5 bg-white relative rounded w-1/3 flex flex-col justify-between">
+                    <div className="text-lg font-bold">Analysis</div>
                     <div>Cash Needed: ${cashNeeded}</div>
                     <div>Cash Flow ${cashFlow}</div>
                     <div>Cap Rate: {capRate}</div>
