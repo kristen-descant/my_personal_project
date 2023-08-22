@@ -63,16 +63,18 @@ function App() {
     };
 
     return (
-      <div className='bg-gray-300 min-h-screen'>
+      <div className='min-h-screen'>
         {user ? (
           <div className='relative'>
-            <header className='container mx-auto flex h-16 justify-between items-center ml-5 mr-5 pl-5 pr-5'>
-              <img src={logo} alt="house" className="w-10 h-10"/>
-              <p className='text-lg font-bold' >{pageDescrip}</p>
+            <header className='container mx-auto flex h-16 justify-between items-center mr-5 pl-5 pr-5 border-b bg-gray-300 shadow-md'>
+              <div className='ml-7'>
+                <img className='' src={logo} alt="house" className="w-10 h-10"/>
+              </div>
+              <p className='text-2xl font-bold text-blue-500' >{pageDescrip}</p>
               <div className="dropdown-container">
                 {/* Button that can toggle between open and close */}
                 
-                <button className="dropdown-button w-10 h-10 mb-2" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
+                <button className="dropdown-button w-10 h-10 mb-2 text-lg" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
                   |||
                 </button>
               </div>
@@ -80,10 +82,10 @@ function App() {
             {/* If open show options for logout and settings */}
             {isDropdownOpen && (
                   <div onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)} className="dropdown-content container mx-auto flex flex-col h-16 w-16 items-end ml-5 mr-1 pl-5 pr-0 absolute right-0 top-10">
-                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-blue-200">
+                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-blue-500 rounded text-center mt-6 bg-white">
                       <button onClick={handleLogout}>Logout</button><br />
                     </div>
-                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-blue-200">
+                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-blue-500 rounded text-center bg-white">
                       <Link to="settings">Settings</Link>
                     </div>
                   </div>
@@ -114,7 +116,7 @@ function App() {
           </div>
         ) :
          (
-          <div className='h-screen flex flex-col justify-center items-center'>
+          <div className='h-screen flex flex-col justify-center items-center bg-gray-300'>
           
         <Outlet 
             context={{

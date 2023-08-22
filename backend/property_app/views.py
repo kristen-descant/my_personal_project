@@ -207,11 +207,6 @@ class Purchase_Worksheet_View(UserPermissions):
             
             return Response(json_purchase_worksheet.data)
         
-        # elif json_purchase_worksheet.is_valid() and not is_worksheet_complete:
-        #     purchase_worksheet.property_analysis = Null
-
-        #     return Response(json_purchase_worksheet.data)
-        
         elif json_purchase_worksheet.is_valid():
 
             json_purchase_worksheet.save()

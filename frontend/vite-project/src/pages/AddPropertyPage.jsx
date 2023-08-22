@@ -64,16 +64,25 @@ export default function AddPropertyPage() {
     
     return (
         <>
-        <div className="add-property">
-            <div>
-                <label>Address:</label>
-                <input
-                    type="text"
-                    value={addressInput}
-                    onChange={(e) => setAddressInput(e.target.value)}
-                    placeholder="Enter address..."
-                />
-                <button type='submit' onClick={clearSelectedAddress}>Clear</button>
+        <div className=" w-3/4 flex flex-col items-center mr-10 pr-10 h-screen bg-blue-500">
+            <div className="flex justify-center mt-5 w-full">
+                <div className="pl-10">
+                    <label>Address:</label>
+                </div>
+                <div>
+                    <input
+                        className="border ml-3 mr-3 border-black rounded"
+                        type="text"
+                        value={addressInput}
+                        onChange={(e) => setAddressInput(e.target.value)}
+                        placeholder="Enter address..."
+                    />
+                </div>
+                <div className="pr-10">
+                    <button type='submit' onClick={clearSelectedAddress}>Clear</button>
+                </div>
+            </div>
+            <div className="h-1/4 w-full text-center">
                 {addressInput &&  (
                     <ul className="suggestions">
                         {suggestions.map((suggestion) => (
@@ -87,28 +96,53 @@ export default function AddPropertyPage() {
                     </ul>
                 )}
             </div>
-            <div>
-                <label htmlFor="beds">beds</label>
-                <input onChange={(e) => setBeds(e.target.value)} type="text"/>
+            <div className="flex flex-row justify-around mb-5">
+           
+                  
+                        <div className="ml-10 pl-10 text-left">
+                            <label  htmlFor="beds">Beds: </label>
+                        </div>
+                        <div className="mr-12 ml-3 text-right">
+                            <input className="border border-black rounded " onChange={(e) => setBeds(e.target.value)} type="text"/>
+                        </div>
+       
+                    <div className="mr-3">
+                        <label htmlFor="baths">Baths:</label>
+                    </div>
+                    <div>
+                        <select className="border border-black rounded mr-12" onChange={(e) => setBaths(e.target.value)} >
+                            <option value=''>Select</option>
+                            <option value={1}>1</option>
+                            <option value={1.5}>1.5+</option>
+                        </select>
+                    </div>
+                    
+        
+  
+                    <div className="mr-4">
+                        <label htmlFor="sqft">sqft: </label>
+                    </div>
+                    <div>
+                        <input className="border border-black rounded" onChange={(e) => setSqft(e.target.value)} type="sqft"/>
+                    </div>
+         
+    
+     
             </div>
-            <div>
-                <label htmlFor="baths">baths</label>
-                <select onChange={(e) => setBaths(e.target.value)} >
-                    <option value=''>Select</option>
-                    <option value={1}>1</option>
-                    <option value={1.5}>1.5+</option>
-                </select>
+         
+            <div className="flex justify-center ">
+                <div>
+                <div className="mr-5 mb-3">
+                    <label htmlFor="details">Details:</label>
+                </div>
+                <div>
+                    <textarea className="border border-black rounded" onChange={(e) => setDetails(e.target.value)} cols="30" rows="8"></textarea>
+                </div>
+                </div>
             </div>
-            <div>
-                <label htmlFor="sqft">sqft</label>
-                <input onChange={(e) => setSqft(e.target.value)} type="sqft"/>
-            </div>
-            <div>
-                <label htmlFor="details">details</label>
-                <textarea onChange={(e) => setDetails(e.target.value)} cols="30" rows="10"></textarea>
-            </div>
-           <button onClick={addNewProperty}>Add Property</button>
-        </div>
+           <button className="border border-black rounded bg-gray-300" onClick={addNewProperty}>Add Property</button>
+           </div>
+    
         </>
     );
 }

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { api } from "../pages/utilities";
 
 export default function ListComp(prop) {
   const navigate = useNavigate();
-  const { properties } = prop;
+  const {setProperties, properties, listId } = prop;
   const [propertyImages, setPropertyImages] = useState({});
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const {pageDescrip} = useOutletContext();
+
+  console.log(listId)
 
   const handleImageLoad = () => {
     const allImagesLoaded = properties.every(property => property.imageLoaded);
@@ -45,11 +48,36 @@ export default function ListComp(prop) {
     // console.log(properties)
   }, [properties]);
 
+  const handleRemoveFromPortfolio = async (propertyId) => {
+   
+    try {
+      const response = await api.put(`properties/remove/property/${propertyId}/portfolio/`);
+      // Update properties state by removing the property with the given propertyId
+      const updatedProperties = properties.filter(property => property.id !== propertyId);
+      setProperties(updatedProperties);
+      
+    } catch (error) {
+      console.error("Error removing property from portfolio:", error);
+    }
+  };
+
+  const handleRemoveFromList = async (propertyId, e) => {
+  
+    try {
+      const response = await api.put(`properties/remove/property/${propertyId}/lists/${listId}/`);
+      // Update properties state by removing the property with the given propertyId
+      const updatedProperties = properties.filter(property => property.id !== propertyId);
+      setProperties(updatedProperties);
+    } catch (error) {
+      console.error("Error removing property from list:", error);
+    }
+  };
+
   return (
       <ul>
         {properties &&
           properties.map((property) => (
-            <li className="shadow-md m-2 flex flex-row justify-between hover:bg-slate-400 rounded-md" key={property.id} onClick={() => handlePropertyClick(property.id)}>
+            <li className="m-2 flex flex-row justify-between border-black border bg-white rounded-md shadow-lg" key={property.id} onClick={() => handlePropertyClick(property.id)}>
               <div className="overflow-hidden">
                 {propertyImages[property.id] ? ( // Check if the image has loaded
                   <img src={propertyImages[property.id]} alt="property" className="object-cover w-full h-full rounded-md" onLoad={handleImageLoad} />
@@ -57,27 +85,41 @@ export default function ListComp(prop) {
                   <div className="w-full h-full bg-gray-300 animate-pulse"></div>
                 )}
               </div>
-              <div className="flex flex-col justify-between ml-2 mr-2">
-              <div className="text-right">
-              {property.address}
+              <div className="flex flex-col justify-between ml-2 mr-8 w-3/4">
+                <div className="text-center text-lg">
+                {property.address}
+                </div>
+                <div className="flex justify-between">
+                    <div><span className="font-bold">Cash Flow:</span> <span className="text-blue-700">{property.purchase_worksheet.property_analysis.cash_flow}</span> </div>  
+                    <div><span className="font-bold">COC:</span> <span className="text-blue-700">{property.purchase_worksheet.property_analysis.coc}</span> </div> 
+                    <div><span className="font-bold">Cap Rate:</span> <span className="text-blue-700">{property.purchase_worksheet.property_analysis.cap_rate}</span></div>
+                </div>
+                <div className="flex justify-end justify-evenly">
+                  <div onClick={(e) => {e.stopPropagation()}}>
+                    {pageDescrip === 'Portfolio' ? 
+                    <button onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveFromPortfolio(property.id)}} className="shadow-md mb-2 bg-gray-300 hover:bg-blue-400 rounded">
+                    Remove from Portfolio
+                    </button> :
+                    <button onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveFromList(property.id)}} className="shadow-md mb-2 bg-gray-300 hover:bg-blue-400 rounded">
+                    Remove From List
+                    </button>
+                }
+                  </div>
+                {/* Navigate to the property's purchase worksheet page */}
+                <button
+                className="shadow-md mb-2 bg-gray-300 hover:bg-blue-400 rounded "
+                onClick={(e) => {
+                  e.stopPropagation(); // Stop event propagation
+                  navigate(`/purchaseworksheet/${property.id}`);
+                }}
+              >
+                Purchase Worksheet
+              </button>
               </div>
-              <div className="flex justify-between">
-                  <div>Cash Flow: {property.purchase_worksheet.property_analysis.cash_flow}</div>  
-                  <div>COC: {property.purchase_worksheet.property_analysis.coc} </div> 
-                  <div>Cap Rate: {property.purchase_worksheet.property_analysis.cap_rate}</div>
-              </div>
-              <div className="flex justify-end">
-              {/* Navigate to the property's purchase worksheet page */}
-              <button
-              className="shadow-md mb-2 hover:bg-blue-200 rounded "
-              onClick={(e) => {
-                e.stopPropagation(); // Stop event propagation
-                navigate(`/purchaseworksheet/${property.id}`);
-              }}
-            >
-              Purchase Worksheet
-            </button>
-            </div>
               </div>
             </li>
           ))}

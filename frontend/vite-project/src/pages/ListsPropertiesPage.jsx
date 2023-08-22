@@ -42,7 +42,7 @@ export default function ListsPropertiesPage() {
 
     return (
         <>
-            <div className="portfolioList">
+            <div className="h-screen">
                 <div>
                     <input type="text" value={newListName} onChange={(e) => setNewListName(e.target.value)} placeholder="New List Name"/>
                     <button onClick={handleAddList}>Add List</button>
