@@ -217,7 +217,7 @@ export default function CaclculatorPage() {
                             onChange={(e) => handleRehabCostChange(e.target.value)}
                         />
                     </div>
-                    <div>Income and Vacancy:</div>
+                    <div className="font-bold">Income and Vacancy:</div>
                     <div>
                         <label htmlFor="grossRent">Gross Rent: $</label>
                         <input
@@ -254,16 +254,16 @@ export default function CaclculatorPage() {
                 <div className="h-full p-5 bg-white relative rounded w-1/3 flex flex-col justify-between">
                     <div className="text-lg font-bold">Analysis</div>
                     <div>Cash Needed: ${cashNeeded}</div>
+                    <div>Down Payment: ${downPaymentCash}</div>
+                    <div>Purchase Cost: ${purchaseCostCash}</div>
+                    <div>LTV: {ltv}%</div>
+                    <div>Amount Financed: ${amountFinanced}</div>
+                    <div>Loan Payment P&I: ${loanPayment}</div>
                     <div>Cash Flow ${cashFlow}</div>
-                    <div>Cap Rate: {capRate}</div>
-                    <div>COC: {coc}</div>
-                    <div>LTV: {ltv}</div>
-                    <div>Amount Financed: {amountFinanced}</div>
-                    <div>NOI: {noi}</div>
-                    <div>Loan Payment P&I: {loanPayment}</div>
-                    <div>Purchase Cost: {purchaseCostCash}</div>
-                    <div>Down Payment: {downPaymentCash}</div>
-                    <div>Operating Income: {operatingIncome}</div>
+                    <div>Cap Rate: {capRate ? capRate.toFixed(2) : ""}%</div>
+                    <div>COC: {coc ? coc.toFixed(2) : ""}%</div>
+                    <div>Operating Income: ${operatingIncome}</div>
+                    <div>NOI: ${noi}</div>
                 </div>
             </div>
         </>

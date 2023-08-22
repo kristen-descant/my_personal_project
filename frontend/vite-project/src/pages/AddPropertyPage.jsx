@@ -135,7 +135,7 @@ export default function AddPropertyPage() {
                 </div>
                 
             </div>
-           <button className="border border-black rounded bg-gray-300" onClick={addNewProperty}>Add Property</button>
+           <button className="border border-black rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" onClick={addNewProperty}>Add Property</button>
            </div>
     
         </>
