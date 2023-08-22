@@ -34,11 +34,21 @@ export default function PortfolioPage() {
 
       return (
         <>
-        <div className="mt-4 w-screen flex flex-row mr-5 h-screen">
-          <div className="w-3/4 pl-8">
+        <div className=" w-screen flex flex-row min-h-screen justify-center">
+          <div className="w-3/4">
             {properties && (properties.length > 0 ?
               (<ListComp setProperties={setProperties} properties={properties} listId={listId}/>) :
-              (<p className="text-center"><Link className="h-6 w-20 shadow-lg rounded mb-2 hover:bg-blue-200 border-b-2 border-black" to='/addproperty'>Add a property</Link> to your portfolio.</p>))
+          
+              (
+              <div className="w-full flex flex-col justify-around items-center h-full">
+                <div className="w-1/2 text-center">
+                  <p className="text-xl">Your portfolio is empty. Add properties to your portfolio to see them here. </p>
+                </div>
+                <div className="text-center">
+                <Link className="h-6 w-20 shadow-lg rounded mb-2 hover:bg-blue-200 border-b-2 border-black" to='/addproperty'>Add a property</Link> to your portfolio.
+                </div>
+              </div>
+              ))
             }
           </div>
         

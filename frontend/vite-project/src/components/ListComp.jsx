@@ -77,7 +77,7 @@ export default function ListComp(prop) {
       <ul>
         {properties &&
           properties.map((property) => (
-            <li className="m-2 flex flex-row justify-between border-black border bg-white rounded-md shadow-lg" key={property.id} onClick={() => handlePropertyClick(property.id)}>
+            <li className="group m-2 flex flex-row justify-between border-black border hover:bg-gray-300 bg-white rounded-md shadow-lg" key={property.id} onClick={() => handlePropertyClick(property.id)}>
               <div className="overflow-hidden">
                 {propertyImages[property.id] ? ( // Check if the image has loaded
                   <img src={propertyImages[property.id]} alt="property" className="object-cover w-full h-full rounded-md" onLoad={handleImageLoad} />
@@ -99,19 +99,19 @@ export default function ListComp(prop) {
                     {pageDescrip === 'Portfolio' ? 
                     <button onClick={(e) => {
                       e.stopPropagation();
-                      handleRemoveFromPortfolio(property.id)}} className="shadow-md mb-2 bg-gray-300 hover:bg-blue-400 rounded">
+                      handleRemoveFromPortfolio(property.id)}} className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded">
                     Remove from Portfolio
                     </button> :
                     <button onClick={(e) => {
                       e.stopPropagation();
-                      handleRemoveFromList(property.id)}} className="shadow-md mb-2 bg-gray-300 hover:bg-blue-400 rounded">
+                      handleRemoveFromList(property.id)}} className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900">
                     Remove From List
                     </button>
                 }
                   </div>
                 {/* Navigate to the property's purchase worksheet page */}
                 <button
-                className="shadow-md mb-2 bg-gray-300 hover:bg-blue-400 rounded "
+                className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded "
                 onClick={(e) => {
                   e.stopPropagation(); // Stop event propagation
                   navigate(`/purchaseworksheet/${property.id}`);

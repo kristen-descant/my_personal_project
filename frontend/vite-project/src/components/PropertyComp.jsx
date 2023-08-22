@@ -18,7 +18,7 @@ export default function PropertyComp(props) {
             </div>
             <div>
               {!details ? 
-              <textarea onChange={(e) => (setTempDetails(e.target.value))} value={details} cols="25" rows="5"></textarea> :
+              <textarea className="border border-black" onChange={(e) => (setTempDetails(e.target.value))} value={details} cols="25" rows="5"></textarea> :
               details
               }
             </div>

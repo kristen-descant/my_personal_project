@@ -253,203 +253,197 @@ useEffect(() => {
 
 
     return (
-        <div >
+        <div className="w-full" >
             {purchaseWorksheetData !== null ? (
-                <div className='aCalculator'>
+                <div className='flex flex-row justify-between w-3/4'>
                     <div>
-                <form onSubmit={handleSubmit}>
-                    <h2>Purchase Expenses</h2>
-                    <div>
-                        <label htmlFor="purchase_price">Purchase Price:</label>
-                        <input
-                            type="number"
-                            value={purchasePrice || ""}
-                            onChange={(e) => handlePurchasePriceChange(e.target.value)}
-                        />
+                    <form onSubmit={handleSubmit}>
+                        <h2>Purchase Expenses</h2>
+                        <div>
+                            <label htmlFor="purchase_price">Purchase Price:</label>
+                            <input
+                                type="number"
+                                value={purchasePrice || ""}
+                                onChange={(e) => handlePurchasePriceChange(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="arv">After Repair Value:</label>
+                            <input
+                                type="number"
+                                value={arv || ""}
+                                onChange={(e) => handleArvChange(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="financing">Financing:</label>
+                            <select
+                                value={financing ? "true" : "false"}
+                                onChange={(e) => handleFinancingChange(e.target.value)}
+                            >
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        {financing && ( 
+                            <div>
+                                <div>
+                                    <label htmlFor="interestRate">Interest Rate:</label>
+                                    <input
+                                        type="number"
+                                        value={interestRate || ""}
+                                        onChange={(e) => handleInterestRateChange(e.target.value)}
+                                    /> <span>%</span>
+                                </div>
+                                <div>
+                                    <label htmlFor="downPayment">Down Payment:</label>
+                                    <input
+                                        type="number"
+                                        value={downPayment || ""}
+                                        onChange={(e) => handleDownPaymentChange(e.target.value)}
+                                    /> <span>%</span>
+                                </div>
+                                <div>
+                                    <label htmlFor="loanTerm">Loan Term:</label>
+                                    <input
+                                        type="number"
+                                        value={loanTerm || ""}
+                                        onChange={(e) => handleLoanTermChange(e.target.value)}
+                                    /> <span>Years</span>
+                                </div>
+                            </div>
+                        )}
+                        <div>
+                            <label htmlFor="purchaseCost">Purchase Cost:</label>
+                            <input
+                                type="number"
+                                value={purchaseCost || ""}
+                                onChange={(e) => handlePurchaseCostChange(e.target.value)}
+                            /> <span>%</span>
+                        </div>
+                        <div>
+                            <label htmlFor="rehabCost">Rehab Cost:</label>
+                            <input
+                                type="number"
+                                value={rehabCost || ""}
+                                onChange={(e) => handleRehabCostChange(e.target.value)}
+                            />
+                        </div>
+                        <h3>Income and Vacancy:</h3>
+                        <div>
+                            <label htmlFor="grossRent">Gross Rent:</label>
+                            <input
+                                type="number"
+                                value={grossRent || ""}
+                                onChange={(e) => handleGrossRentChange(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="vacancyRate">Vacancy Rate:</label>
+                            <input
+                                type="number"
+                                value={vacancyRate || ""}
+                                onChange={(e) => handleVacancyRateChange(e.target.value)}
+                            /> <span>%</span>
+                        </div>
+                        <h4>Operating Expenses:</h4>
+                        <div>
+                            <label htmlFor="propertyTaxes">Property Taxes:</label>
+                            <input
+                                type="number"
+                                value={propertyTaxes || ""}
+                                onChange={(e) => handlePropertyTaxesChange(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="insurance">Insurance:</label>
+                            <input
+                                type="number"
+                                value={insurance || ""}
+                                onChange={(e) => handleInsuranceChange(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="propertyManagement">Property Management:</label>
+                            <input
+                                type="number"
+                                value={propertyManagement || ""}
+                                onChange={(e) => handlePropertyManagementChange(e.target.value)}
+                            /> <span>%</span>
+                        </div>
+                        <div>
+                            <label htmlFor="maintenance">Maintenance:</label>
+                            <input
+                                type="number"
+                                value={maintenance || ""}
+                                onChange={(e) => handleMaintenanceChange(e.target.value)}
+                            /> <span>%</span>
+                        </div>
+                        <div>
+                            <label htmlFor="capex">Cap Ex:</label>
+                            <input
+                                type="number"
+                                value={capex || ""}
+                                onChange={(e) => handleCapexChange(e.target.value)}
+                            /> <span>%</span>
+                        </div>
+                        <div>
+                            <label htmlFor="hoaFees">HOA Fees:</label>
+                            <input
+                                type="number"
+                                value={hoaFees || ""}
+                                onChange={(e) => handleHoaFeesChange(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="utilities">Utilities:</label>
+                            <input
+                                type="number"
+                                value={utilities || ""}
+                                onChange={(e) => handleUtilitiesChange(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="landscaping">Landscaping:</label>
+                            <input
+                                type="number"
+                                value={landscaping || ""}
+                                onChange={(e) => handleLanscapingChange(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="otherexp">Other Expenses:</label>
+                            <input
+                                type="number"
+                                value={otherexp || ""}
+                                onChange={(e) => handleOtherExpensesChange(e.target.value)}
+                            />
+                        </div>
+                        <button type="submit">Save</button>
+                    </form>
                     </div>
                     <div>
-                        <label htmlFor="arv">After Repair Value:</label>
-                        <input
-                            type="number"
-                            value={arv || ""}
-                            onChange={(e) => handleArvChange(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                    <label htmlFor="financing">Financing:</label>
-                    <select
-                        value={financing ? "true" : "false"}
-                        onChange={(e) => handleFinancingChange(e.target.value)}
-                    >
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-
-
-                </div>
-                {financing && ( 
-                <div>
-                    <div>
-                        <label htmlFor="interestRate">Interest Rate:</label>
-                        <input
-                            type="number"
-                            value={interestRate || ""}
-                            onChange={(e) => handleInterestRateChange(e.target.value)}
-                        /> <span>%</span>
-                    </div>
-                    <div>
-                        <label htmlFor="downPayment">Down Payment:</label>
-                        <input
-                            type="number"
-                            value={downPayment || ""}
-                            onChange={(e) => handleDownPaymentChange(e.target.value)}
-                        /> <span>%</span>
-                    </div>
-                    <div>
-                        <label htmlFor="loanTerm">Loan Term:</label>
-                        <input
-                            type="number"
-                            value={loanTerm || ""}
-                            onChange={(e) => handleLoanTermChange(e.target.value)}
-                        /> <span>Years</span>
-                    </div>
-                </div>
-            )}
-
-
-                    <div>
-                        <label htmlFor="purchaseCost">Purchase Cost:</label>
-                        <input
-                            type="number"
-                            value={purchaseCost || ""}
-                            onChange={(e) => handlePurchaseCostChange(e.target.value)}
-                        /> <span>%</span>
-                    </div>
-                    <div>
-                        <label htmlFor="rehabCost">Rehab Cost:</label>
-                        <input
-                            type="number"
-                            value={rehabCost || ""}
-                            onChange={(e) => handleRehabCostChange(e.target.value)}
-                        />
-                    </div>
-                    <h3>Income and Vacancy:</h3>
-                    <div>
-                        <label htmlFor="grossRent">Gross Rent:</label>
-                        <input
-                            type="number"
-                            value={grossRent || ""}
-                            onChange={(e) => handleGrossRentChange(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="vacancyRate">Vacancy Rate:</label>
-                        <input
-                            type="number"
-                            value={vacancyRate || ""}
-                            onChange={(e) => handleVacancyRateChange(e.target.value)}
-                        /> <span>%</span>
-                    </div>
-                    <h4>Operating Expenses:</h4>
-                    <div>
-                        <label htmlFor="propertyTaxes">Property Taxes:</label>
-                        <input
-                            type="number"
-                            value={propertyTaxes || ""}
-                            onChange={(e) => handlePropertyTaxesChange(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="insurance">Insurance:</label>
-                        <input
-                            type="number"
-                            value={insurance || ""}
-                            onChange={(e) => handleInsuranceChange(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="propertyManagement">Property Management:</label>
-                        <input
-                            type="number"
-                            value={propertyManagement || ""}
-                            onChange={(e) => handlePropertyManagementChange(e.target.value)}
-                        /> <span>%</span>
-                    </div>
-                    <div>
-                        <label htmlFor="maintenance">Maintenance:</label>
-                        <input
-                            type="number"
-                            value={maintenance || ""}
-                            onChange={(e) => handleMaintenanceChange(e.target.value)}
-                        /> <span>%</span>
-                    </div>
-                    <div>
-                        <label htmlFor="capex">Cap Ex:</label>
-                        <input
-                            type="number"
-                            value={capex || ""}
-                            onChange={(e) => handleCapexChange(e.target.value)}
-                        /> <span>%</span>
-                    </div>
-                    <div>
-                        <label htmlFor="hoaFees">HOA Fees:</label>
-                        <input
-                            type="number"
-                            value={hoaFees || ""}
-                            onChange={(e) => handleHoaFeesChange(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="utilities">Utilities:</label>
-                        <input
-                            type="number"
-                            value={utilities || ""}
-                            onChange={(e) => handleUtilitiesChange(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="landscaping">Landscaping:</label>
-                        <input
-                            type="number"
-                            value={landscaping || ""}
-                            onChange={(e) => handleLanscapingChange(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="otherexp">Other Expenses:</label>
-                        <input
-                            type="number"
-                            value={otherexp || ""}
-                            onChange={(e) => handleOtherExpensesChange(e.target.value)}
-                        />
-                    </div>
+                        <div>
+                            <h2>Property Analysis</h2>
+                            <div>Cash Needed: ${cashNeeded}</div>
+                            <div>Cash Flow ${cashFlow}</div>
+                            <div>Cap Rate: {capRate}</div>
+                            <div>COC: {coc}</div>
+                            <div>LTV: {ltv}</div>
+                            <div>Amount Financed: {amountFinanced}</div>
+                            <div>Price/Sqft: {ppsqft}</div>
+                            <div>ARV/Sqft: {apsqft}</div>
+                            <div>NOI: {noi}</div>
+                            <div>Loan Payment P&I: {loanPayment}</div>
+                            <div>Purchase Cost: {purchaseCostCash}</div>
+                            <div>Down Payment: {downPaymentCash}</div>
+                            <div>Operating Income: {operatingIncome}</div>
+                        </div>
                     
-                    <button type="submit">Save</button>
-                </form>
-                </div>
-                <div>
-                {purchaseWorksheetData.completed && (
-                    <div>
-                        <h2>Property Analysis</h2>
-                        <div>Cash Needed: ${cashNeeded}</div>
-                        <div>Cash Flow ${cashFlow}</div>
-                        <div>Cap Rate: {capRate}</div>
-                        <div>COC: {coc}</div>
-                        <div>LTV: {ltv}</div>
-                        <div>Amount Financed: {amountFinanced}</div>
-                        <div>Price/Sqft: {ppsqft}</div>
-                        <div>ARV/Sqft: {apsqft}</div>
-                        <div>NOI: {noi}</div>
-                        <div>Loan Payment P&I: {loanPayment}</div>
-                        <div>Purchase Cost: {purchaseCostCash}</div>
-                        <div>Down Payment: {downPaymentCash}</div>
-                        <div>Operating Income: {operatingIncome}</div>
                     </div>
-                )}
                 </div>
-                </div>
-                
-            ) : (
+                    
+                ) : (
                 <p>Loading...</p>
             )}
         </div>

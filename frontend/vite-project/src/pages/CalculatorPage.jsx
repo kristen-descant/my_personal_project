@@ -126,7 +126,8 @@ export default function CaclculatorPage() {
 
     return (
         <>
-        <div className="aProperty">
+        <div className="flex flex-row justify-between w-3/4">
+            <div>
         <form onSubmit={(e) => {
             e.preventDefault();
             const analysisResults = calculateAnalysis();
@@ -237,6 +238,7 @@ export default function CaclculatorPage() {
                     </div>   
                     <button type="submit">Save</button>
                 </form>
+                </div>
                 <div>
                     <div>Cash Needed: ${cashNeeded}</div>
                     <div>Cash Flow ${cashFlow}</div>

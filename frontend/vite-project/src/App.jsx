@@ -63,14 +63,14 @@ function App() {
     };
 
     return (
-      <div className='min-h-screen'>
+      <div className='min-h-screen bg-zinc-800'>
         {user ? (
           <div className='relative'>
-            <header className='container mx-auto flex h-16 justify-between items-center mr-5 pl-5 pr-5 border-b bg-gray-300 shadow-md'>
+            <header className='container mx-auto flex h-16 justify-between items-center mr-5 pl-5 pr-5 border-b bg-sky-900 shadow-md'>
               <div className='ml-7'>
                 <img className='' src={logo} alt="house" className="w-10 h-10"/>
               </div>
-              <p className='text-2xl font-bold text-blue-500' >{pageDescrip}</p>
+              <p className='text-2xl font-bold text-white' >{pageDescrip}</p>
               <div className="dropdown-container">
                 {/* Button that can toggle between open and close */}
                 
@@ -92,7 +92,7 @@ function App() {
                 )}
             <div className='grid grid-cols-5 gap-3'>
               <NavbarComp className='col-span-1' />
-              <div className='col-span-4 flex ml-8'>
+              <div className='col-span-3 flex ml-8'>
                 <Outlet 
                   context={{
                     properties,
