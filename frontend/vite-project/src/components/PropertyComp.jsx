@@ -30,7 +30,7 @@ export default function PropertyComp(props) {
 
     return (
       <>
-      <div className="flex flex-row">
+      <div className="flex flex-row ml-10 mr-10">
         <div className="w-1/2" >
             <div className="text-center mb-3 font-bold mr-5 w-1/2">
               <p>{address}</p>
@@ -51,10 +51,10 @@ export default function PropertyComp(props) {
             </div>
             <div className="flex flex-row">
               <div>
-                <button className="ml-3 hover:bg-blue-200 rounded" onClick={handleAddDetails}>Save Details</button>
+                <button className=" hover:bg-sky-900 bg-sky-700 pl-1 pr-1 rounded mr-3" onClick={handleAddDetails}>Save Details</button>
               </div>
               <div>
-                <button className="ml-3 hover:bg-blue-200 rounded" onClick={handleEditDetails}>Edit Details</button>
+                <button className="hover:bg-sky-900 bg-sky-700 pl-1 pr-1 rounded" onClick={handleEditDetails}>Edit Details</button>
               </div>
             </div>
           </div>

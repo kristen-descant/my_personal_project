@@ -69,7 +69,7 @@ function App() {
           <div className='relative'>
             <header className='container mx-auto flex h-16 justify-between items-center mr-5 pl-5 pr-5 border-b bg-sky-900 shadow-md'>
               <div className='ml-7'>
-                <img className='' src={logo} alt="house" className="w-10 h-10"/>
+                <img src={logo} alt="house" className="w-10 h-10"/>
               </div>
               <p className='text-2xl font-bold text-white' >{pageDescrip}</p>
               <div className="dropdown-container">
@@ -117,7 +117,7 @@ function App() {
           </div>
         ) :
          (
-          <div className='h-screen flex flex-col justify-center items-center bg-gray-300'>
+          <div className='h-screen flex flex-col justify-center items-center bg-sky-900'>
           
         <Outlet 
             context={{

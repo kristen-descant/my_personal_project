@@ -168,7 +168,7 @@ export default function PropertyOverviewPage() {
 
   return (
     <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center justify-evenly h-3/4 bg-white relative rounded">
-      <div>
+      <div className="w-full">
         <PropertyComp address={address} newPropertyImage={newPropertyImage} propertId={propertyId}
         beds={beds} baths={baths} sqft={sqft} max={max} mean={mean} median={median} tempDetails={tempDetails}
           min={min} details={details} setDetails={setDetails} setTempDetails={setTempDetails} propertyId={propertyId} />

@@ -2,6 +2,7 @@ import RegisterComp from "../components/RegisterComp.jsx";
 import { api } from "./utilities.jsx";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import logo from '../media/houseLogo.png'
 
 
 export default function SignupPage() {
@@ -70,8 +71,12 @@ export default function SignupPage() {
 
     return (
         <>
-        <div className="flex flex-row ml-8 mr-8 p-5 bg-white shadow-lg rounded-md">
-            <div className="flex items-center flex-col">
+        <div className="relative h-3/4 w-3/4 mr-8 ml-8 border-8 flex flex-col justify-evenly items-center border-white bg-zinc-800 shadow-2xl rounded-md">
+            <div>
+                <img className="w-20 h-20" src={logo} alt="house logo" />
+            </div>
+             <div className="text-white text-4xl">REInvestmentPro</div>
+            
                 {!user &&
                 <RegisterComp 
                 includeVerifyPassword={true}
@@ -81,8 +86,7 @@ export default function SignupPage() {
                 signin={signin}
                 isSignUp={isSignUp}/>
                 }
-            </div>
-            <div className="ml-2 flex items-center">
+            <div className="ml-2 flex items-center absolute right-20 bottom-5 text-white">
                 <p className="w-40 text-xs">Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character @$!%*?&.</p>
             </div>
         </div>

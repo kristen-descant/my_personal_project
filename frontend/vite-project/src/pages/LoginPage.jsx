@@ -2,6 +2,7 @@ import RegisterComp from "../components/RegisterComp.jsx";
 import { api } from "./utilities.jsx";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import logo from '../media/houseLogo.png'
 
 export default function LoginPage(props) {
 
@@ -55,7 +56,11 @@ export default function LoginPage(props) {
 
     return (
         <>
-        <div className="ml-8 mr-8 p-5 bg-white shadow-lg rounded-md">
+        <div className="h-3/4 w-3/4 mr-8 ml-8 border-8 flex flex-col justify-evenly items-center border-white bg-zinc-800 shadow-2xl rounded-md">
+            <div>
+                <img className="w-20 h-20" src={logo} alt="house logo" />
+            </div>
+            <div className="text-white text-4xl">REInvestmentPro</div>
             {!user &&
             <RegisterComp 
             includeVerifyPassword={false}
