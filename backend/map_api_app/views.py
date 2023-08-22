@@ -11,13 +11,6 @@ from django.http import HttpResponse
 env = dotenv_values(".env")
 MAPSAPIKEY = env.get('MAPSAPIKEY')
 
-class Maps(UserPermissions):
-
-    def get(self, request, propid):
-
-        a_property = Property.objects.get(id=propid)
-        address = a_property.get_full_address()
-
 class Address_Autocomplete(UserPermissions):
 
     def get(self, request, input_text):
