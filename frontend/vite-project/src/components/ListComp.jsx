@@ -99,19 +99,19 @@ export default function ListComp(prop) {
                     {pageDescrip === 'Portfolio' ? 
                     <button onClick={(e) => {
                       e.stopPropagation();
-                      handleRemoveFromPortfolio(property.id)}} className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded">
+                      handleRemoveFromPortfolio(property.id)}} className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1">
                     Remove from Portfolio
                     </button> :
                     <button onClick={(e) => {
                       e.stopPropagation();
-                      handleRemoveFromList(property.id)}} className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900">
+                      handleRemoveFromList(property.id)}} className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1">
                     Remove From List
                     </button>
                 }
                   </div>
                 {/* Navigate to the property's purchase worksheet page */}
                 <button
-                className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded "
+                className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1"
                 onClick={(e) => {
                   e.stopPropagation(); // Stop event propagation
                   navigate(`/purchaseworksheet/${property.id}`);

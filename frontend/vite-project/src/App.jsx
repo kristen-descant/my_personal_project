@@ -6,7 +6,8 @@ import NavbarComp from './components/NavbarComp';
 import { useNavigate} from "react-router-dom";
 import { useRef } from 'react';
 import { useLocation } from "react-router-dom";
-import logo from './media/houselogo.png'
+import logo from './media/houseLogo.png'
+
 
 
 function App() {
@@ -74,7 +75,7 @@ function App() {
               <div className="dropdown-container">
                 {/* Button that can toggle between open and close */}
                 
-                <button className="dropdown-button w-10 h-10 mb-2 text-lg" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
+                <button className="dropdown-button w-10 h-10 text-white mb-2 text-lg" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
                   |||
                 </button>
               </div>
@@ -82,10 +83,10 @@ function App() {
             {/* If open show options for logout and settings */}
             {isDropdownOpen && (
                   <div onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)} className="dropdown-content container mx-auto flex flex-col h-16 w-16 items-end ml-5 mr-1 pl-5 pr-0 absolute right-0 top-10">
-                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-blue-500 rounded text-center mt-6 bg-white">
+                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-sky-900 bg-sky-700 rounded text-center mt-6">
                       <button onClick={handleLogout}>Logout</button><br />
                     </div>
-                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-blue-500 rounded text-center bg-white">
+                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-sky-900 rounded text-center bg-sky-700">
                       <Link to="settings">Settings</Link>
                     </div>
                   </div>

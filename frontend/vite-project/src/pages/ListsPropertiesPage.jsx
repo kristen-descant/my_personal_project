@@ -42,7 +42,7 @@ export default function ListsPropertiesPage() {
 
     return (
         <>
-            <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center  h-3/4 bg-white rounded">
+            <div className="overflow-scroll w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center  h-3/4 bg-white rounded">
                 <div className="mt-5 mb-5">
                     <input className="border border-black rounded mr-3" type="text" value={newListName} onChange={(e) => setNewListName(e.target.value)} placeholder="New List Name"/>
                     <button className="border border-black rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" onClick={handleAddList}>Add List</button>

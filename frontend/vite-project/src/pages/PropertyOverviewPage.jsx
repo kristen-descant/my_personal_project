@@ -120,6 +120,10 @@ export default function PropertyOverviewPage() {
         setIsNewList(false)
 
         getUserLists();
+        console.log(addProperty)
+        if (addProperty.response === 200) {
+          window.alert('added to list')
+        }
 
       } catch(error) {
         console.log(error)
@@ -135,21 +139,6 @@ export default function PropertyOverviewPage() {
     }
   }
 
-  const handleAddDetails = async () => {
-    try {
-      setDetails(tempDetails)
-      console.log(details)
-      const response = await api.put(`properties/property/${propertyId}/`, {
-        details: tempDetails
-      });
-    } catch(error) {
-      console.log(error)
-    };
-  };
-
-  const handleEditDetails = () => {
-    setDetails("")
-  }
 
   const getImage = async () => {
     if (property !== null){
@@ -178,20 +167,21 @@ export default function PropertyOverviewPage() {
   }, [property]);
 
   return (
-    <div className="w-screen mr-8">
+    <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center justify-evenly h-3/4 bg-white relative rounded">
       <div>
-    <PropertyComp address={address} newPropertyImage={newPropertyImage}
-    beds={beds} baths={baths} sqft={sqft} max={max} mean={mean} median={median}
-      min={min} details={details} setDetails={setDetails} setTempDetails={setTempDetails} propertyId={propertyId} />
+        <PropertyComp address={address} newPropertyImage={newPropertyImage} propertId={propertyId}
+        beds={beds} baths={baths} sqft={sqft} max={max} mean={mean} median={median} tempDetails={tempDetails}
+          min={min} details={details} setDetails={setDetails} setTempDetails={setTempDetails} propertyId={propertyId} />
       </div>
-    <div className="mt-8 text-center w-3/4">
+    <div className="flex flex-row justify-between w-full pl-3 pr-3">
       <div className="shadow-md mb-5 bg-slate-400 rounded-md text-center">
-        <button className="hover:bg-blue-200 rounded" onClick={handlePortfolioToggle}>
+        <button className="bg-sky-700 hover:bg-sky-900 rounded pl-1 pr-1" onClick={handlePortfolioToggle}>
                 {isInPortfolio ? "Remove from Portfolio" : "Add to Portfolio"}
         </button>
       </div>
-      <div className="shadow-md mb-5 bg-slate-400 rounded-md text-center">
-        <button  className="mr-3 hover:bg-blue-200 rounded" onClick={handleAddToList}>Add to List</button>
+      <div className="flex flex-row h-1/2">
+        {selectedListId && 
+        <button className="bg-sky-700 hover:bg-sky-900 rounded pl-1 pr-1" onClick={handleAddToList}>Add</button>}
         {isNewList ? (
           <>
           <input
@@ -200,14 +190,15 @@ export default function PropertyOverviewPage() {
             value={newListName}
             onChange={(e) => setNewListName(e.target.value)}
           />
-          <button className="ml-3 hover:bg-blue-200 rounded" onClick={() => setIsNewList(false)}>Choose Existing List</button>
+          <button className="ml-3 hover:bg-blue-200 rounded" onClick={() => setIsNewList(false)}>X</button>
           </>
         ) : (
         <select
+          className="border border-black"
           value={selectedListId ? selectedListId : ""}
           onChange={(e) => handleListSelection(e.target.value)}
         >
-          <option value="">Select a List</option>
+          <option value="">Add to List</option>
           {userLists.map((list) => (
             <option key={list.id} value={list.id}>
               {list.list_name}
@@ -218,13 +209,12 @@ export default function PropertyOverviewPage() {
         )}
 
       </div>
-      <div className="flex flex-row justify-evenly shadow-md mb-5 bg-slate-400 rounded-md">
-        <div>
-          <button className="ml-3 hover:bg-blue-200 rounded" onClick={handleAddDetails}>Save Details</button>
-        </div>
-        <div>
-          <button className="ml-3 hover:bg-blue-200 rounded" onClick={handleEditDetails}>Edit Details</button>
-        </div>
+      <div>
+        <button className="bg-sky-700 hover:bg-sky-900 rounded pl-1 pr-1"
+           onClick={(e) => {
+                  e.stopPropagation(); // Stop event propagation
+                  navigate(`/purchaseworksheet/${property.id}`);
+                }}>Purchase Worksheet</button>
       </div>
     </div>
   </div>

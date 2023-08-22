@@ -1,45 +1,72 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RentComp from "./RentComp";
 import { api } from "../pages/utilities";
 
 export default function PropertyComp(props) {
   
-    const {address, newPropertyImage, beds, baths, sqft,
-    max, mean, median, min, details, setDetails, setTempDetails} = props;
+    const {address, newPropertyImage, beds, baths, sqft, propertyId,
+    max, mean, median, min, details, setDetails, tempDetails, setTempDetails} = props;
+
+    const handleAddDetails = async () => {
+      try {
+        setDetails(tempDetails)
+        console.log(tempDetails)
+        const response = await api.put(`properties/property/${propertyId}/`, {
+          details: tempDetails
+        });
+        console.log(response)
+      } catch(error) {
+        console.log(error)
+      };
+    };
+    console.log(details)
+    useEffect(() => {
+      console.log(tempDetails)
+    }, [tempDetails])
+  
+    const handleEditDetails = () => {
+      setDetails("")
+    }
 
     return (
-       <>
-       <div className=" flex flex-col justify-center "> 
-        <div className="flex flex-row justify-start">
-          <div className="flex flex-col mr-5 pt-8 mt-8 ">
-          <div>
+      <>
+      <div className="flex flex-row">
+        <div className="w-1/2" >
+            <div className="text-center mb-3 font-bold mr-5 w-1/2">
+              <p>{address}</p>
+            </div>
+            <div className="">
+              <p>Beds: {beds} </p>
+              <p>Baths: {baths} </p>
+              <p>Sqft: {sqft}</p>
+            </div>
             <div className="font-bold mb-2">
               Details:
             </div>
-            <div>
+            <div className="pr-3">
               {!details ? 
-              <textarea className="border border-black" onChange={(e) => (setTempDetails(e.target.value))} value={details} cols="25" rows="5"></textarea> :
+              <textarea className="border border-black" onChange={(e) => (setTempDetails(e.target.value))} value={tempDetails} cols="25" rows="5"></textarea> :
               details
               }
             </div>
+            <div className="flex flex-row">
+              <div>
+                <button className="ml-3 hover:bg-blue-200 rounded" onClick={handleAddDetails}>Save Details</button>
+              </div>
+              <div>
+                <button className="ml-3 hover:bg-blue-200 rounded" onClick={handleEditDetails}>Edit Details</button>
+              </div>
+            </div>
+          </div>
+          <div className="w-1/2 flex flex-col justify-center items-center">
             <div className="">
-              <p>Beds: {beds} Baths: {baths} Sqft: {sqft}</p>
+              <img src={newPropertyImage} alt="" />
+            </div>
+            <div className=" mt-3 w-3/4">
+              <RentComp max={max} mean={mean} median={median} min={min} />
             </div>
           </div>
         </div>
-          <div className="flex-col">
-            <div className="text-center mb-3 font-bold mr-5">
-              <p>{address}</p>
-            </div>
-              <div className="flex justify-center mb-3">
-                <img src={newPropertyImage} alt="" />
-              </div>
-            </div>
-            <div className=" pt-8 mt-8">
-              <RentComp max={max} mean={mean} median={median} min={min} />
-            </div>
-          </div>  
-        </div>
-        </>
+      </>
     )
 }
