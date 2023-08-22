@@ -35,11 +35,14 @@ class Create_Property(UserPermissions):
         new_property.full_clean()
         new_property.save()
         new_operating_expenses = Operating_Expenses.objects.create()
-        new_purchase_worksheet = Purchase_Worksheet.objects.create(matching_property=new_property, operating_expenses=new_operating_expenses)
+        new_property_analysis = Property_Analysis.objects.create()
+        new_purchase_worksheet = Purchase_Worksheet.objects.create(matching_property=new_property, operating_expenses=new_operating_expenses, property_analysis=new_property_analysis)
         new_purchase_worksheet.full_clean()
         new_purchase_worksheet.save()
         new_operating_expenses.full_clean()
         new_operating_expenses.save()
+        new_property_analysis.full_clean()
+        new_property_analysis.save()
 
         json_new_property = PropertySerializer(new_property).data
         return Response(json_new_property, status=HTTP_201_CREATED)
@@ -172,7 +175,9 @@ class Purchase_Worksheet_View(UserPermissions):
         a_property = get_object_or_404(Property, id=propid)
         purchase_worksheet = Purchase_Worksheet.objects.get(matching_property=a_property)
         json_purchase_worksheet = PurchaseWorksheetSerializer(purchase_worksheet).data
-        
+        total_expenses = purchase_worksheet.operating_expenses.total_expenses()
+        json_purchase_worksheet['operating_expenses']['total_expenses'] = total_expenses
+
         return Response(json_purchase_worksheet)
     
 
@@ -180,7 +185,7 @@ class Purchase_Worksheet_View(UserPermissions):
         a_property = get_object_or_404(Property, id=propid)
         purchase_worksheet = Purchase_Worksheet.objects.get(matching_property=a_property)
         json_purchase_worksheet = PurchaseWorksheetSerializer(purchase_worksheet, data=request.data, partial=True)
-
+        print(request.data)
         if json_purchase_worksheet.is_valid():
             json_purchase_worksheet.save()
 
@@ -189,7 +194,7 @@ class Purchase_Worksheet_View(UserPermissions):
         
         if json_purchase_worksheet.is_valid() and is_worksheet_complete:
             try:
-                purchase_worksheet.property_analysis = calculate_analysis(purchase_worksheet)
+                calculate_analysis(purchase_worksheet)
             except Exception as e:
                 print(e)
                 return Response({"error": "Error calculating property analysis."}, status=HTTP_400_BAD_REQUEST)
@@ -202,11 +207,6 @@ class Purchase_Worksheet_View(UserPermissions):
             
             return Response(json_purchase_worksheet.data)
         
-        elif json_purchase_worksheet.is_valid() and not is_worksheet_complete:
-            purchase_worksheet.property_analysis = None
-
-            return Response(json_purchase_worksheet.data)
-        
         elif json_purchase_worksheet.is_valid():
 
             json_purchase_worksheet.save()
@@ -217,5 +217,6 @@ class Purchase_Worksheet_View(UserPermissions):
 
             return Response(json_purchase_worksheet.data)
         else:
+            print(json_purchase_worksheet.errors)
             return Response(json_purchase_worksheet.errors, status=HTTP_400_BAD_REQUEST)
 

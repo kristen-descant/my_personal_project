@@ -20,7 +20,7 @@ class PurchaseWorksheetSerializer(serializers.ModelSerializer):
 
     matching_property = serializers.SerializerMethodField()
     operating_expenses = OperatingExpensesSerializer()
-    property_analysis = PropertyAnalysisSerializer()
+    property_analysis = PropertyAnalysisSerializer(required=False, read_only=True)
 
     class Meta:
         model = Purchase_Worksheet

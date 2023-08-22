@@ -31,9 +31,9 @@ class Address_Autocomplete(UserPermissions):
     
 class Property_Image(UserPermissions):
 
-    def get(self, request, input_text):
+    def get(self, request, input_text, imgSize):
 
-        url = f'https://maps.googleapis.com/maps/api/streetview?size=200x200&location={input_text}&key={MAPSAPIKEY}'
+        url = f'https://maps.googleapis.com/maps/api/streetview?size={imgSize}&location={input_text}&key={MAPSAPIKEY}'
 
         response = requests.get(url)
         

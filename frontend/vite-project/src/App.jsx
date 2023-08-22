@@ -1,20 +1,24 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+import './index.css'
 import { Outlet, Link } from "react-router-dom";
 import { api } from './pages/utilities';
 import NavbarComp from './components/NavbarComp';
 import { useNavigate} from "react-router-dom";
 import { useRef } from 'react';
 import { useLocation } from "react-router-dom";
+import logo from './media/houseLogo.png'
+
 
 
 function App() {
 
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [properties, setProperties] = useState(null);
   const [pageDescrip, setPageDescrip] = useState('pagedescrip');
   const [selectedPoperty, setSelectedPropety] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false)
   const navigate = useNavigate();
   const lastVisited = useRef();
   const location = useLocation();
@@ -53,52 +57,86 @@ function App() {
       }
     }, [location]);
 
-  return (
-    <>
-      {user ? (
-    <>
-      <NavbarComp/>
-      <div className='header'>
-      <header>
-        <p>logo</p>
-        <p>{pageDescrip}</p>
-        <p onClick={() => setIsDropdownOpen(!isDropdownOpen)}>Options</p>
-        {isDropdownOpen && (
-                <div className='dropdown-content'>
-                  <button onClick={() => {
-                    localStorage.removeItem('token');
-                    setUser(null);
-                    navigate('login');
-                  }}>
-                    Logout
-                  </button>
-                  <Link to='/settings'>Settings</Link>
+    const handleLogout = () => {
+      localStorage.removeItem('token');
+      setUser(null);
+      navigate('/login');
+    };
+
+    return (
+      <div className='min-h-screen bg-zinc-800'>
+        {user ? (
+          <div className='relative'>
+            <header className='container mx-auto flex h-16 justify-between items-center mr-5 pl-5 pr-5 border-b bg-sky-900 shadow-md'>
+              <div className='ml-7'>
+                <img src={logo} alt="house" className="w-10 h-10"/>
+              </div>
+              <p className='text-2xl font-bold text-white' >{pageDescrip}</p>
+              <div className="dropdown-container">
+                {/* Button that can toggle between open and close */}
+                
+                <button className="dropdown-button w-10 h-10 text-white mb-2 text-lg" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
+                  |||
+                </button>
+              </div>
+            </header>
+            {/* If open show options for logout and settings */}
+            {isDropdownOpen && (
+                  <div onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)} className="dropdown-content container mx-auto flex flex-col h-16 w-16 items-end ml-5 mr-1 pl-5 pr-0 absolute right-0 top-10">
+                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-sky-900 bg-sky-700 rounded text-center mt-6">
+                      <button onClick={handleLogout}>Logout</button><br />
+                    </div>
+                    <div className="h-15 w-20 shadow-md mb-2 hover:bg-sky-900 rounded text-center bg-sky-700">
+                      <Link to="settings">Settings</Link>
+                    </div>
                   </div>
+                )}
+            <div className='grid grid-cols-5 gap-3'>
+              <NavbarComp className='col-span-1' />
+              <div className='col-span-3 flex ml-8'>
+                <Outlet 
+                  context={{
+                    properties,
+                    setProperties,
+                    pageDescrip,
+                    setPageDescrip,
+                    selectedPoperty,
+                    setSelectedPropety,
+                    user,
+                    setUser,
+                    userId,
+                    setUserId,
+                    isDropdownOpen,
+                    setIsDropdownOpen,
+                    isSignUp,
+                    setIsSignUp
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        ) :
+         (
+          <div className='h-screen flex flex-col justify-center items-center bg-sky-900'>
+          
+        <Outlet 
+            context={{
+              user,
+              setUser,
+              userId,
+              setUserId,
+              isSignUp,
+              setIsSignUp,
+              pageDescrip,
+              setPageDescrip,
+            }}
+          />
+          </div>
         )}
-      </header>
+
+        
       </div>
-    </>
-    ) : (
-      <>
-        <Link to="/signup">Sign Up</Link>
-        <Link to="/login">Log In</Link>
-      </>
-    )}
-      <Outlet
-      context={
-        {properties, 
-        setProperties,
-        pageDescrip,
-        setPageDescrip,
-        selectedPoperty,
-        setSelectedPropety,
-        user,
-        setUser,
-        isDropdownOpen, 
-        setIsDropdownOpen}
-      }/>
-    </>
-  )
+    );
 }
 
 export default App

@@ -37,12 +37,6 @@ export default function AddPropertyPage() {
         setSuggestions([]);
     };
 
-    const clearSelectedAddress = (e) => {
-
-        setAddressInput('');
-        setSuggestions('')
-    }
-
     const addNewProperty = async () => {
 
         try {
@@ -64,20 +58,28 @@ export default function AddPropertyPage() {
     
     return (
         <>
-        <div className="add-property">
-            <div>
-                <label>Address:</label>
-                <input
-                    type="text"
-                    value={addressInput}
-                    onChange={(e) => setAddressInput(e.target.value)}
-                    placeholder="Enter address..."
-                />
-                <button type='submit' onClick={clearSelectedAddress}>Clear</button>
+        <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center justify-evenly h-3/4 bg-white relative rounded">
+            <div className="flex flex-no-wrap overflow-hidden justify-center mt-0 w-full">
+                <div className="">
+                    <label>Address:</label>
+                </div>
+                <div>
+                    <input
+                        className="border ml-3 mr-3 border-black rounded"
+                        type="text"
+                        value={addressInput}
+                        onChange={(e) => setAddressInput(e.target.value)}
+                        placeholder="Enter address..."
+                    />
+                </div>
+            
+            </div>
+            <div className=" text-center absolute top-12 w-1/2">
                 {addressInput &&  (
                     <ul className="suggestions">
                         {suggestions.map((suggestion) => (
                         <li
+                        className="bg-white border border-black rounded hover:bg-gray-300"
                         key={suggestion.place_id}
                         onClick={() => handleAddressSelect(suggestion.description)}
                         >
@@ -87,28 +89,55 @@ export default function AddPropertyPage() {
                     </ul>
                 )}
             </div>
-            <div>
-                <label htmlFor="beds">beds</label>
-                <input onChange={(e) => setBeds(e.target.value)} type="text"/>
+            <div className="flex flex-col items-around h-1/4 justify-between mb-5">
+           
+                  <div className="flex flex-row">
+                        <div className="mr-4">
+                            <label  htmlFor="beds">Beds: </label>
+                        </div>
+                        <div className="">
+                            <input className="border border-black rounded " onChange={(e) => setBeds(e.target.value)} type="text"/>
+                        </div>
+                      
+                    </div>
+                <div className="flex flex-row">
+                    <div className="mr-4">
+                        <label htmlFor="baths">Baths:</label>
+                    </div>
+                    <div>
+                        <select className="border border-black rounded mr-12" onChange={(e) => setBaths(e.target.value)} >
+                            <option value=''>Select</option>
+                            <option value={1}>1</option>
+                            <option value={1.5}>1.5+</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div className="flex flex-row">
+                    <div className="mr-6">
+                        <label htmlFor="sqft">sqft: </label>
+                    </div>
+                    <div>
+                        <input className="border border-black rounded" onChange={(e) => setSqft(e.target.value)} type="sqft"/>
+                    </div>
+                </div>
+    
+     
             </div>
-            <div>
-                <label htmlFor="baths">baths</label>
-                <select onChange={(e) => setBaths(e.target.value)} >
-                    <option value=''>Select</option>
-                    <option value={1}>1</option>
-                    <option value={1.5}>1.5+</option>
-                </select>
+         
+            <div className="flex justify-start flex-row">
+               
+                <div className="mr-5 mb-3">
+                    <label htmlFor="details">Details:</label>
+                </div>
+                <div>
+                    <textarea className="border border-black rounded" onChange={(e) => setDetails(e.target.value)} cols="30" rows="6"></textarea>
+                </div>
+                
             </div>
-            <div>
-                <label htmlFor="sqft">sqft</label>
-                <input onChange={(e) => setSqft(e.target.value)} type="sqft"/>
-            </div>
-            <div>
-                <label htmlFor="details">details</label>
-                <textarea onChange={(e) => setDetails(e.target.value)} cols="30" rows="10"></textarea>
-            </div>
-           <button onClick={addNewProperty}>Add Property</button>
-        </div>
+           <button className="border border-black rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" onClick={addNewProperty}>Add Property</button>
+           </div>
+    
         </>
     );
 }
