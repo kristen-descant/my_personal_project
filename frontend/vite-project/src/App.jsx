@@ -66,9 +66,9 @@ function App() {
     return (
       <div className='min-h-screen bg-zinc-800'>
         {user ? (
-          <div className='relative'>
-            <header className='container mx-auto flex h-16 justify-between items-center mr-5 pl-5 pr-5 border-b bg-sky-900 shadow-md'>
-              <div className='ml-7'>
+          <div className=''>
+            <header className='container min-w-screen max-w-none flex h-16 justify-between items-center pl-5 pr-5 border-b bg-sky-900 shadow-md'>
+              <div className='ml-5'>
                 <img src={logo} alt="house" className="w-10 h-10"/>
               </div>
               <p className='text-2xl font-bold text-white' >{pageDescrip}</p>

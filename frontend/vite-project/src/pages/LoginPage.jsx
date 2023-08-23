@@ -56,11 +56,11 @@ export default function LoginPage(props) {
 
     return (
         <>
-        <div className="h-3/4 w-3/4 mr-8 ml-8 border-8 flex flex-col justify-evenly items-center border-white bg-zinc-800 shadow-2xl rounded-md">
+        <div className="h-3/4  w-3/4 mr-8 ml-8 border-8 flex overflow-hidden flex-col justify-evenly items-center border-white bg-zinc-800 shadow-2xl rounded-md">
             <div>
-                <img className="w-20 h-20" src={logo} alt="house logo" />
+                <img className="lg:w-20 lg:h-20 md:w-10 md:h-10 sm:h-8 sm:w-8" src={logo} alt="house logo" />
             </div>
-            <div className="text-white text-4xl">REInvestmentPro</div>
+            <div className="text-white lg:text-4xl md:text-xl">REInvestmentPro</div>
             {!user &&
             <RegisterComp 
             includeVerifyPassword={false}

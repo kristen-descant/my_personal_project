@@ -74,11 +74,11 @@ export default function ListComp(prop) {
   };
 
   return (
-      <ul>
+      <ul className="flex flex-col flex-nowrap">
         {properties &&
           properties.map((property) => (
-            <li className="group m-2 flex flex-row justify-between border-black border hover:bg-gray-300 bg-white rounded-md shadow-lg" key={property.id} onClick={() => handlePropertyClick(property.id)}>
-              <div className="overflow-hidden">
+            <li className="group m-2 flex flex-row  justify-between border-black border hover:bg-gray-300 bg-white rounded-md shadow-lg" key={property.id} onClick={() => handlePropertyClick(property.id)}>
+              <div className="overflow-hidden md:w-1/4 sm:w-1/4">
                 {propertyImages[property.id] ? ( // Check if the image has loaded
                   <img src={propertyImages[property.id]} alt="property" className="object-cover w-full h-full rounded-md" onLoad={handleImageLoad} />
                 ) : (
@@ -86,20 +86,20 @@ export default function ListComp(prop) {
                 )}
               </div>
               <div className="flex flex-col justify-between ml-2 mr-8 w-3/4">
-                <div className="text-center text-lg">
+                <div className="text-center text-lg sm:text-sx overflow:hidden">
                 {property.address}
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between md:w-full sm:w-3/4">
                     <div><span className="font-bold">Cash Flow:</span> <span className="text-blue-700">{property.purchase_worksheet.property_analysis.cash_flow}</span> </div>  
                     <div><span className="font-bold">COC:</span> <span className="text-blue-700">{property.purchase_worksheet.property_analysis.coc}</span> </div> 
                     <div><span className="font-bold">Cap Rate:</span> <span className="text-blue-700">{property.purchase_worksheet.property_analysis.cap_rate}</span></div>
                 </div>
-                <div className="flex justify-end justify-evenly">
+                <div className="flex  justify-evenly md:w-full sm:w-3/4">
                   <div onClick={(e) => {e.stopPropagation()}}>
                     {pageDescrip === 'Portfolio' ? 
                     <button onClick={(e) => {
                       e.stopPropagation();
-                      handleRemoveFromPortfolio(property.id)}} className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1">
+                      handleRemoveFromPortfolio(property.id)}} className="sm:mr-1 sm:ml-1 shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1">
                     Remove from Portfolio
                     </button> :
                     <button onClick={(e) => {

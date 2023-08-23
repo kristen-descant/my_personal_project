@@ -58,7 +58,7 @@ export default function AddPropertyPage() {
     
     return (
         <>
-        <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center justify-evenly h-3/4 bg-white relative rounded">
+        <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center justify-evenly md:h-full overflow-hidden lg:h-3/4 bg-white relative rounded">
             <div className="flex flex-no-wrap overflow-hidden justify-center mt-0 w-full">
                 <div className="">
                     <label>Address:</label>

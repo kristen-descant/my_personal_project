@@ -53,7 +53,7 @@ export default function PropertyOverviewPage() {
   };
 
   const getRents = async () => {
-    const response = await api.get(`rent/${propertyId}/`)
+    // const response = await api.get(`rent/${propertyId}/`)
 
     const {max, mean, median, min} = response.data;
     console.log(response)
@@ -168,21 +168,21 @@ export default function PropertyOverviewPage() {
   }, [property]);
 
   return (
-    <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center justify-evenly h-3/4 bg-white relative rounded">
-      <div className="w-full">
+    <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center  justify-between sm:h-full lg:h-3/4 md:h-full bg-white relative rounded">
+      <div className="md:w-full mt-2 ">
         <PropertyComp address={address} newPropertyImage={newPropertyImage} propertId={propertyId}
         beds={beds} baths={baths} sqft={sqft} max={max} mean={mean} median={median} tempDetails={tempDetails}
           min={min} details={details} setDetails={setDetails} setTempDetails={setTempDetails} propertyId={propertyId} />
       </div>
-    <div className="flex flex-row justify-between w-full pl-3 pr-3">
-      <div className="shadow-md mb-5 bg-slate-400 rounded-md text-center">
+    <div className="flex h-1/4 flex-row justify-between w-full pl-3 pr-3 overflow-hidden items-center mb-3 flex-nowrap">
+      <div className=" overflow-hidden sm:mr-3" >
         <button className="bg-sky-700 hover:bg-sky-900 rounded pl-1 pr-1 text-white" onClick={handlePortfolioToggle}>
                 {isInPortfolio ? "Remove from Portfolio" : "Add to Portfolio"}
         </button>
       </div>
-      <div className="flex flex-row h-1/2">
-        {selectedListId && 
-        <button className="bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1" onClick={handleAddToList}>Add</button>}
+      <div className="flex flex-row mb-2 overflow-hidden">
+        
+        <button className="bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1" onClick={handleAddToList}>Add</button>
         {isNewList ? (
           <>
           <input
@@ -210,7 +210,7 @@ export default function PropertyOverviewPage() {
         )}
 
       </div>
-      <div>
+      <div className=" overflow-hidden  sm:ml-5">
       <button
           className="shadow-md mb-2 bg-sky-700 text-white hover:bg-sky-900 rounded pl-1 pr-1"
           onClick={(e) => {

@@ -126,8 +126,8 @@ export default function CaclculatorPage() {
 
     return (
         <>
-        <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-row h-3/4 items-center justify-evenly ">
-            <div className="h-full p-5 bg-white relative rounded">
+        <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-row lg:h-3/4 md:h-full sm:h-full items-center justify-evenly ">
+            <div className="h-full p-5 bg-white relative rounded md:mr-3 sm:mr-2">
                 <form
                     className="h-full"
                     onSubmit={(e) => {

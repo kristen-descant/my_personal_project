@@ -31,7 +31,7 @@ export default function PropertyComp(props) {
     return (
       <>
       <div className="flex flex-row ml-10 mr-10">
-        <div className="w-1/2" >
+        <div className="w-1/2 h-full" >
             <div className="text-center mb-3 font-bold mr-5 w-1/2">
               <p>{address}</p>
             </div>
@@ -43,13 +43,13 @@ export default function PropertyComp(props) {
             <div className="font-bold mb-2">
               Details:
             </div>
-            <div className="pr-3 overflow-scroll">
+            <div className="pr-3 overflow-scroll min-h-1/2">
               {!details ? 
               <textarea className="border border-black" onChange={(e) => (setTempDetails(e.target.value))} value={tempDetails} cols="25" rows="5"></textarea> :
               details
               }
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row items-end mt-3">
               <div>
                 <button className=" hover:bg-sky-900 bg-sky-700 pl-1 pr-1 rounded mr-3 text-white" onClick={handleAddDetails}>Save Details</button>
               </div>
@@ -58,7 +58,7 @@ export default function PropertyComp(props) {
               </div>
             </div>
           </div>
-          <div className="w-1/2 flex flex-col justify-center items-center">
+          <div className="w-1/2 flex flex-col justify-center items-center h-full">
             <div className="">
               <img src={newPropertyImage} alt="" />
             </div>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Maps, Address_Autocomplete, Property_Image
+from .views import Address_Autocomplete, Property_Image
 
 urlpatterns = [
     path('autocomplete/<str:input_text>/', Address_Autocomplete.as_view(), name='address_autocomplete'),
