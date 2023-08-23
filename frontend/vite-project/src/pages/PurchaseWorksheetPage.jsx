@@ -77,29 +77,28 @@ export default function PurchaseWorksheetPage() {
     // ... (other code remains the same)
 
 useEffect(() => {
-    console.log(purchaseWorksheetData)
     if (purchaseWorksheetData) {
-        setPurchasePrice(Number(purchaseWorksheetData.purchase_price));
+        setPurchasePrice(purchaseWorksheetData.purchase_price);
         setFinancing(purchaseWorksheetData.financing);
-        setInterestRate(Number(purchaseWorksheetData.interest_rate * 100));
-        setPurchaseCost(Number(purchaseWorksheetData.purchase_cost * 100));
-        setGrossRent(Number(purchaseWorksheetData.gross_rent));
-        setArv(Number(purchaseWorksheetData.arv));
-        setDownPayment(Number(purchaseWorksheetData.down_payment * 100));
-        setLoanTerm(Number(purchaseWorksheetData.loan_term));
-        setRehabCost(Number(purchaseWorksheetData.rehab_cost));
-        setVacancyRate(Number(purchaseWorksheetData.vacancy_rate * 100));
-        setPropertyTaxes(Number(operatingExpenseData.property_taxes));
-        setInsurance(Number(operatingExpenseData.insurance))
-        setPropertyManagement(Number(operatingExpenseData.property_management * 100));
-        setMaintenance(Number(operatingExpenseData.maintenance * 100));
-        setCapex(Number(operatingExpenseData.cap_ex * 100));
-        setHoaFees(Number(operatingExpenseData.hoa_fees));
-        setUtilities(Number(operatingExpenseData.utilities));
-        setLandscaping(Number(operatingExpenseData.landscaping));
-        setOtherexp(Number(operatingExpenseData.other_exp));
-        setTotalExpenses(Number(operatingExpenseData.total_expenses));
-        setPropertyAnalysis(purchaseWorksheetData.property_analysis);
+        setInterestRate(purchaseWorksheetData.interest_rate * 100);
+        setPurchaseCost(purchaseWorksheetData.purchase_cost * 100);
+        setGrossRent(purchaseWorksheetData.gross_rent);
+        setArv(purchaseWorksheetData.arv);
+        setDownPayment(purchaseWorksheetData.down_payment * 100);
+        setLoanTerm(purchaseWorksheetData.loan_term);
+        setRehabCost(purchaseWorksheetData.rehab_cost);
+        setVacancyRate(purchaseWorksheetData.vacancy_rate * 100);
+        setPropertyTaxes(operatingExpenseData.property_taxes);
+        setInsurance(operatingExpenseData.insurance)
+        setPropertyManagement(operatingExpenseData.property_management * 100);
+        setMaintenance(operatingExpenseData.maintenance * 100);
+        setCapex(operatingExpenseData.cap_ex * 100);
+        setHoaFees(operatingExpenseData.hoa_fees);
+        setUtilities(operatingExpenseData.utilities);
+        setLandscaping(operatingExpenseData.landscaping);
+        setOtherexp(operatingExpenseData.other_exp)
+        setTotalExpenses(operatingExpenseData.total_expenses)
+        setPropertyAnalysis(purchaseWorksheetData.property_analysis)
         console.log(propertyAnalysis)
 
     }
@@ -220,14 +219,14 @@ useEffect(() => {
         e.preventDefault();
         try {
             // Update the purchase worksheet data
-            await api.put(`properties/property/${propertyId}/purchaseworksheet/`, {
+            const response = await api.put(`properties/property/${propertyId}/purchaseworksheet/`, {
                 purchase_price: purchasePrice,
-                arv: arv ? arv : 0,
+                arv: arv,
                 financing: financing,
                 interest_rate: interestRateReturn ? interestRateReturn : purchaseWorksheetData.interest_rate,
                 purchase_cost: purchaseCostReturn ? purchaseCostReturn : purchaseWorksheetData.purchase_cost,
                 down_payment: downPaymentReturn ? downPaymentReturn : purchaseWorksheetData.down_payment,
-                loan_term: loanTerm ? loanTerm : 1,
+                loan_term: loanTerm,
                 rehab_cost: rehabCost,
                 gross_rent: grossRent,
                 vacancy_rate: vacancyRateReturn ? vacancyRateReturn : purchaseWorksheetData.vacancy_rate,
@@ -244,6 +243,7 @@ useEffect(() => {
                 }
             });
             console.log("Purchase worksheet data updated successfully.");
+            console.log(response)
 
             await fetchExistingPurchaseWorksheet();
 
@@ -252,11 +252,11 @@ useEffect(() => {
         }
     };
 
-
     return (
         <>
         {purchaseWorksheetData !== null ? (
         <div>
+            <div></div>
             <div className="mt-2 border border-white text-white rounded w-1/4 text-center bg-sky-700 hover:bg-sky-900"><Link to={`/property/${propertyId}`}>Back to Property</Link></div>
             <div  className=" w-full mt-5 mb-8 flex flex-no-wrap flex-row lg:h-3/4 md:h-full sm:h-full items-center justify-evenly "> 
                 <div className="h-full p-5 mr-5 bg-white relative rounded overflow-scroll">     
