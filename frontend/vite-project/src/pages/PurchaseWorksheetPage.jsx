@@ -1,4 +1,4 @@
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { api } from "./utilities.jsx";
 
@@ -77,28 +77,29 @@ export default function PurchaseWorksheetPage() {
     // ... (other code remains the same)
 
 useEffect(() => {
+    console.log(purchaseWorksheetData)
     if (purchaseWorksheetData) {
-        setPurchasePrice(purchaseWorksheetData.purchase_price);
+        setPurchasePrice(Number(purchaseWorksheetData.purchase_price));
         setFinancing(purchaseWorksheetData.financing);
-        setInterestRate(purchaseWorksheetData.interest_rate * 100);
-        setPurchaseCost(purchaseWorksheetData.purchase_cost * 100);
-        setGrossRent(purchaseWorksheetData.gross_rent);
-        setArv(purchaseWorksheetData.arv);
-        setDownPayment(purchaseWorksheetData.down_payment * 100);
-        setLoanTerm(purchaseWorksheetData.loan_term);
-        setRehabCost(purchaseWorksheetData.rehab_cost);
-        setVacancyRate(purchaseWorksheetData.vacancy_rate * 100);
-        setPropertyTaxes(operatingExpenseData.property_taxes);
-        setInsurance(operatingExpenseData.insurance)
-        setPropertyManagement(operatingExpenseData.property_management * 100);
-        setMaintenance(operatingExpenseData.maintenance * 100);
-        setCapex(operatingExpenseData.cap_ex * 100);
-        setHoaFees(operatingExpenseData.hoa_fees);
-        setUtilities(operatingExpenseData.utilities);
-        setLandscaping(operatingExpenseData.landscaping);
-        setOtherexp(operatingExpenseData.other_exp)
-        setTotalExpenses(operatingExpenseData.total_expenses)
-        setPropertyAnalysis(purchaseWorksheetData.property_analysis)
+        setInterestRate(Number(purchaseWorksheetData.interest_rate * 100));
+        setPurchaseCost(Number(purchaseWorksheetData.purchase_cost * 100));
+        setGrossRent(Number(purchaseWorksheetData.gross_rent));
+        setArv(Number(purchaseWorksheetData.arv));
+        setDownPayment(Number(purchaseWorksheetData.down_payment * 100));
+        setLoanTerm(Number(purchaseWorksheetData.loan_term));
+        setRehabCost(Number(purchaseWorksheetData.rehab_cost));
+        setVacancyRate(Number(purchaseWorksheetData.vacancy_rate * 100));
+        setPropertyTaxes(Number(operatingExpenseData.property_taxes));
+        setInsurance(Number(operatingExpenseData.insurance))
+        setPropertyManagement(Number(operatingExpenseData.property_management * 100));
+        setMaintenance(Number(operatingExpenseData.maintenance * 100));
+        setCapex(Number(operatingExpenseData.cap_ex * 100));
+        setHoaFees(Number(operatingExpenseData.hoa_fees));
+        setUtilities(Number(operatingExpenseData.utilities));
+        setLandscaping(Number(operatingExpenseData.landscaping));
+        setOtherexp(Number(operatingExpenseData.other_exp));
+        setTotalExpenses(Number(operatingExpenseData.total_expenses));
+        setPropertyAnalysis(purchaseWorksheetData.property_analysis);
         console.log(propertyAnalysis)
 
     }
@@ -221,12 +222,12 @@ useEffect(() => {
             // Update the purchase worksheet data
             await api.put(`properties/property/${propertyId}/purchaseworksheet/`, {
                 purchase_price: purchasePrice,
-                arv: arv,
+                arv: arv ? arv : 0,
                 financing: financing,
                 interest_rate: interestRateReturn ? interestRateReturn : purchaseWorksheetData.interest_rate,
                 purchase_cost: purchaseCostReturn ? purchaseCostReturn : purchaseWorksheetData.purchase_cost,
                 down_payment: downPaymentReturn ? downPaymentReturn : purchaseWorksheetData.down_payment,
-                loan_term: loanTerm,
+                loan_term: loanTerm ? loanTerm : 1,
                 rehab_cost: rehabCost,
                 gross_rent: grossRent,
                 vacancy_rate: vacancyRateReturn ? vacancyRateReturn : purchaseWorksheetData.vacancy_rate,
@@ -254,320 +255,321 @@ useEffect(() => {
 
     return (
         <>
-            {purchaseWorksheetData !== null ? (
-        <div  className=" w-full mt-8 mb-8 flex flex-no-wrap flex-row lg:h-3/4 md:h-full sm:h-full items-center justify-evenly "> 
-        <div className="h-full p-5 bg-white relative rounded overflow-scroll">
-            
-            <form className="h-full" onSubmit={handleSubmit}>
-                <div className="flex h-full flex-col lg:mt-12 md:mr-3 sm:mr-2 justify-around">
-                    <div className="text-lg font-bold mb-1">
-                        <h2>Purchase Expenses</h2>
-                    </div>
-                    <div className=" mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="purchase_price">Purchase Price:</label>
-                        </div>
-                        <div>
-                            <span>$ </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center"
-                                type="number"
-                                value={purchasePrice || ""}
-                                onChange={(e) => handlePurchasePriceChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className=" mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="arv">After Repair Value:</label>
-                        </div>
-                        <div>
-                            <span>$ </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center"
-                                type="number"
-                                value={arv || ""}
-                                onChange={(e) => handleArvChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className=" mb-1 flex justify-between w-3/4 ">
-                        <div>
-                            <label htmlFor="financing">Financing:</label>
-                        </div>
-                        <div>
-                            <select
-                                className="border border-black rounded"
-                                value={financing ? "true" : "false"}
-                                onChange={(e) => handleFinancingChange(e.target.value)}
-                            >
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
-                            </select>
-                        </div>
-                    </div>
-                    {financing && ( 
-                        <div>
+        {purchaseWorksheetData !== null ? (
+        <div>
+            <div className="mt-2 border border-white text-white rounded w-1/4 text-center bg-sky-700 hover:bg-sky-900"><Link to={`/property/${propertyId}`}>Back to Property</Link></div>
+            <div  className=" w-full mt-5 mb-8 flex flex-no-wrap flex-row lg:h-3/4 md:h-full sm:h-full items-center justify-evenly "> 
+                <div className="h-full p-5 mr-5 bg-white relative rounded overflow-scroll">     
+                    <form className="h-full" onSubmit={handleSubmit}>
+                        <div className="flex h-full flex-col lg:mt-12 md:mr-3 sm:mr-2 justify-around">
+                            <div className="text-lg font-bold mb-1">
+                                <h2>Purchase Expenses</h2>
+                            </div>
                             <div className=" mb-1 flex justify-between">
                                 <div>
-                                    <label htmlFor="interestRate">Interest Rate: </label>
+                                    <label htmlFor="purchase_price">Purchase Price:</label>
                                 </div>
-                                <div >
+                                <div>
+                                    <span>$ </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center"
+                                        type="number"
+                                        value={purchasePrice || ""}
+                                        onChange={(e) => handlePurchasePriceChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className=" mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="arv">After Repair Value:</label>
+                                </div>
+                                <div>
+                                    <span>$ </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center"
+                                        type="number"
+                                        value={arv || ""}
+                                        onChange={(e) => handleArvChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className=" mb-1 flex justify-between w-3/4 ">
+                                <div>
+                                    <label htmlFor="financing">Financing:</label>
+                                </div>
+                                <div>
+                                    <select
+                                        className="border border-black rounded"
+                                        value={financing ? "true" : "false"}
+                                        onChange={(e) => handleFinancingChange(e.target.value)}
+                                    >
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {financing && ( 
+                                <div>
+                                    <div className=" mb-1 flex justify-between">
+                                        <div>
+                                            <label htmlFor="interestRate">Interest Rate: </label>
+                                        </div>
+                                        <div >
+                                            <span>% </span>
+                                            <input
+                                            className="border border-black rounded text-center w-3/4"
+                                                type="number"
+                                                value={interestRate || ""}
+                                                onChange={(e) => handleInterestRateChange(e.target.value)}
+                                            /> 
+                                        </div>
+                                    </div>
+                                    <div className=" mb-1 flex justify-between">
+                                        <div >
+                                            <label htmlFor="downPayment">Down Payment: </label>
+                                        </div>
+                                        <div>
+                                            <span>% </span>
+                                            <input
+                                            className="border border-black rounded text-center w-3/4"
+                                                type="number"
+                                                value={downPayment || ""}
+                                                onChange={(e) => handleDownPaymentChange(e.target.value)}
+                                            /> 
+                                        </div>
+                                    </div>
+                                    <div className=" mb-1 flex justify-between">
+                                        <div>
+                                            <label htmlFor="loanTerm">Loan Term: <span>(years) </span> </label>
+                                        </div>
+                                        <div>
+                                            <span className="text-white">yy</span>
+                                            <input
+                                            className="border border-black rounded text-center w-3/4"
+                                                type="text"
+                                                value={loanTerm || ""}
+                                                onChange={(e) => handleLoanTermChange(e.target.value)}
+                                            /> 
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            <div className=" mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="purchaseCost">Purchase Cost:</label>
+                                </div>
+                                <div>
                                     <span>% </span>
                                     <input
-                                    className="border border-black rounded text-center w-3/4"
+                                        className="border border-black rounded w-3/4 text-center "
                                         type="number"
-                                        value={interestRate || ""}
-                                        onChange={(e) => handleInterestRateChange(e.target.value)}
+                                        value={purchaseCost || ""}
+                                        onChange={(e) => handlePurchaseCostChange(e.target.value)}
                                     /> 
                                 </div>
                             </div>
                             <div className=" mb-1 flex justify-between">
-                                <div >
-                                    <label htmlFor="downPayment">Down Payment: </label>
+                                <div>
+                                    <label htmlFor="rehabCost">Rehab Cost:</label>
+                                </div>
+                                <div>
+                                    <span>$ </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center "
+                                        type="number"
+                                        value={rehabCost || ""}
+                                        onChange={(e) => handleRehabCostChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="font-bold mb-1">Income and Vacancy:</div>
+                        
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="grossRent">Gross Rent: (monthly)</label>
+                                </div>
+                                <div>
+                                    <span>$ </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center"
+                                        type="number"
+                                        value={grossRent || ""}
+                                        onChange={(e) => handleGrossRentChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="vacancyRate">Vacancy Rate:</label>
                                 </div>
                                 <div>
                                     <span>% </span>
                                     <input
-                                    className="border border-black rounded text-center w-3/4"
+                                        className="border border-black rounded w-3/4 text-center "
                                         type="number"
-                                        value={downPayment || ""}
-                                        onChange={(e) => handleDownPaymentChange(e.target.value)}
+                                        value={vacancyRate || ""}
+                                        onChange={(e) => handleVacancyRateChange(e.target.value)}
                                     /> 
                                 </div>
                             </div>
-                            <div className=" mb-1 flex justify-between">
+                            <div className="font-bold mb-1">Operating Expenses <span className="font-normal">(monthly)</span></div>
+                            <div className="mb-1 flex justify-between">
                                 <div>
-                                    <label htmlFor="loanTerm">Loan Term: <span>(years) </span> </label>
+                                    <label htmlFor="propertyTaxes">Property Taxes:</label>
                                 </div>
                                 <div>
-                                    <span className="text-white">yy</span>
+                                    <span>% </span>
                                     <input
-                                    className="border border-black rounded text-center w-3/4"
-                                        type="text"
-                                        value={loanTerm || ""}
-                                        onChange={(e) => handleLoanTermChange(e.target.value)}
+                                        className="border border-black rounded w-3/4 text-center"
+                                        type="number"
+                                        value={propertyTaxes || ""}
+                                        onChange={(e) => handlePropertyTaxesChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="insurance">Insurance:</label>
+                                </div>
+                                <div>
+                                    <span>$ </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center"
+                                        type="number"
+                                        value={insurance || ""}
+                                        onChange={(e) => handleInsuranceChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="propertyManagement">Property Management:</label>
+                                </div>
+                                <div>
+                                    <span>% </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center"
+                                        type="number"
+                                        value={propertyManagement || ""}
+                                        onChange={(e) => handlePropertyManagementChange(e.target.value)}
                                     /> 
                                 </div>
                             </div>
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="maintenance">Maintenance:</label>
+                                </div>
+                                <div>
+                                    <span>% </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center"
+                                        type="number"
+                                        value={maintenance || ""}
+                                        onChange={(e) => handleMaintenanceChange(e.target.value)}
+                                    /> 
+                                </div>
+                            </div>
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="capex">Cap Ex:</label>
+                                </div>
+                                <div>
+                                    <span>% </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center "
+                                        type="number"
+                                        value={capex || ""}
+                                        onChange={(e) => handleCapexChange(e.target.value)}
+                                    /> 
+                                </div>
+                            </div>
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="hoaFees">HOA Fees:</label>
+                                </div>
+                                <div>
+                                    <span>$ </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center"
+                                        type="number"
+                                        value={hoaFees || ""}
+                                        onChange={(e) => handleHoaFeesChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="utilities">Utilities:</label>
+                                </div>
+                                <div>
+                                    <span>$ </span>
+                                    <input
+                                        className="border border-black rounded w-3/4  text-center"
+                                        type="number"
+                                        value={utilities || ""}
+                                        onChange={(e) => handleUtilitiesChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="landscaping">Landscaping:</label>
+                                </div>
+                                <div>
+                                    <span>$ </span>
+                                    <input
+                                        className="border border-black rounded w-3/4 text-center "
+                                        type="number"
+                                        value={landscaping || ""}
+                                        onChange={(e) => handleLanscapingChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-1 flex justify-between">
+                                <div>
+                                    <label htmlFor="otherexp">Other Expenses:</label>
+                                </div>
+                                <div>
+                                    <span>$ </span>
+                                    <input
+                                        className="border border-black rounded w-3/4  text-center"
+                                        type="number"
+                                        value={otherexp || ""}
+                                        onChange={(e) => handleOtherExpensesChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex justify-center">
+                                <button className="border rounded border-black bg-sky-700 hover:bg-sky-900 pl-1 pr-1 text-white" type="submit">Save</button>
+                            </div>
                         </div>
-                    )}
-                    <div className=" mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="purchaseCost">Purchase Cost:</label>
-                        </div>
-                        <div>
-                            <span>% </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center "
-                                type="number"
-                                value={purchaseCost || ""}
-                                onChange={(e) => handlePurchaseCostChange(e.target.value)}
-                            /> 
-                        </div>
-                    </div>
-                    <div className=" mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="rehabCost">Rehab Cost:</label>
-                        </div>
-                        <div>
-                            <span>$ </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center "
-                                type="number"
-                                value={rehabCost || ""}
-                                onChange={(e) => handleRehabCostChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="font-bold mb-1">Income and Vacancy:</div>
-                
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="grossRent">Gross Rent: (monthly)</label>
-                        </div>
-                        <div>
-                            <span>$ </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center"
-                                type="number"
-                                value={grossRent || ""}
-                                onChange={(e) => handleGrossRentChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="vacancyRate">Vacancy Rate:</label>
-                        </div>
-                        <div>
-                            <span>% </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center "
-                                type="number"
-                                value={vacancyRate || ""}
-                                onChange={(e) => handleVacancyRateChange(e.target.value)}
-                            /> 
-                        </div>
-                    </div>
-                    <div className="font-bold mb-1">Operating Expenses <span className="font-normal">(monthly)</span></div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="propertyTaxes">Property Taxes:</label>
-                        </div>
-                        <div>
-                            <span>% </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center"
-                                type="number"
-                                value={propertyTaxes || ""}
-                                onChange={(e) => handlePropertyTaxesChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="insurance">Insurance:</label>
-                        </div>
-                        <div>
-                            <span>$ </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center"
-                                type="number"
-                                value={insurance || ""}
-                                onChange={(e) => handleInsuranceChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="propertyManagement">Property Management:</label>
-                        </div>
-                        <div>
-                            <span>% </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center"
-                                type="number"
-                                value={propertyManagement || ""}
-                                onChange={(e) => handlePropertyManagementChange(e.target.value)}
-                            /> 
-                        </div>
-                    </div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="maintenance">Maintenance:</label>
-                        </div>
-                        <div>
-                            <span>% </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center"
-                                type="number"
-                                value={maintenance || ""}
-                                onChange={(e) => handleMaintenanceChange(e.target.value)}
-                            /> 
-                        </div>
-                    </div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="capex">Cap Ex:</label>
-                        </div>
-                        <div>
-                            <span>% </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center "
-                                type="number"
-                                value={capex || ""}
-                                onChange={(e) => handleCapexChange(e.target.value)}
-                            /> 
-                        </div>
-                    </div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="hoaFees">HOA Fees:</label>
-                        </div>
-                        <div>
-                            <span>$ </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center"
-                                type="number"
-                                value={hoaFees || ""}
-                                onChange={(e) => handleHoaFeesChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="utilities">Utilities:</label>
-                        </div>
-                        <div>
-                            <span>$ </span>
-                            <input
-                                className="border border-black rounded w-3/4  text-center"
-                                type="number"
-                                value={utilities || ""}
-                                onChange={(e) => handleUtilitiesChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="landscaping">Landscaping:</label>
-                        </div>
-                        <div>
-                            <span>$ </span>
-                            <input
-                                className="border border-black rounded w-3/4 text-center "
-                                type="number"
-                                value={landscaping || ""}
-                                onChange={(e) => handleLanscapingChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="mb-1 flex justify-between">
-                        <div>
-                            <label htmlFor="otherexp">Other Expenses:</label>
-                        </div>
-                        <div>
-                            <span>$ </span>
-                            <input
-                                className="border border-black rounded w-3/4  text-center"
-                                type="number"
-                                value={otherexp || ""}
-                                onChange={(e) => handleOtherExpensesChange(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex justify-center">
-                        <button className="border rounded border-black bg-sky-700 hover:bg-sky-900 pl-1 pr-1 text-white" type="submit">Save</button>
-                    </div>
+                    </form>
                 </div>
-            </form>
-        </div>
             
-        <div className="h-full p-5 bg-white relative rounded">
-            <div className="flex h-3/4 flex-col justify-between ">
-                <div className="font-bold text-lg">Property Analysis:</div>
-                <div>Cash Needed: ${cashNeeded}</div>
-                <div>Cash Flow ${cashFlow}</div>
-                <div>Cap Rate: {capRate}</div>
-                <div>COC: {coc}</div>
-                <div>LTV: {ltv}</div>
-                <div>Amount Financed: {amountFinanced}</div>
-                <div>Price/Sqft: {ppsqft}</div>
-                <div>ARV/Sqft: {apsqft}</div>
-                <div>NOI: {noi}</div>
-                <div>Loan Payment P&I: {loanPayment}</div>
-                <div>Purchase Cost: {purchaseCostCash}</div>
-                <div>Down Payment: {downPaymentCash}</div>
-                <div>Operating Income: {operatingIncome}</div>
+                <div className="h-full p-5 bg-white relative rounded">
+                    <div className="flex h-3/4 flex-col justify-between ">
+                        <div className="font-bold text-lg">Property Analysis:</div>
+                        <div>Cash Needed: ${cashNeeded}</div>
+                        <div>Cash Flow ${cashFlow}</div>
+                        <div>Cap Rate: {capRate}</div>
+                        <div>COC: {coc}</div>
+                        <div>LTV: {ltv}</div>
+                        <div>Amount Financed: {amountFinanced}</div>
+                        <div>Price/Sqft: {ppsqft}</div>
+                        <div>ARV/Sqft: {apsqft}</div>
+                        <div>NOI: {noi}</div>
+                        <div>Loan Payment P&I: {loanPayment}</div>
+                        <div>Purchase Cost: {purchaseCostCash}</div>
+                        <div>Down Payment: {downPaymentCash}</div>
+                        <div>Operating Income: {operatingIncome}</div>
+                    </div>
+                
+                </div>               
             </div>
-        
-            </div>
-                    
         </div>
-        ) : (
-            <p>Loading...</p>
-        )}
+            ) : (
+                <p>Loading...</p>
+            )}
             
         </>
     );
