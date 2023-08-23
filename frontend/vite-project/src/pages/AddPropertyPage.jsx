@@ -9,6 +9,7 @@ export default function AddPropertyPage() {
     const [baths, setBaths] = useState(null);
     const [sqft, setSqft] = useState(null);
     const [details, setDetails] = useState(null);
+    const [justSetAddress, setJustSetAddress] = useState(false);
     const { setPageDescrip } = useOutletContext();
     const navigate = useNavigate();
 
@@ -17,6 +18,11 @@ export default function AddPropertyPage() {
     }, []);
 
     useEffect(() => {
+        if (justSetAddress)  {
+            setSuggestions([]);
+            setJustSetAddress(false);
+            return 
+        }
         if (addressInput.trim() !== "") {
             fetchSuggestions();
         } else {
@@ -34,7 +40,7 @@ export default function AddPropertyPage() {
     const handleAddressSelect = (selectedAddress) => {
 
         setAddressInput(selectedAddress);
-        setSuggestions([]);
+        setJustSetAddress(true);
     };
 
     const addNewProperty = async () => {
@@ -59,35 +65,37 @@ export default function AddPropertyPage() {
     return (
         <>
         <div className=" w-full mt-8 mb-8 flex flex-no-wrap flex-col items-center justify-evenly md:h-full overflow-hidden lg:h-3/4 bg-white relative rounded">
-            <div className="flex flex-no-wrap overflow-hidden justify-center mt-0 w-full">
-                <div className="">
-                    <label>Address:</label>
+            <div className="relative">
+                <div className="flex flex-no-wrap overflow-hidden justify-center mt-0 w-full">
+                    <div className="">
+                        <label>Address:</label>
+                    </div>
+                    <div>
+                        <input
+                            className="border ml-3 mr-3 border-black rounded"
+                            type="text"
+                            value={addressInput}
+                            onChange={(e) => setAddressInput(e.target.value)}
+                            placeholder="Enter address..."
+                        />
+                    </div>
+                
                 </div>
-                <div>
-                    <input
-                        className="border ml-3 mr-3 border-black rounded"
-                        type="text"
-                        value={addressInput}
-                        onChange={(e) => setAddressInput(e.target.value)}
-                        placeholder="Enter address..."
-                    />
+                <div className=" text-center absolute top-6  w-full">
+                    {addressInput &&  (
+                        <ul className="suggestions">
+                            {suggestions.map((suggestion) => (
+                            <li
+                            className="bg-white border border-black rounded hover:bg-gray-300"
+                            key={suggestion.place_id}
+                            onClick={() => handleAddressSelect(suggestion.description)}
+                            >
+                            {suggestion.description}
+                            </li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
-            
-            </div>
-            <div className=" text-center absolute top-12 w-1/2">
-                {addressInput &&  (
-                    <ul className="suggestions">
-                        {suggestions.map((suggestion) => (
-                        <li
-                        className="bg-white border border-black rounded hover:bg-gray-300"
-                        key={suggestion.place_id}
-                        onClick={() => handleAddressSelect(suggestion.description)}
-                        >
-                        {suggestion.description}
-                        </li>
-                        ))}
-                    </ul>
-                )}
             </div>
             <div className="flex flex-col items-around h-1/4 justify-between mb-5">
            

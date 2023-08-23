@@ -4,6 +4,12 @@ from decimal import Decimal
 def calculate_analysis(purchase_worksheet):
 
     def calculate_loan_payment(loan_amount, interest_rate, loan_term):
+        if interest_rate == None:
+            interest_rate = 0
+
+        if loan_term == None:
+            loan_term = 1
+
         monthly_interest_rate = interest_rate / 12 / 100
         total_months = loan_term*12
 
