@@ -10,6 +10,7 @@ import AListPropertiesPage from "./pages/AListPropertiesPage";
 import PurchaseWorksheetPage from "./pages/PurchaseWorksheetPage";
 import CaclculatorPage from "./pages/CalculatorPage";
 import UserSettingsPage from "./pages/UserSettingsPage";
+import Error404Page from "./pages/Error404Page.jsx";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
         element: <UserSettingsPage/>
       }
     ],
+    errorElement: <Error404Page />,
   },
 ]);
 
