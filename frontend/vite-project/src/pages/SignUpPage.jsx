@@ -71,11 +71,11 @@ export default function SignupPage() {
 
     return (
         <>
-        <div className="relative h-3/4 w-3/4 mr-8 ml-8 border-8 flex flex-col justify-evenly items-center border-white bg-zinc-800 shadow-2xl rounded-md">
+        <div className="relative h-3/4 w-3/4 mr-8 ml-8 border-8 flex flex-col justify-evenly items-center border-white bg-zinc-800 shadow-2xl rounded-md overflow-hidden">
             <div>
-                <img className="lg:w-20 lg:h-20 md:w-10 md:h-10 sm:h-8 sm:w-8" src={logo} alt="house logo" />
+                <img className="lg:w-20 lg:h-20 md:w-10 md:h-10 sm:h-8 sm:w-8 w-5 h-5" src={logo} alt="house logo" />
             </div>
-             <div className="text-white lg:text-4xl md:text-xl">REInvestmentPro</div>
+            <div className="text-white lg:text-4xl md:text-2xl sm:text-lg text-sm">REInvestmentPro</div>
             
                 {!user &&
                 <RegisterComp 
@@ -86,7 +86,7 @@ export default function SignupPage() {
                 signin={signin}
                 isSignUp={isSignUp}/>
                 }
-            <div className="ml-2 flex items-center absolute right-20 bottom-5 text-white">
+            <div className="ml-2 flex items-center absolute right-[10%] bottom-[12%] text-white h-[25%] w-[20%] overflow-hidden">
                 <p className="w-40 text-xs">Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character @$!%*?&.</p>
             </div>
         </div>

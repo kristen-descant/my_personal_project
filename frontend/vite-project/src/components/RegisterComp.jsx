@@ -12,25 +12,25 @@ export default function RegisterComp({
 
     return (
         <>
-        <div className="bg-white w-1/3 p-5 rounded lg:h-1/2 flex flex-col justify-center md:h-1/3 sm:h-1/4">
-        <div className='mb-3 flex justify-center lg:text-md md:text-sm sm:text-xs w-1/2'>
+        <div className="bg-white w-1/3 h-1/3 p-5 rounded md:h-1/2  flex flex-col justify-center overflow-hidden">
+        <div className='flex flex-row justify-center overflow-hidden flex-nowrap mb-1'>
             {isSignUp ? 
-            <div className="shadow-md lg:mb-2 md:mb-1 sm:mb-0">Create an account or <Link className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" to="/login">Log In</Link></div> :
-            <div className="shadow-md lg:mb-2 md:mb-1 sm:mb-0">Enter credentials or <Link className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" to="/signup">Sign Up</Link></div> }
+            <div className="shadow-md lg:mb-2 md:mb-1 sm:mb-0 mb-1 flex-nowrap">Create an account or <Link className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" to="/login">Log In</Link></div> :
+            <div className="shadow-md lg:mb-2 md:mb-1 mb-1 flex-nowrap">Enter credentials or <Link className="rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" to="/signup">Sign Up</Link></div> }
         </div>
         <form  onSubmit={signin}>
-            <div className="flex flex-row m-2 justify-between w-1/2">
+            <div className="flex flex-row justify-between overflow-hidden mb-1">
                 <label htmlFor="email">email:</label>
                 <input className="bg-blue-100 w-[70%]" type="text" onChange={(e) => setEmail(e.target.value)}/>
             </div>
-            <div className="flex m-2 justify-between">
+            <div className="flex flex-row justify-between overflow-hidden mb-1">
                 <label htmlFor="password">password:</label>
-                <input className="bg-blue-100" type="password" onChange={(e) => setPassword(e.target.value)}/>
+                <input className="bg-blue-100 w-[70%]" type="password" onChange={(e) => setPassword(e.target.value)}/>
             </div>
             {includeVerifyPassword &&
-            <div className=" m-2 flex justify-between">
-                <label htmlFor="verifypassword">verify password:</label>
-                <input className="bg-blue-100 h-1/2" type="password" onChange={(e) => setVerifyPassword(e.target.value)}/>
+            <div className=" flex flex-row justify-between overflow-hidden mb-1">
+                <label className="w-[30%]" htmlFor="verifypassword">verify password:</label>
+                <input className="bg-blue-100 h-1/2 w-[70%]" type="password" onChange={(e) => setVerifyPassword(e.target.value)}/>
             </div>
             }
             <div className="flex justify-center">

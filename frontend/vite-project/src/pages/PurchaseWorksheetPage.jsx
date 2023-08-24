@@ -276,7 +276,7 @@ useEffect(() => {
                                         type="number"
                                         value={purchasePrice || ""}
                                         onChange={(e) => handlePurchasePriceChange(e.target.value)}
-                                    />
+                                    /> <span className="text-lg"> *</span>
                                 </div>
                             </div>
                             <div className=" mb-1 flex justify-between">
@@ -290,7 +290,7 @@ useEffect(() => {
                                         type="number"
                                         value={arv || ""}
                                         onChange={(e) => handleArvChange(e.target.value)}
-                                    />
+                                    /><span className="text-lg"> *</span>
                                 </div>
                             </div>
                             <div className=" mb-1 flex justify-between w-3/4 ">
@@ -321,7 +321,7 @@ useEffect(() => {
                                                 type="number"
                                                 value={interestRate || ""}
                                                 onChange={(e) => handleInterestRateChange(e.target.value)}
-                                            /> 
+                                            /> <span className="text-lg"> *</span>
                                         </div>
                                     </div>
                                     <div className=" mb-1 flex justify-between">
@@ -335,7 +335,7 @@ useEffect(() => {
                                                 type="number"
                                                 value={downPayment || ""}
                                                 onChange={(e) => handleDownPaymentChange(e.target.value)}
-                                            /> 
+                                            /> <span className="text-lg"> *</span>
                                         </div>
                                     </div>
                                     <div className=" mb-1 flex justify-between">
@@ -349,7 +349,7 @@ useEffect(() => {
                                                 type="text"
                                                 value={loanTerm || ""}
                                                 onChange={(e) => handleLoanTermChange(e.target.value)}
-                                            /> 
+                                            /> <span className="text-lg"> *</span>
                                         </div>
                                     </div>
                                 </div>
@@ -365,7 +365,7 @@ useEffect(() => {
                                         type="number"
                                         value={purchaseCost || ""}
                                         onChange={(e) => handlePurchaseCostChange(e.target.value)}
-                                    /> 
+                                    /> <span className="text-lg"> *</span>
                                 </div>
                             </div>
                             <div className=" mb-1 flex justify-between">
@@ -379,7 +379,7 @@ useEffect(() => {
                                         type="number"
                                         value={rehabCost || ""}
                                         onChange={(e) => handleRehabCostChange(e.target.value)}
-                                    />
+                                    /><span className="text-lg"> *</span>
                                 </div>
                             </div>
                             <div className="font-bold mb-1">Income and Vacancy:</div>
@@ -395,7 +395,7 @@ useEffect(() => {
                                         type="number"
                                         value={grossRent || ""}
                                         onChange={(e) => handleGrossRentChange(e.target.value)}
-                                    />
+                                    /><span className="text-lg"> *</span>
                                 </div>
                             </div>
                             <div className="mb-1 flex justify-between">
@@ -409,7 +409,7 @@ useEffect(() => {
                                         type="number"
                                         value={vacancyRate || ""}
                                         onChange={(e) => handleVacancyRateChange(e.target.value)}
-                                    /> 
+                                    /> <span className="text-lg"> *</span>
                                 </div>
                             </div>
                             <div className="font-bold mb-1">Operating Expenses <span className="font-normal">(monthly)</span></div>

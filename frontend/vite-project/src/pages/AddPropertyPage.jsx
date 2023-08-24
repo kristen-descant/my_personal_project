@@ -104,7 +104,7 @@ export default function AddPropertyPage() {
                             <label  htmlFor="beds">Beds: </label>
                         </div>
                         <div className="">
-                            <input className="border border-black rounded " onChange={(e) => setBeds(e.target.value)} type="text"/>
+                            <input className="border border-black rounded " onChange={(e) => setBeds(e.target.value)} type="text"/> <span>up to 6</span>
                         </div>
                       
                     </div>

@@ -37,8 +37,10 @@ class Sign_Up(APIView):
 class Log_In(APIView):
     def post(self, request):
         email = request.data.get('email')
+        print(email)
         password = request.data.get('password')
         user = authenticate(username=email, password=password)
+        print(user)
         if user:
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key, "user": user.email, "id": user.id})
