@@ -72,7 +72,7 @@ export default function AddPropertyPage() {
                     </div>
                     <div>
                         <input
-                            className="border ml-3 mr-3 border-black rounded"
+                            className="border ml-3 mr-9 w-[70%] border-black rounded"
                             type="text"
                             value={addressInput}
                             onChange={(e) => setAddressInput(e.target.value)}
@@ -145,6 +145,7 @@ export default function AddPropertyPage() {
             </div>
            <button className="border border-black rounded bg-sky-700 hover:bg-sky-900 text-white pl-1 pr-1" onClick={addNewProperty}>Add Property</button>
            </div>
+    
     
         </>
     );
