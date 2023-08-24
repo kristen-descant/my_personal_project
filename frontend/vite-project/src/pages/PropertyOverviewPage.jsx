@@ -53,7 +53,7 @@ export default function PropertyOverviewPage() {
   };
 
   const getRents = async () => {
-    // const response = await api.get(`rent/${propertyId}/`)
+    const response = await api.get(`rent/${propertyId}/`)
 
     const {max, mean, median, min} = response.data;
     console.log(response)
