@@ -78,7 +78,7 @@ class Purchase_Worksheet(models.Model):
     arv = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2)
     down_payment = models.DecimalField(null=True, blank=True, max_digits=4, decimal_places=3, validators=[MaxValueValidator(1.00)])
     loan_term = models.PositiveIntegerField(null=True, blank=True, validators=[MinValueValidator(1)])
-    rehab_cost = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+    rehab_cost = models.DecimalField(null=True, blank=True, max_digits=10, decimal_places=2)
     vacancy_rate = models.DecimalField(null=True, blank=True, max_digits=4, decimal_places=3, validators=[MaxValueValidator(1.00)])
     operating_expenses = models.OneToOneField(Operating_Expenses, related_name='purchase_worksheet', on_delete=models.CASCADE)
     property_analysis = models.OneToOneField(Property_Analysis, related_name='matching_purchase_worksheet', on_delete=models.CASCADE, default=None)

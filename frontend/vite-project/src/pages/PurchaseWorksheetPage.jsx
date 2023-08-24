@@ -217,6 +217,32 @@ useEffect(() => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const required = [purchasePrice, arv, purchaseCost, rehabCost, grossRent, vacancyRate];
+
+        if (financing) {
+            required.push(interestRate, downPayment, loanTerm)
+        };
+
+        const incomplete = [];
+
+        for (let field of required) {
+            if (!field) {
+                incomplete.push(field);
+            };
+        }
+
+        if (incomplete.length > 0) {
+            window.alert('Please enter a value for required fields.')
+            console.log(incomplete)
+            return
+        }
+
+        if (financing && interestRate <= 0) {
+            window.alert('Intererst rate must be greater than zero.')
+        }
+
+
         try {
             // Update the purchase worksheet data
             const response = await api.put(`properties/property/${propertyId}/purchaseworksheet/`, {
@@ -418,7 +444,7 @@ useEffect(() => {
                                     <label htmlFor="propertyTaxes">Property Taxes:</label>
                                 </div>
                                 <div>
-                                    <span>% </span>
+                                    <span>$ </span>
                                     <input
                                         className="border border-black rounded w-3/4 text-center"
                                         type="number"
