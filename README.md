@@ -1,4 +1,5 @@
 REInvestmentPro
+
 This is my personal project for Code Platoon, inspired by my passion for real estate investing. 
 
 This app was built using Python and Django for the backend and Javascript, React and Vite for the frontend.
