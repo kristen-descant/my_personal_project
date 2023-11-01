@@ -1,5 +1,6 @@
 REInvestmentPro
 
+
 This is my personal project for Code Platoon, inspired by my passion for real estate investing. 
 
 This app was built using Python and Django for the backend and Javascript, React and Vite for the frontend.
@@ -10,6 +11,6 @@ I came across many hurdles along the way, but I was able to overcome and accompl
 
 Originally, I wanted to use Zillow API to show the user homes for sale, but I learned that you have to be approved by a realtor association to have access and it would only be for a specific area. I searched for other api's that might accomplish this, but couldn't find anything in the time I had. My goal in the future would be to implement this feature into the app. I really want the app to be a one stop shop for real estate investors. I would also like to give the user the option to add documents to the properties in their portfolio like leases or purchase contracts.
 
-I wouold like to clean up the code and make it more organized and reusable. My plan was to write the code, make it work, and then clean it up. I'm realizing now that I should have focused on organization from the start. At this point, I've learned so much that if I were to start over I think I could accomplish the same things in much smoother and organized code. 
+I would like to clean up the code and make it more organized and reusable. My plan was to write the code, make it work, and then clean it up. I'm realizing now that I should have focused on organization from the start. At this point, I've learned so much that if I were to start over I think I could accomplish the same things in much smoother and organized code. 
 
 Thank you for checking out my project. I hope it can provide value to you. 

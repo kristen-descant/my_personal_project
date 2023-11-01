@@ -22,6 +22,7 @@ class Get_User(UserPermissions):
 class Sign_Up(APIView):
     def post(self, request):
         email = request.data.get('email')
+        print(email)
         if User.objects.filter(email=email).exists():
             return Response('An account with this email already exists.', status=HTTP_400_BAD_REQUEST)
         else:

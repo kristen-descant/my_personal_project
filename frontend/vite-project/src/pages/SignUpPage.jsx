@@ -46,7 +46,7 @@ export default function SignupPage() {
                 email: lowercaseEmail, // Use the lowercase email
                 password: password,
             });
-
+            console.log(response)
             let user = response.data.user;
             let userid = response.data.id;
             let token = response.data.token;

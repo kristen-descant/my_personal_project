@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
+import { FaRegTrashAlt } from 'react-icons/fa';
 import { api } from "./utilities";
 
 export default function ListsPropertiesPage() {
@@ -53,8 +54,12 @@ export default function ListsPropertiesPage() {
                    
                         <ul className="w-full">
                             {usersLists.map((list) => (
-                            <li className="border bg-sky-700 text-white hover:bg-sky-900 rounded w-full text-center mb-1"  key={list.id}>
-                            <Link to={`${list.id}`}>  {list.list_name}</Link>
+                            <li className="border flex flex-row justify-between h-full bg-sky-700 text-white hover:bg-sky-900 rounded w-full text-center mb-1"  key={list.id}>
+                            
+                            <Link className="pl-2" to={`${list.id}`}>  {list.list_name}</Link> 
+                            <div className="h-full flex items-center pr-2">
+                                <FaRegTrashAlt className=""/>
+                            </div>
                             </li>
                             ))}
                         </ul>
