@@ -41,6 +41,15 @@ export default function ListsPropertiesPage() {
         }
     };
 
+    const handleListDelete = async (listId) => {
+        try {
+            const response = await api.delete(`properties/lists/${listId}`)
+            getUserLists();
+        } catch(error) {
+            console.log(error)
+        }
+    };
+
     return (
         <>
         <div className="w-full flex justify-center">
@@ -58,7 +67,9 @@ export default function ListsPropertiesPage() {
                             
                             <Link className="pl-2" to={`${list.id}`}>  {list.list_name}</Link> 
                             <div className="h-full flex items-center pr-2">
-                                <FaRegTrashAlt className=""/>
+                                <FaRegTrashAlt
+                                onClick={() => handleListDelete(list.id)}
+                                />
                             </div>
                             </li>
                             ))}
