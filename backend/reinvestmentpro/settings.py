@@ -26,13 +26,10 @@ env = dotenv_values(".env")
 SECRET_KEY = env.get("DJANGO_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = [""]
-
-CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
