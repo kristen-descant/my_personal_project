@@ -56,4 +56,3 @@ export default function AListPropertiesPage() {
         </>
       );   
 }
-// (<p className="text-center">There are no properties in this list.  <Link className="h-6 w-20 shadow-lg rounded mb-2 hover:bg-blue-500 border p-1 border-black" to="/addproperty">Add a property</Link></p>))

@@ -1,14 +1,9 @@
-import { useState, useEffect } from 'react'
-import './index.css'
-import { Outlet, Link } from "react-router-dom";
+import { useState, useEffect, useRef } from 'react'
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { api } from './pages/utilities';
+import './index.css'
 import NavbarComp from './components/NavbarComp';
-import { useNavigate} from "react-router-dom";
-import { useRef } from 'react';
-import { useLocation } from "react-router-dom";
 import logo from './media/houseLogo.png'
-
-
 
 function App() {
 
@@ -23,6 +18,7 @@ function App() {
   const lastVisited = useRef();
   const location = useLocation();
 
+  //  Verifies user and token on every rerender
   const whoAmI = async () => {
     // Check if a token is stored in the localStorage
     let token = localStorage.getItem("token");
