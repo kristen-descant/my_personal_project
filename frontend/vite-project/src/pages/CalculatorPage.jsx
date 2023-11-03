@@ -304,15 +304,15 @@ export default function CaclculatorPage() {
                     <div className="text-lg font-bold">Analysis</div>
                     <div>Cash Needed: ${cashNeeded}</div>
                     <div>Down Payment: ${downPaymentCash}</div>
-                    <div>Purchase Cost: ${purchaseCostCash}</div>
                     <div>LTV: {ltv}%</div>
                     <div>Amount Financed: ${amountFinanced}</div>
+                    <div>Purchase Cost: ${purchaseCostCash}</div>
                     <div>Loan Payment P&I: ${loanPayment}</div>
+                    <div>Operating Income: ${operatingIncome}</div>
+                    <div>NOI: ${noi}</div>
                     <div>Cash Flow ${cashFlow}</div>
                     <div>Cap Rate: {capRate ? capRate.toFixed(2) : ""}%</div>
                     <div>COC: {coc ? coc.toFixed(2) : ""}%</div>
-                    <div>Operating Income: ${operatingIncome}</div>
-                    <div>NOI: ${noi}</div>
                 </div>
             </div>
         </>

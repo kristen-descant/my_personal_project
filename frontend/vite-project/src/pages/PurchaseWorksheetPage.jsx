@@ -72,10 +72,6 @@ export default function PurchaseWorksheetPage() {
         fetchExistingPurchaseWorksheet();
     }, [propertyId]);
 
-    
-
-    // ... (other code remains the same)
-
 useEffect(() => {
     if (purchaseWorksheetData) {
         setPurchasePrice(purchaseWorksheetData.purchase_price);
@@ -576,18 +572,18 @@ useEffect(() => {
                     <div className="flex h-3/4 flex-col justify-between ">
                         <div className="font-bold text-lg">Property Analysis:</div>
                         <div>Cash Needed: ${cashNeeded}</div>
+                        <div>Down Payment: {downPaymentCash}</div>
+                        <div>LTV: {ltv}</div>
+                        <div>Amount Financed: {amountFinanced}</div>
+                        <div>Purchase Cost: {purchaseCostCash}</div>
+                        <div>Loan Payment P&I: {loanPayment}</div>
+                        <div>Operating Income: {operatingIncome}</div>
+                        <div>NOI: {noi}</div>
                         <div>Cash Flow ${cashFlow}</div>
                         <div>Cap Rate: {capRate}</div>
                         <div>COC: {coc}</div>
-                        <div>LTV: {ltv}</div>
-                        <div>Amount Financed: {amountFinanced}</div>
                         <div>Price/Sqft: {ppsqft}</div>
                         <div>ARV/Sqft: {apsqft}</div>
-                        <div>NOI: {noi}</div>
-                        <div>Loan Payment P&I: {loanPayment}</div>
-                        <div>Purchase Cost: {purchaseCostCash}</div>
-                        <div>Down Payment: {downPaymentCash}</div>
-                        <div>Operating Income: {operatingIncome}</div>
                     </div>
                 
                 </div>               
